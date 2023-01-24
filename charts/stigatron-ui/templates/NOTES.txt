@@ -1,0 +1,3 @@
+STIGATRON UI Extension now installed!
+
+In order to utilize STIGATRON, ensure you've installed it on every relevant downstream cluster: https://example.com/installing-stigatron

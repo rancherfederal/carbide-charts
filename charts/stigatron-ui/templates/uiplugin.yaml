@@ -1,0 +1,11 @@
+apiVersion: catalog.cattle.io/v1
+kind: UIPlugin
+metadata:
+  name: stigatron
+  namespace: {{ .Values.UIPluginNamespace }}
+spec:
+  plugin:
+    endpoint: http://{{ include "stigatron-ui.fullname" . }}.{{ .Release.Namespace }}/stigatron
+    name: stigatron
+    noCache: false
+    version: {{ .Chart.AppVersion }}
