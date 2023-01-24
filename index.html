@@ -3,20 +3,41 @@
   <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <title>Rancher Government Carbide Helm Charts</title>
+    
+    <style>
+      body {
+        font-family: Arial, Geneva, Helvetica, sans-serif;
+      }
+    </style>
   </head>
+
   <body>
 
-  <h1 id="carbide-header">Rancher Government Carbide Helm Charts</h1>
+    <h1 id="carbide-header">Rancher Government Carbide Helm Charts</h1>
+    <h2 id="usage">How To Use (Internet)</h2>
 
-  
+    <code>
+    $ helm repo add carbide-charts https://rancherfederal.github.io/carbide-charts<br />
+    $ helm repo update<br />
+    $ helm search repo carbide-charts<br />
+    $ helm install example-release carbide-charts/&lt;chart&gt;
+    </code>
 
-  <h2 id="usage">How To Use</h2>
+    <h2 id="airgap">How to Use (Airgap)</h2>
+    <h3>On Connected Device</h3>
+    <code>
+    $ helm repo add carbide-charts https://rancherfederal.github.io/carbide-charts<br />
+    $ helm repo update<br />
+    $ helm search repo carbide-charts<br />
+    $ helm pull carbide-charts/&lt;chart&gt;
+    </code>
 
-  <code>
-  $ helm repo add carbide-charts https://rancherfederal.github.io/carbide-charts<br />
-  $ helm repo update<br />
-  $ helm search repo carbide-charts<br />
-  $ helm install example-release carbide-charts/&lt;chart&gt;
-  </code>
+    Take the resulting <code>tgz</code> file over the airgap.
+    
+
+    <h3>On Airgapped Device</h3>
+    <code>
+      $ helm install example-release &lt;chart-x.y.z&gt;.tgz<chart>
+    </code>
   </body>
 </html>
