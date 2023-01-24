@@ -3,6 +3,16 @@ entries:
   offline-docs:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-01-24T15:15:24.99135101Z"
+    description: A Helm chart for Kubernetes
+    digest: 444def7ded6c2534eef76715aacb660a0ad10d251bc8baa56088b506aaaae9e9
+    name: offline-docs
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/offline-docs-0.1.0/offline-docs-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-01-24T15:07:34.671005241Z"
     description: A Helm chart for Kubernetes
     digest: 9430f9cf66403aa24bfbde10cb1b4142c01081eaa7097c2b054666155d6b4123
