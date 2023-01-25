@@ -8,8 +8,8 @@ image:
   registry: rgcrprod.azurecr.us
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.1"
-  name: old/stigatron-ui
+  tag: "0.1.0"
+  name: carbide/stigatron-ui
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
