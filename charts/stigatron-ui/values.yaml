@@ -6,11 +6,10 @@ replicaCount: 1
 UIPluginNamespace: cattle-ui-plugin-system
 image:
   registry: rgcrprod.azurecr.us
-  image: carbide/stigatron-ui
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.1.0"
-  name: rgcrprod.azurecr.us/carbide/stigatron-ui
+  tag: "0.0.1"
+  name: old/stigatron-ui
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
