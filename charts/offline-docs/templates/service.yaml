@@ -1,15 +1,141 @@
+---
+# rancher
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "offline-docs.fullname" . }}
-  labels:
-    {{- include "offline-docs.labels" . | nindent 4 }}
+  name: rancher-offline-docs
+  namespace: "{{ .Values.namespace }}"
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
   selector:
-    {{- include "offline-docs.selectorLabels" . | nindent 4 }}
+    app: rancher-offline-docs
+
+---
+# elemental
+apiVersion: v1
+kind: Service
+metadata:
+  name: elemental-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: elemental-offline-docs
+    
+---
+# longhorn
+apiVersion: v1
+kind: Service
+metadata:
+  name: longhorn-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: longhorn-offline-docs
+
+---
+# rke2
+apiVersion: v1
+kind: Service
+metadata:
+  name: rke2-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: rke2-offline-docs
+---
+# k3s
+apiVersion: v1
+kind: Service
+metadata:
+  name: k3s-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: k3s-offline-docs
+---
+# carbide
+apiVersion: v1
+kind: Service
+metadata:
+  name: carbide-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: carbide-offline-docs
+---
+# kubewarden
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubewarden-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: kubewarden-offline-docs
+
+---
+# fleet
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleet-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: fleet-offline-docs
+
+---
+# harvester
+apiVersion: v1
+kind: Service
+metadata:
+  name: harvester-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: harvester-offline-docs
+
