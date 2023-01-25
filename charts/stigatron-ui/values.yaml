@@ -1,4 +1,2 @@
 image:
-  registry: rgcrprod.azurecr.us
-  name: carbide/stigatron-ui
   tag: 0.1.0
