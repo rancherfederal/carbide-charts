@@ -1,61 +1,267 @@
+---
+# Rancher
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "offline-docs.fullname" . }}
+  name: rancher-offline-docs
+  namespace: "{{ .Values.namespace }}"
   labels:
-    {{- include "offline-docs.labels" . | nindent 4 }}
+    app: rancher-offline-docs
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
-      {{- include "offline-docs.selectorLabels" . | nindent 6 }}
+      app: rancher-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "offline-docs.selectorLabels" . | nindent 8 }}
+        app: rancher-offline-docs
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "offline-docs.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: rancher-offline-docs
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-rancher-docs:{{ .Values.image.tag }}
+          imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+              containerPort: 80
+---
+# longhorn
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: longhorn-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: longhorn-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: longhorn-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: longhorn-offline-docs
+    spec:
+      containers:
+        - name: longhorn-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-longhorn-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# elemental
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elemental-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: elemental-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: elemental-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: elemental-offline-docs
+    spec:
+      containers:
+        - name: elemental-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-elemental-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# rke2
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rke2-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: rke2-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: rke2-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: rke2-offline-docs
+    spec:
+      containers:
+        - name: rke2-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-rke2-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# k3s
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k3s-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: k3s-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: k3s-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: k3s-offline-docs
+    spec:
+      containers:
+        - name: k3s-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-k3s-docs:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# carbide
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carbide-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: carbide-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: carbide-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: carbide-offline-docs
+    spec:
+      containers:
+        - name: carbide-offline-docs
+          imagePullPolicy: Always
+          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
+          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# kubewarden
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubewarden-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: kubewarden-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: kubewarden-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: kubewarden-offline-docs
+    spec:
+      containers:
+        - name: kubewarden-offline-docs
+          imagePullPolicy: Always
+          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
+          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-kubewarden-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# fleet
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleet-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: fleet-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: fleet-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: fleet-offline-docs
+    spec:
+      containers:
+        - name: fleet-offline-docs
+          imagePullPolicy: Always
+          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
+          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-fleet-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# harvester
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harvester-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: harvester-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: harvester-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: harvester-offline-docs
+    spec:
+      containers:
+        - name: harvester-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-harvester-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
