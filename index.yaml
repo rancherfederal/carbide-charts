@@ -11,17 +11,6 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/carbide-offline-docs-0.1.0/carbide-offline-docs-0.1.0.tgz
     version: 0.1.0
-  heimdall:
-  - apiVersion: v2
-    appVersion: "13"
-    created: "2023-01-26T15:25:30.268626941Z"
-    description: A Helm chart for Kubernetes
-    digest: 761717a9d67ebfe364423d044e51ba0ff2b7c33384d8a84037e06f18c4139211
-    name: heimdall
-    type: application
-    urls:
-    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall-0.0.1/heimdall-0.0.1.tgz
-    version: 0.0.1
   stigatron-ui:
   - apiVersion: v2
     appVersion: 0.1.0
