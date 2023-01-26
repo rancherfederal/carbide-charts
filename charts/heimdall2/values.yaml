@@ -1,5 +1,4 @@
 nodeEnv: production
-
 ## Set FDQN for external database host or set `posgresql.enabled` equal to `true`
 ## 
 #databaseHost: postgresql.example.com
@@ -7,32 +6,23 @@ nodeEnv: production
 ## Set external database port or set `posgresql.enabled` equal to `true`
 ##
 #databasePort: 5672
-
 databaseName: heimdall-server-production
-
 databaseUsername: postgres
-
 ## Set postgres user's password via `openssl rand -hex 33` 
 databasePassword: long-random-string-of-text
-
 ## Generate the following via `openssl rand -hex 64` and set
 ##
 jwtSecret: long-random-string-of-text
-
 ## Set `1d` or `25m`
 ##
 jwtTimeout: 25m
-
-
 postgresql:
   enabled: true
-
   image:
     registry: rgcrprod.azurecr.us
     name: carbide/postgres
     pullPolicy: IfNotPresent
     tag: "13"
-
   persistence:
     ## Volume used to store the Heimdall's data. Default is boolean `false`.
     ##
@@ -42,67 +32,55 @@ postgresql:
     ##
     storageClassName: "default"
     accessMode: "ReadWriteOnce"
-
   service:
     type: ClusterIP
     port: 5672
-
   podAnnotations: {}
-
   podSecurityContext: {}
-
   securityContext: {}
-
   resources: {}
-
   nodeSelector: {}
-
   tolerations: []
-
   affinity: {}
-
 proxy:
-  image: 
+  image:
     registry: rgcrprod.azurecr.us
     name: carbide/heimdall-proxy:0.1.0
     tag: "0.1.0"
   imagePullPolicy: Always
   port: 8080
   servicePort: 80
-
 heimdall:
   image:
     registry: rgcrprod.azurecr.us
     name: carbide/heimdall2
     pullPolicy: IfNotPresent
     tag: "0.1.0"
-#    tag: "latest"
+  #    tag: "latest"
 
   service:
     type: ClusterIP
-    port: 80 
-
+    port: 80
   ingress:
     enable: false
     annotations:
-     # traefik.ingress.kubernetes.io/router.entrypoints: websecure
-     # traefik.ingress.kubernetes.io/router.tls: "true"
-     # traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+    # traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    # traefik.ingress.kubernetes.io/router.tls: "true"
+    # traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
     hosts:
       - host: heimdall.example.com
         paths:
-          -  "/"
-
+          - "/"
   podAnnotations: {}
-  
   podSecurityContext: {}
-  
   securityContext: {}
-  
   resources: {}
-  
   nodeSelector: {}
-  
   tolerations: []
-  
   affinity: {}
+image:
+  registry: rgcrprod.azurecr.us
+postgres:
+  image:
+    name: carbide/postgres
+    tag: "13"
