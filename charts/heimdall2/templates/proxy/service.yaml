@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "heimdall.fullname" . }}-proxy
+spec:
+  selector:
+    cattle.io/app: {{ include "heimdall.fullname" . }}-proxy
+  ports:
+  - name: http
+    protocol: TCP
+    port: {{ .Values.proxy.servicePort }}
+    targetPort: http

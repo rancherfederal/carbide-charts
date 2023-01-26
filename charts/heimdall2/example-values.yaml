@@ -1,0 +1,21 @@
+
+databasePassword: d3a29e311a9b33b75f033aafca91439af7728677906d19706122ba8b02cbf2c39e
+jwtSecret: 44c305509a32f4dcb1fb66037976ea1fe76836bda2b194cc43bfc4710afc87fbcda8b7493bb1d2758cd0e25c5a8cfeb58a67d7b09c19bc023bd64fcc37206561
+
+postgresql:
+  enable: true
+
+
+heimdall:
+
+  ingress:
+    enabled: true
+    annotations:
+    #  traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    #  traefik.ingress.kubernetes.io/router.tls: "true"
+    #  traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+    hosts:
+      - host: heimdall.example.com
+        paths:
+          -  "/"
+
