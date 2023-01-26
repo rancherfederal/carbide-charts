@@ -1,4 +1,3 @@
-{{- if .Values.postgresql.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,13 +6,12 @@ metadata:
     {{- include "heimdall.labels" . | nindent 4 }}
     app.kubernetes.io/component: postgresql
 spec:
-  type: {{ .Values.postgresql.service.type }}
+  type: {{ .Values.postgres.service.type }}
   ports:
-    - name: tcp-postgresql
-      targetPort: tcp-postgresql
-      port: {{ .Values.postgresql.service.port }}
-      protocol: TCP
+  - name: tcp-postgresql
+    targetPort: tcp-postgresql
+    port: {{ .Values.postgres.service.port }}
+    protocol: TCP
   selector:
     {{- include "heimdall.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: postgresql
-{{- end }}
