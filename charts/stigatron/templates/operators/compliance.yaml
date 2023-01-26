@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{ .Release.Name }}-compliance-operator
+    namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      cattle.io/app: compliance-operator
+  template:
+    metadata:
+      labels:
+        cattle.io/app: compliance-operator
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+        - name: compliance-operator
+          image: {{ .Values.complianceOperator.image }}:{{ .Values.complianceOperator.tag }}
+          imagePullPolicy: {{ .Values.complianceOperator.imagePullPolicy }}
+      serviceAccountName: {{ .Values.complianceOperator.serviceAccountName }}-compliance-operator-sa

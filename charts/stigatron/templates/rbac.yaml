@@ -1,0 +1,138 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.rbac.roleName }}-stigatron-operator-clusterrole
+rules:
+  - verbs:
+      - "get"
+      - "list"
+      - "watch"
+      - "create"
+      - "update"
+      - "patch"
+    apiGroups:
+      - "apiextensions.k8s.io"
+    resources:
+      - "customresourcedefinitions"
+  - verbs: ["*"]
+    resources: ["*"]
+    apiGroups:
+      - "cis.cattle.io"
+      - "compliance.cattle.io"
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "watch", "list"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.complianceOperator.serviceAccountName }}-compliance-operator-sa
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.rbac.roleName }}-compliance-operator-role
+  namespace: {{ .Release.Namespace }}
+rules:
+  - verbs:
+      - "*"
+    apiGroups:
+      - "compliance.cattle.io"
+    resources:
+      - "*"
+  - verbs:
+      - "*"
+    apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+  - verbs:
+      - "*"
+    apiGroups:
+      - ""
+    resources:
+      - "configmaps"
+      - "secrets"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.rbac.roleBindingName }}-compliance-operator-rb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.rbac.roleName }}-compliance-operator-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.complianceOperator.serviceAccountName }}-compliance-operator-sa
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Values.rbac.roleBindingName }}-compliance-operator-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name:  {{ .Values.rbac.roleName }}-stigatron-operator-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.complianceOperator.serviceAccountName }}-compliance-operator-sa
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.heimdallOperator.serviceAccountName }}-heimdall-operator-sa
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.rbac.roleName }}-heimdall-operator-role
+  namespace: {{ .Release.Namespace }}
+rules:
+  - verbs:
+      - "*"
+    apiGroups:
+      - "compliance.cattle.io"
+    resources:
+      - "*"
+  - verbs:
+      - "*"
+    apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+  - verbs:
+      - "*"
+    apiGroups:
+      - ""
+    resources:
+      - "configmaps"
+      - "secrets"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.rbac.roleBindingName }}-heimdall-operator-rb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.rbac.roleName }}-heimdall-operator-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.complianceOperator.serviceAccountName }}-heimdall-operator-sa
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Values.rbac.roleBindingName }}-heimdall-operator-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name:  {{ .Values.rbac.roleName }}-stigatron-operator-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.complianceOperator.serviceAccountName }}-heimdall-operator-sa
+    namespace: {{ .Release.Namespace }}
