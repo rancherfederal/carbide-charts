@@ -76,7 +76,6 @@ heimdall:
     name: carbide/heimdall2
     pullPolicy: IfNotPresent
     tag: "0.0.1"
-#    tag: "latest"
 
   service:
     type: ClusterIP
