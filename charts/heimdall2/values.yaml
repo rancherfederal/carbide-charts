@@ -64,8 +64,8 @@ postgresql:
 proxy:
   image: 
     registry: rgcrprod.azurecr.us
-    name: carbide/heimdall-proxy:0.1.0
-    tag: "0.1.0"
+    name: carbide/heimdall-proxy
+    tag: "0.0.1"
   imagePullPolicy: Always
   port: 8080
   servicePort: 80
@@ -75,7 +75,7 @@ heimdall:
     registry: rgcrprod.azurecr.us
     name: carbide/heimdall2
     pullPolicy: IfNotPresent
-    tag: "0.1.0"
+    tag: "0.0.1"
 #    tag: "latest"
 
   service:
