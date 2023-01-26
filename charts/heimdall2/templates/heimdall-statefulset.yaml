@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name:  {{ include "heimdall.fullname" . }}
+  labels:
+    {{- include "heimdall.labels" . | nindent 4 }}
+    app.kubernetes.io/component: heimdall
+spec:
+  serviceName: {{ template "heimdall.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "heimdall.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: heimdall
+  template:
+    metadata:
+      {{- with .Values.heimdall.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "heimdall.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: heimdall
+    spec:
+      serviceAccountName: {{ include "heimdall.fullname" . }}-sa
+      {{- with .Values.heimdall.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsUser: 1000
+      containers:
+        - name: heimdall-front
+          securityContext:
+            {{- toYaml .Values.heimdall.securityContext | nindent 12 }}
+          image: "{{.Values.heimdall.image.registry }}/{{ .Values.heimdall.image.name }}:{{ .Values.heimdall.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.heimdall.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.nodeEnv | quote }}
+            - name: DATABASE_HOST
+            {{- if .Values.postgresql.enabled }}
+              value: {{ template "heimdall.fullname" . }}-postgresql
+            {{- else }}
+              value: {{.Values.databaseHost | quote }}
+            {{- end }}
+            - name: DATABASE_PORT
+            {{- if .Values.postgresql.enabled }}
+              value: {{ .Values.postgresql.service.port | quote }}
+            {{- else }}
+              value: {{.Values.databasePort | quote }}
+            {{- end }}           
+            - name: POSTGRES_DB
+              value: {{ .Values.databaseName | quote }}
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heimdall.fullname" . }}
+                  key: databaseUsername
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heimdall.fullname" . }}
+                  key: databasePassword
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heimdall.fullname" . }}
+                  key: jwtSecret
+            - name: JWT_TIMEOUT
+              value: {{ .Values.jwtTimeout | quote }}
+            - name: APP_HEIMDALL_NAMESPACE
+              value: {{ .Release.Namespace }}
+            - name: APP_HEIMDALL_NGINX_WORKLOAD
+              value: {{ include "heimdall.fullname" . }}-proxy
+            - name: APP_HEIMDALL_NGINX_PORT
+              value: {{ .Values.proxy.servicePort | quote }}
+            {{- if .Values.heimdall.publicPath }}
+            - name: PUBLIC_PATH
+              value: {{ .Values.heimdall.publicPath | quote }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 15
+            failureThreshold: 3
+      {{- with .Values.heimdall.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.heimdall.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.heimdall.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Always
