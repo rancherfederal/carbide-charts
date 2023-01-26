@@ -3,4 +3,4 @@ appVersion: "13"
 description: A Helm chart for Kubernetes
 name: heimdall
 type: application
-version: "13"
+version: "0.0.1"
