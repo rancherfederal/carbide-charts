@@ -56,7 +56,6 @@ heimdall:
     name: carbide/heimdall2
     pullPolicy: IfNotPresent
     tag: "0.0.1"
-
   service:
     type: ClusterIP
     port: 80
