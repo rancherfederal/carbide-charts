@@ -1,6 +1,6 @@
 apiVersion: v2
-appVersion: "0.0.1"
+appVersion: ".postgres.image.tag"
 description: A Helm chart for Kubernetes
 name: heimdall
 type: application
-version: "0.0.1"
+version: ""
