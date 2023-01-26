@@ -3,4 +3,4 @@ appVersion: ".postgres.image.tag"
 description: A Helm chart for Kubernetes
 name: heimdall
 type: application
-version: ""
+version: "1"
