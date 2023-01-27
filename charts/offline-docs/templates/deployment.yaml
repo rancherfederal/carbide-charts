@@ -21,7 +21,8 @@ spec:
     spec:
       containers:
         - name: rancher-offline-docs
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-rancher-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-rancher-docs:{{ .Values.image.tag }}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -79,7 +80,8 @@ spec:
       containers:
         - name: elemental-offline-docs
           imagePullPolicy: Always
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-elemental-docs:{{ .Values.image.tag }}
+          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-elemental-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -169,7 +171,8 @@ spec:
           imagePullPolicy: Always
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -237,30 +240,31 @@ spec:
               containerPort: 80
 
 ---
-# harvester
+# neuvector
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: harvester-offline-docs
+  name: neuvector-offline-docs
   namespace: "{{ .Values.namespace }}"
   labels:
-    app: harvester-offline-docs
+    app: neuvector-offline-docs
 spec:
   selector:
     matchLabels:
-      app: harvester-offline-docs
+      app: neuvector-offline-docs
   replicas: 1
   strategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        app: harvester-offline-docs
+        app: neuvector-offline-docs
     spec:
       containers:
-        - name: harvester-offline-docs
+        - name: neuvector-offline-docs
           imagePullPolicy: Always
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-harvester-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-harvester-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80

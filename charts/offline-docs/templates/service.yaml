@@ -139,3 +139,19 @@ spec:
   selector:
     app: harvester-offline-docs
 
+---
+# neuvector
+apiVersion: v1
+kind: Service
+metadata:
+  name: neuvector-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: neuvector-offline-docs
+
