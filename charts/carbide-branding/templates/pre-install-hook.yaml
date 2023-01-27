@@ -6,7 +6,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install, pre-upgrade
     "helm.sh/hook-delete-policy": hook-failed,hook-succeeded
-    #"helm.sh/hook-weight": "-10"
+    "helm.sh/hook-weight": "-10"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -40,28 +40,36 @@ roleRef:
   name: branding-prehook
   apiGroup: rbac.authorization.k8s.io
 ---
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: Pod
 metadata:
   name: annotate-ui-setting
   namespace: kube-system
   annotations:
-    "helm.sh/hook": pre-install
+    "helm.sh/hook": pre-install, pre-upgrade
     "helm.sh/hook-weight": "1"
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
-  template:
-    spec:
-      containers:
-      - name: labeler
-        image: rancher/hyperkube:v1.23.16-rancher1
-        command:
-        - kubectl
-        - annotate
-        - settings.management.cattle.io
-        - ui-favicon
-        - "app.kubernetes.io/managed-by=Helm"
-        - "meta.helm.sh/release-name=docs"
-        - "meta.helm.sh/release-namespace=carbide-system"
-      restartPolicy: Never
-      serviceAccountName: branding-prehook
+  containers:
+  - name: itstimefortheannotate
+    image: rancher/hyperkube:v1.23.16-rancher1
+    command:
+    - kubectl
+    - annotate
+    - settings.management.cattle.io
+    - ui-favicon
+    - "app.kubernetes.io/managed-by=Helm"
+    - "meta.helm.sh/release-name=docs"
+    - "meta.helm.sh/release-namespace=carbide-system"
+  - name: labeler
+    image: rancher/hyperkube:v1.23.16-rancher1
+    command:
+    - kubectl
+    - label
+    - settings.management.cattle.io
+    - ui-favicon
+    - "app.kubernetes.io/managed-by=Helm"
+    - "meta.helm.sh/release-name=docs"
+    - "meta.helm.sh/release-namespace=carbide-system"
+  restartPolicy: Never
+  serviceAccountName: branding-prehook
