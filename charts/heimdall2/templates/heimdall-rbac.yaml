@@ -15,7 +15,7 @@ metadata:
   namespace: {{ .Values.heimdall.fleetNamespace }}
 rules:
 - apiGroups: [""]
-  resources: ["secrets"]
+  resources: ["secrets", "namespaces"]
   verbs: ["get", "list"]
 ---
 apiVersion: v1
@@ -35,7 +35,6 @@ subjects:
   name: {{ include "heimdall.fullname" . }}-sa
 roleRef:
   kind: Role
-  namespace: {{ .Release.Namespace }}
   name: {{ include "heimdall.fullname" . }}-role
   apiGroup: rbac.authorization.k8s.io
 ---
@@ -50,6 +49,5 @@ subjects:
   name: {{ include "heimdall.fullname" . }}-sa
 roleRef:
   kind: Role
-  namespace: {{ .Values.heimdall.fleetNamespace }}
   name: {{ include "heimdall.fullname" . }}-fleet-role
   apiGroup: rbac.authorization.k8s.io

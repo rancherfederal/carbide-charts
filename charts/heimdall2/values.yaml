@@ -24,7 +24,7 @@ postgres:
     persistentVolumeClaim: ""
     storageClassName: default
     storageRequest: 10Gi
-    accessMode: RWO
+    accessMode: ReadWriteOnce
   user: heimdall
   password: heimdall
   podAnnotations: {}
@@ -34,6 +34,14 @@ postgres:
   affinity: {}
   tolrations: {}
 heimdall:
+  # A list of permissions a user must have in order to authenticate to Heimdall
+  # This is a list of group,resource,namespace,verb strings
+  # All must evaluate to allowed in order for auth to occur.
+  #
+  # e.g. default is a user required to have LIST perms on Scans 
+  # (from the compliance.cattle.io group) (no namespace specified as it's a cluster-scoped resource)
+  kubernetesRequiredPermissions:
+  - compliance.cattle.io,scans,,list
   paths:
     # ONLY SET THESE VALUES IF YOU KNOW WHAT YOU ARE DOING
     # These are necessary for correct Heimdall operation
@@ -43,7 +51,8 @@ heimdall:
     router: ""
     axios: ""
   rcidf: # rancher-cluster-id-finder
-    repository: ebauman/rcidf
+    registry: ""
+    name: rcidf
     tag: v0.0.2
   databaseName: "heimdall"
   # repository: mitre/heimdall2
@@ -58,6 +67,7 @@ heimdall:
     port: 80
   jwtExpireTime: 1d
   fleetNamespace: cattle-fleet-system
+  localLoginDisabled: true
 
   # secret as in "secret value" not k8s secret
   # default is randAlphaNum 32

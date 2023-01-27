@@ -81,7 +81,7 @@ spec:
             claimName: {{ .Values.postgres.persistentVolumeClaim }}
         {{- else  }}
           persistentVolumeClaim:
-            claimeName: {{ include "heimdall.fullname" . }}-postgres-data
+            claimName: {{ include "heimdall.fullname" . }}-postgres-data
         {{- end }}
         {{- else }}
           emptyDir: {}

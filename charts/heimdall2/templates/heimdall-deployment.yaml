@@ -6,7 +6,6 @@ metadata:
     {{- include "heimdall.labels" . | nindent 4 }}
     app.kubernetes.io/component: heimdall
 spec:
-  serviceName: {{ template "heimdall.fullname" . }}
   replicas: 1
   selector:
     matchLabels:
@@ -36,12 +35,13 @@ spec:
           image: "{{.Values.heimdall.image.registry }}/{{ .Values.heimdall.image.name }}:{{ .Values.heimdall.image.tag | default .Chart.AppVersion }}"
           ports:
             - containerPort: {{ .Values.heimdall.port }}
+              name: http
               protocol: TCP
           env:
             - name: PORT
               value: {{ .Values.heimdall.port | quote }}
             - name: DATABASE_HOST
-              value: {{ .Release.Name }}-postgres
+              value: {{ include "heimdall.fullname" . }}-postgresql
             - name: DATABASE_PORT
               value: "5432"
             - name: DATABASE_NAME
@@ -49,12 +49,12 @@ spec:
             - name: DATABASE_USERNAME
               valueFrom:
                 secretKeyRef:
-                    key: username
+                    key: databaseUsername
                     name: {{ .Release.Name }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: password
+                  key: databasePassword
                   name: {{ .Release.Name }}
             - name: JWT_SECRET
               valueFrom:
@@ -76,6 +76,14 @@ spec:
               value: {{ .Values.heimdall.adminPassword }}
             - name: EXTERNAL_URL
               value: "compliance-operator.cattle.io"
+            - name: APP_HEIMDALL_PROXY_SERVICE
+              value: {{ include "heimdall.fullname" . }}-proxy
+            - name: APP_HEIMDALL_PROXY_PORT
+              value: {{ .Values.proxy.service.port | quote }}
+            - name: K8S_PERMS
+              value: {{ join ";" .Values.heimdall.kubernetesRequiredPermissions | quote | default "compliance.cattle.io,scans,,list" }}
+            - name: LOCAL_LOGIN_DISABLED
+              value: {{ .Values.heimdall.localLoginDisabled | quote | default "true" }}
             {{- if .Values.heimdall.paths.public }}
             - name: PUBLIC_PATH
               value: {{ .Values.heimdall.paths.public }}
@@ -113,8 +121,14 @@ spec:
             name: rcidf
       initContainers:
         - name: rancher-cluster-id-finder
-          image: {{ .Values.heimdall.rcidf.repository }}:{{ .Values.heimdall.rcidf.tag }}
-          command: ['./rcidf', '-write-file', '/rancher/id']
+          image: {{ .Values.heimdall.rcidf.registry }}/{{ .Values.heimdall.rcidf.name }}:{{ .Values.heimdall.rcidf.tag }}
+          command: ['./rcidf', '--write-file', '/rancher/id', 'id']
+          volumeMounts:
+          - mountPath: /rancher
+            name: rcidf
+        - name: rancher-url-finder
+          image: {{ .Values.heimdall.rcidf.registry }}/{{ .Values.heimdall.rcidf.name }}:{{ .Values.heimdall.rcidf.tag }}
+          command: ['./rcidf', '--write-file', '/rancher/url', 'url']
           volumeMounts:
           - mountPath: /rancher
             name: rcidf
@@ -134,4 +148,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      restartPolicy: always
+      restartPolicy: Always
