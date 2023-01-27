@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ns-edit
+  namespace: kube-system
+  annotations:
+    "helm.sh/hook": pre-install,post-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ns-edit
+  annotations:
+    "helm.sh/hook": pre-install,post-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+rules:
+- apiGroups: [""]
+  resources: ["settings.management.cattle.io"]
+  verbs: ["get", "watch", "list","update","patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: edit-ns
+  annotations:
+    "helm.sh/hook": pre-install,post-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ns-edit
+subjects:
+- kind: ServiceAccount
+  name: ns-edit
+  namespace: kube-system
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: annotate-ui-setting
+  namespace: kube-system
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: labeler
+        image: rancher/hyperkube:v1.23.16-rancher1
+        command:
+        - kubectl
+        - annotate
+        - settings.management.cattle.io
+        - ui-favicon
+        - "app.kubernetes.io/managed-by=Helm"
+        - "meta.helm.sh/release-name=docs"
+        - "meta.helm.sh/release-namespace=carbide-system"
+      restartPolicy: Never
+      serviceAccountName: ns-edit
