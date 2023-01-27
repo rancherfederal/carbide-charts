@@ -1,3 +1,36 @@
 apiVersion: v1
-entries: {}
-generated: "2023-01-26T19:57:36.147415484Z"
+entries:
+  carbide-offline-docs:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-01-27T00:04:26.394528718Z"
+    description: A Helm chart for Kubernetes
+    digest: baf6f95776a828023d940e5fd22211dcfdfe4c386297e77e2e318e5c977e33f8
+    name: carbide-offline-docs
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/carbide-offline-docs-0.1.0/carbide-offline-docs-0.1.0.tgz
+    version: 0.1.0
+  heimdall:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-01-27T00:04:26.528199706Z"
+    description: A Helm chart for Kubernetes
+    digest: 5c32c8a38cb6fa7f4a7e0fedfaed380533f584698d8ecd8f16a25dda33de78a6
+    name: heimdall
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall-0.0.2/heimdall-0.0.2.tgz
+    version: 0.0.2
+  stigatron-ui:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-01-27T00:04:26.665216806Z"
+    description: Rancher Government's helm chart for the Stigatron UI Extension
+    digest: 2ad3ad17c150339c9acea1b3be309e2599e70812c911be8d4750cab5532cde47
+    name: stigatron-ui
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-01-27T00:04:26.665220906Z"
