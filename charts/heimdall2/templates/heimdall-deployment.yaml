@@ -76,8 +76,10 @@ spec:
               value: {{ .Values.heimdall.adminPassword }}
             - name: EXTERNAL_URL
               value: "compliance-operator.cattle.io"
+            - name: APP_HEIMDALL_NAMESPACE
+              value: carbide-stigatron-system
             - name: APP_HEIMDALL_PROXY_SERVICE
-              value: {{ include "heimdall.fullname" . }}-proxy
+              value: heimdall-proxy
             - name: APP_HEIMDALL_PROXY_PORT
               value: {{ .Values.proxy.service.port | quote }}
             - name: K8S_PERMS

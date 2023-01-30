@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: {{ include "heimdall.fullname" . }}-proxy
+    name: heimdall-proxy
 spec:
   selector:
     matchLabels:
-      cattle.io/app: {{ include "heimdall.fullname" . }}-proxy
+      cattle.io/app: heimdall-proxy
   template:
     metadata:
       labels:
-        cattle.io/app: {{ include "heimdall.fullname" . }}-proxy
+        cattle.io/app: heimdall-proxy
     spec:
       securityContext:
         runAsUser: 499
@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: {{ .Values.proxy.imagePullPolicy }}
           env:
           - name: HEIMDALL_SVC
-            value: {{ include "heimdall.fullname" . }}
+            value: heimdall
           - name: HEIMDALL_NAMESPACE
             value: {{ .Release.Namespace }}
           - name: HEIMDALL_PORT
