@@ -1,84 +1,102 @@
-nodeEnv: production
-## Set FDQN for external database host or set `posgresql.enabled` equal to `true`
-## 
-#databaseHost: postgresql.example.com
-
-## Set external database port or set `posgresql.enabled` equal to `true`
-##
-#databasePort: 5672
-databaseName: heimdall-server-production
-databaseUsername: postgres
-## Set postgres user's password via `openssl rand -hex 33` 
-databasePassword: long-random-string-of-text
-## Generate the following via `openssl rand -hex 64` and set
-##
-jwtSecret: long-random-string-of-text
-## Set `1d` or `25m`
-##
-jwtTimeout: 25m
-postgresql:
-  enabled: true
-  image:
-    registry: rgcrprod.azurecr.us
-    name: carbide/postgres
-    pullPolicy: IfNotPresent
-    tag: "13"
-  persistence:
-    ## Volume used to store the Heimdall's data. Default is boolean `false`.
-    ##
-    enabled: false
-    size: "100Mi"
-    ## Sets persistent volume claim's storageClassName. Defaults to `default`.
-    ##
-    storageClassName: "default"
-    accessMode: "ReadWriteOnce"
-  service:
-    type: ClusterIP
-    port: 5672
-  podAnnotations: {}
-  podSecurityContext: {}
-  securityContext: {}
-  resources: {}
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
 proxy:
+  imagePullPolicy: IfNotPresent
   image:
-    registry: rgcrprod.azurecr.us
-    name: carbide/heimdall-proxy:0.1.0
-    tag: "0.0.1"
-  imagePullPolicy: Always
+    registry: ""
+    name: nginx
+    tag: latest
   port: 8080
-  servicePort: 80
-heimdall:
-  image:
-    registry: rgcrprod.azurecr.us
-    name: carbide/heimdall2
-    pullPolicy: IfNotPresent
-    tag: "0.0.1"
   service:
     type: ClusterIP
     port: 80
-  ingress:
-    enable: false
-    annotations:
-    # traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    # traefik.ingress.kubernetes.io/router.tls: "true"
-    # traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
-    hosts:
-      - host: heimdall.example.com
-        paths:
-          - "/"
+
+postgres:
+  image:
+    registry: ""
+    name: postgresql
+    tag: latest
+  imagePullPolicy: IfNotPresent
+  port: 5432
+  service:
+    type: ClusterIP
+    port: 5432
+  persistence:
+    enabled: true
+    persistentVolumeClaim: ""
+    storageClassName: default
+    storageRequest: 10Gi
+    accessMode: ReadWriteOnce
+  user: heimdall
+  password: heimdall
   podAnnotations: {}
-  podSecurityContext: {}
   securityContext: {}
   resources: {}
   nodeSelector: {}
-  tolerations: []
   affinity: {}
-image:
-  registry: rgcrprod.azurecr.us
-postgres:
+  tolrations: {}
+heimdall:
+  # A list of permissions a user must have in order to authenticate to Heimdall
+  # This is a list of group,resource,namespace,verb strings
+  # All must evaluate to allowed in order for auth to occur.
+  #
+  # e.g. default is a user required to have LIST perms on Scans 
+  # (from the compliance.cattle.io group) (no namespace specified as it's a cluster-scoped resource)
+  kubernetesRequiredPermissions:
+  - compliance.cattle.io,scans,,list
+  paths:
+    # ONLY SET THESE VALUES IF YOU KNOW WHAT YOU ARE DOING
+    # These are necessary for correct Heimdall operation
+    # and are auto-detected in normal situations. 
+    public: ""
+    vue: ""
+    router: ""
+    axios: ""
+  rcidf: # rancher-cluster-id-finder
+    registry: ""
+    name: rcidf
+    tag: v0.0.2
+  databaseName: "heimdall"
+  # repository: mitre/heimdall2
+  # tag: 2.6.32
   image:
-    name: carbide/postgres
-    tag: "13"
+    registry: ""
+    name: heimdall2
+    tag: latest
+  port: 80
+  service:
+    type: ClusterIP
+    port: 80
+  jwtExpireTime: 1d
+  fleetNamespace: cattle-fleet-system
+  localLoginDisabled: true
+
+  # secret as in "secret value" not k8s secret
+  # default is randAlphaNum 32
+  apiKeySecret: ""
+
+  # secret as in "secret value" not k8s secret
+  # default is randAlphaNum 32
+  jwtSecret: ""
+
+  nodeEnv: "production" # leave it to this
+
+  adminEmail: "admin@heimdall.local"
+
+  # default is randomly generated
+  # and available in pod logs after server init
+  adminPassword: ""
+
+  podAnnotations: {}
+
+  selectorLabels: {}
+
+  podSecurityContext: {}
+
+  securityContext: {}
+
+  resources: {}
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}

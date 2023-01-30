@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: {{ include "heimdall.fullname" . }}-proxy
 spec:
+  type: {{ .Values.proxy.service.type }}
   selector:
     cattle.io/app: {{ include "heimdall.fullname" . }}-proxy
   ports:
   - name: http
     protocol: TCP
-    port: {{ .Values.proxy.servicePort }}
+    port: {{ .Values.proxy.service.port  }}
     targetPort: http

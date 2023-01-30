@@ -1,0 +1,13 @@
+{{- if and ( eq .Values.postgres.persistence.enabled true ) ( eq .Values.postgres.persistence.persistentVolumeClaim "" ) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "heimdall.fullname" . }}-postgres-data
+spec:
+  accessModes:
+  - {{ .Values.postgres.persistence.accessMode }}
+  storageClassName: {{ .Values.postgres.persistence.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.postgres.persistence.storageRequest }}
+{{- end }}
