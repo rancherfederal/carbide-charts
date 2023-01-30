@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{ .Release.Name }}-heimdall-operator
+    namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      cattle.io/app: heimdall-operator
+  template:
+    metadata:
+      labels:
+        cattle.io/app: heimdall-operator
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/operators/heimdall-secret.yaml") . | sha256sum }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+        - name: heimdall-operator
+          image: {{ .Values.heimdallOperator.image }}:{{ .Values.heimdallOperator.tag }}
+          imagePullPolicy: {{ .Values.heimdallOperator.imagePullPolicy }}
+          command: 
+          - "heimdall-operator"
+          args: 
+            - --dbhost
+            - "$(DB_HOST)"
+            - --dbport
+            - "$(DB_PORT)"
+            - --dbuser
+            - "$(DB_USER)"
+            - --dbname
+            - "$(DB_NAME)"
+            - --dbpass
+            - "$(DB_PASS)"
+            {{- if .Values.heimdallOperator.database.sslMode }}
+            - --sslmode
+            - "true"
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: heimdall-operator
+      serviceAccountName: {{ .Values.heimdallOperator.serviceAccountName }}-heimdall-operator-sa

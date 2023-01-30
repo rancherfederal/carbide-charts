@@ -1,0 +1,9 @@
+apiVersion: cis.cattle.io/v1
+kind: ClusterScanProfile
+metadata:
+  name: rke2-stig-1.24-profile
+  annotations:
+    compliance.cattle.io/stigatron-enabled: "true"
+spec:
+  benchmarkVersion: rke2-stig-1.24
+  skipTests: []
