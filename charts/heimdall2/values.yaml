@@ -1,9 +1,9 @@
 proxy:
   imagePullPolicy: IfNotPresent
   image:
-    registry: ""
-    name: nginx
-    tag: latest
+    registry: rgcrprod.azurecr.us
+    name: carbide/heimdall-proxy
+    tag: "0.0.1"
   port: 8080
   service:
     type: ClusterIP
@@ -11,9 +11,9 @@ proxy:
 
 postgres:
   image:
-    registry: ""
-    name: postgresql
-    tag: latest
+    registry: "rgcrprod.azurecr.us"
+    name: carbide/postgres
+    tag: "13"
   imagePullPolicy: IfNotPresent
   port: 5432
   service:
@@ -51,16 +51,16 @@ heimdall:
     router: ""
     axios: ""
   rcidf: # rancher-cluster-id-finder
-    registry: ""
-    name: rcidf
-    tag: v0.0.2
+    registry: rgcrprod.azurecr.us
+    name: carbide/rcidf
+    tag: "0.0.1"
   databaseName: "heimdall"
   # repository: mitre/heimdall2
   # tag: 2.6.32
   image:
-    registry: ""
-    name: heimdall2
-    tag: latest
+    registry: rgcrprod.azurecr.us
+    name: carbide/heimdall2
+    tag: "0.0.1"
   port: 80
   service:
     type: ClusterIP
