@@ -8,7 +8,6 @@ proxy:
   service:
     type: ClusterIP
     port: 80
-
 postgres:
   image:
     registry: "rgcrprod.azurecr.us"
@@ -41,7 +40,7 @@ heimdall:
   # e.g. default is a user required to have LIST perms on Scans 
   # (from the compliance.cattle.io group) (no namespace specified as it's a cluster-scoped resource)
   kubernetesRequiredPermissions:
-  - compliance.cattle.io,scans,,list
+    - compliance.cattle.io,scans,,list
   paths:
     # ONLY SET THESE VALUES IF YOU KNOW WHAT YOU ARE DOING
     # These are necessary for correct Heimdall operation
@@ -53,7 +52,7 @@ heimdall:
   rcidf: # rancher-cluster-id-finder
     registry: rgcrprod.azurecr.us
     name: carbide/rcidf
-    tag: "0.0.1"
+    tag: "1.0.0"
   databaseName: "heimdall"
   # repository: mitre/heimdall2
   # tag: 2.6.32
@@ -68,35 +67,24 @@ heimdall:
   jwtExpireTime: 1d
   fleetNamespace: cattle-fleet-system
   localLoginDisabled: true
-
   # secret as in "secret value" not k8s secret
   # default is randAlphaNum 32
   apiKeySecret: ""
-
   # secret as in "secret value" not k8s secret
   # default is randAlphaNum 32
   jwtSecret: ""
-
   nodeEnv: "production" # leave it to this
-
   adminEmail: "admin@heimdall.local"
-
   # default is randomly generated
   # and available in pod logs after server init
   adminPassword: ""
-
   podAnnotations: {}
-
   selectorLabels: {}
-
   podSecurityContext: {}
-
   securityContext: {}
-
   resources: {}
-
   nodeSelector: {}
-
   tolerations: []
-
   affinity: {}
+image:
+  registry: rgcrprod.azurecr.us
