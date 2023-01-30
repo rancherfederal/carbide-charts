@@ -5,9 +5,7 @@
 replicaCount: 1
 UIPluginNamespace: cattle-ui-plugin-system
 image:
-  registry: rgcrprod.azurecr.us
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "0.1.0"
   name: carbide/stigatron-ui
 imagePullSecrets: []
@@ -43,3 +41,7 @@ resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+global:
+  cattle:
+    systemDefaultRegistry: "rgcrprod.azurecr.us"

@@ -19,7 +19,7 @@ spec:
   restartPolicy: Never
   containers:
   - name: prehook
-    image:  {{ .Values.prehook.image }}:{{ .Values.prehook.tag }}
+    image:  "{{ template "system_default_registry" . }}{{ .Values.prehook.image }}:{{ .Values.prehook.tag }}"
     command:
       - /bin/bash
       - -c
