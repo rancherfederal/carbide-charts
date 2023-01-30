@@ -15,7 +15,7 @@ spec:
         runAsUser: 499
       containers:
         - name: proxy
-          image: {{ .Values.proxy.image.registry }}/{{ .Values.proxy.image.name }}:{{ .Values.proxy.image.tag }}
+          image: "{{ template "system_default_registry" . }}{{ .Values.proxy.image.name }}:{{ .Values.proxy.image.tag }}"
           imagePullPolicy: {{ .Values.proxy.imagePullPolicy }}
           env:
           - name: HEIMDALL_SVC

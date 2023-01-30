@@ -16,6 +16,6 @@ spec:
         runAsUser: 1000
       containers:
         - name: compliance-operator
-          image: {{ .Values.complianceOperator.image }}:{{ .Values.complianceOperator.tag }}
+          image: "{{ template "system_default_registry" . }}{{ .Values.complianceOperator.image.name }}:{{ .Values.complianceOperator.image.tag }}"
           imagePullPolicy: {{ .Values.complianceOperator.imagePullPolicy }}
       serviceAccountName: {{ .Values.complianceOperator.serviceAccountName }}-compliance-operator-sa

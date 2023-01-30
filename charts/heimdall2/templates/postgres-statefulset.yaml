@@ -33,7 +33,7 @@ spec:
       - name: postgres
         securityContext:
           {{- toYaml .Values.postgres.securityContext | nindent 12 }}
-        image: "{{ .Values.postgres.image.registry }}/{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}"
+        image: "{{ template "system_default_registry" . }}/{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}"
         imagePullPolicy: {{ .Values.postgres.imagePullPolicy }}
         ports:
           - name: tcp-postgresql

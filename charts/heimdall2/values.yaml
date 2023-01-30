@@ -1,7 +1,6 @@
 proxy:
   imagePullPolicy: IfNotPresent
   image:
-    registry: rgcrprod.azurecr.us
     name: carbide/heimdall-proxy
     tag: "0.0.1"
   port: 8080
@@ -10,7 +9,6 @@ proxy:
     port: 80
 postgres:
   image:
-    registry: "rgcrprod.azurecr.us"
     name: carbide/postgres
     tag: "13"
   imagePullPolicy: IfNotPresent
@@ -57,7 +55,6 @@ heimdall:
   # repository: mitre/heimdall2
   # tag: 2.6.32
   image:
-    registry: rgcrprod.azurecr.us
     name: carbide/heimdall2
     tag: "0.0.1"
   port: 80
@@ -86,5 +83,7 @@ heimdall:
   nodeSelector: {}
   tolerations: []
   affinity: {}
-image:
-  registry: rgcrprod.azurecr.us
+
+global:
+  cattle:
+    systemDefaultRegistry: "rgcrprod.azurecr.us"

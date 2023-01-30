@@ -32,7 +32,7 @@ spec:
         - name: heimdall
           securityContext:
             {{- toYaml .Values.heimdall.securityContext | nindent 12 }}
-          image: "{{.Values.heimdall.image.registry }}/{{ .Values.heimdall.image.name }}:{{ .Values.heimdall.image.tag | default .Chart.AppVersion }}"
+          image: "{{ template "system_default_registry" . }}{{ .Values.heimdall.image.name }}:{{ .Values.heimdall.image.tag | default .Chart.AppVersion }}"
           ports:
             - containerPort: {{ .Values.heimdall.port }}
               name: http
