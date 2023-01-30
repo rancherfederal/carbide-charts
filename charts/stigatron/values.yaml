@@ -1,0 +1,60 @@
+complianceOperator:
+  image: harbor.atoy.dev/public/compliance-operator
+  tag: "1.0"
+  imagePullPolicy: Always
+  serviceAccountName: stigatron
+
+heimdallOperator:
+  image: harbor.atoy.dev/public/heimdall-operator
+  tag: "1.0"
+  imagePullPolicy: Always 
+  serviceAccountName: stigatron
+  database:
+    # If using an external postgres
+    # host: postgres
+    port: "5432"
+    name: heimdall-server-production
+    user: postgres
+    password: password
+    sslMode: false
+    host: heimdall-postgresql
+
+prehook:
+  image: ubuntu # TODO: SSF Built Tools Image
+  tag: latest # TODO: SSF Built Tools Image
+  imagePullPolicy: Always
+
+rbac:
+  roleName: compliance-operator
+  roleBindingName: compliance-operator
+
+alert:
+  enabled: false
+
+heimdall:
+  # If using an external postgres
+  # databaseHost: postgresql.example.com
+  databasePort: 5432
+  databaseName: heimdall-server-production
+  databaseUsername: postgres
+  databasePassword: password
+
+  jwtSecret: abcde12345
+
+  heimdall:
+    image:
+      repository: harbor.atoy.dev/public/heimdall
+      pullPolicy: IfNotPresent
+      tag: "1.1"
+  
+  postgresql:
+    enabled: true
+    # service:
+    #   type: ClusterIP
+    #   port: 5432
+    persistence:
+      enabled: false
+      # size: "100Mi"
+      # storageClassName: "default"
+      # accessMode: "ReadWriteOnce"
+
