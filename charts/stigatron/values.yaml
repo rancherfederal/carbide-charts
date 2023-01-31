@@ -41,7 +41,7 @@ heimdall:
     image:
       name: carbide/compliance-operator
       tag: "0.1.0"
-  postgresql:
+  postgres:
     enabled: true
     # service:
     #   type: ClusterIP
