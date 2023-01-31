@@ -41,7 +41,6 @@ resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
