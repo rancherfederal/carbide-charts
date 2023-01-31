@@ -1,14 +1,14 @@
 complianceOperator:
   image: 
     name: carbide/compliance-operator
-    tag: "0.0.1"
+    tag: "0.1.0"
   imagePullPolicy: Always
   serviceAccountName: stigatron
 
 heimdallOperator:
   image:
     name: carbide/heimdall-operator
-    tag: "0.0.1"
+    tag: "0.1.0"
   imagePullPolicy: Always 
   serviceAccountName: stigatron
   database:
@@ -45,9 +45,8 @@ heimdall:
 
   heimdall:
     image:
-      repository: harbor.atoy.dev/public/heimdall
-      pullPolicy: IfNotPresent
-      tag: "1.1"
+      name: carbide/compliance-operator
+      tag: "0.1.0"
   
   postgresql:
     enabled: true

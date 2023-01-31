@@ -2,7 +2,7 @@ proxy:
   imagePullPolicy: IfNotPresent
   image:
     name: carbide/heimdall-proxy
-    tag: "0.0.1"
+    tag: "0.1.0"
   port: 8080
   service:
     type: ClusterIP
@@ -50,13 +50,13 @@ heimdall:
   rcidf: # rancher-cluster-id-finder
     registry: rgcrprod.azurecr.us
     name: carbide/rcidf
-    tag: "1.0.0"
+    tag: "0.1.0"
   databaseName: "heimdall"
   # repository: mitre/heimdall2
   # tag: 2.6.32
   image:
     name: carbide/heimdall2
-    tag: "0.0.1"
+    tag: "0.1.0"
   port: 80
   service:
     type: ClusterIP
