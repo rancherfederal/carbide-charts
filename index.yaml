@@ -3,6 +3,16 @@ entries:
   carbide-offline-docs:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-01-31T19:37:22.392248338Z"
+    description: A Helm chart for Kubernetes
+    digest: 173778528f80d895a15bead3a573993fba196d798bfbf3b3ac485d8b51732914
+    name: carbide-offline-docs
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/carbide-offline-docs-0.1.20/carbide-offline-docs-0.1.20.tgz
+    version: 0.1.20
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-01-31T18:50:01.898679132Z"
     description: A Helm chart for Kubernetes
     digest: 7456030c9338ddc9c037c5532a3726d1f8a3e576b5f405a411ac8c70f4a0cf53
@@ -573,4 +583,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-31T18:50:01.89892165Z"
+generated: "2023-01-31T19:37:22.392556236Z"
