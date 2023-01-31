@@ -20,8 +20,9 @@ heimdallOperator:
     sslMode: false
     host: heimdall-postgresql
 prehook:
-  image: ubuntu # TODO: SSF Built Tools Image
-  tag: latest # TODO: SSF Built Tools Image
+  image:
+    name: carbide/stigatron-prehook
+    tag: "0.1.0"
   imagePullPolicy: Always
 rbac:
   roleName: compliance-operator
