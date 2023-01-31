@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rancher-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: {{ .Release.Namespace }}
   labels:
     app: rancher-offline-docs
 spec:
@@ -33,7 +33,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: longhorn-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: longhorn-offline-docs
 spec:
@@ -62,7 +62,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: elemental-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: elemental-offline-docs
 spec:
@@ -92,7 +92,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rke2-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: rke2-offline-docs
 spec:
@@ -121,7 +121,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k3s-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: k3s-offline-docs
 spec:
@@ -151,7 +151,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: carbide-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: carbide-offline-docs
 spec:
@@ -183,7 +183,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kubewarden-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: kubewarden-offline-docs
 spec:
@@ -214,7 +214,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fleet-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: fleet-offline-docs
 spec:
@@ -245,7 +245,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: neuvector-offline-docs
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
   labels:
     app: neuvector-offline-docs
 spec:

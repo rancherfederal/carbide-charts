@@ -20,7 +20,7 @@ spec:
   sideLabel: Multi-cloud
   toService:
     name: rancher-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -46,7 +46,7 @@ spec:
   sideLabel: Multi-cloud
   toService:
     name: elemental-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -72,7 +72,7 @@ spec:
   target: _blank
   toService:
     name: longhorn-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 ---
@@ -97,7 +97,7 @@ spec:
   target: _blank
   toService:
     name: k3s-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -123,7 +123,7 @@ spec:
   target: _blank
   toService:
     name: rke2-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 ---
@@ -175,7 +175,7 @@ spec:
   sideLabel: Security
   toService:
     name: kubewarden-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -195,7 +195,7 @@ spec:
   sideLabel: air-gap
   toService:
     name: hauler-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -215,7 +215,7 @@ spec:
   sideLabel: security
   toService:
     name: nv-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -234,7 +234,7 @@ spec:
   sideLabel: cicd
   toService:
     name: fleet-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
 
@@ -254,6 +254,6 @@ spec:
   sideLabel: hci
   toService:
     name: harvester-offline-docs
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
