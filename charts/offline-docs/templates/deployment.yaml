@@ -21,8 +21,8 @@ spec:
     spec:
       containers:
         - name: rancher-offline-docs
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
-          # image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-rancher-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.comingsoon.name }}:{{ .Values.images.comingsoon.tag }}
+          # image: {{ template "system_default_registry" . }}{{ .Values.images.rancher.name }}:{{ .Values.images.rancher.tag }}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -51,7 +51,7 @@ spec:
       containers:
         - name: longhorn-offline-docs
           imagePullPolicy: Always
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-longhorn-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.longhorn.name }}:{{ .Values.images.longhorn.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -80,8 +80,8 @@ spec:
       containers:
         - name: elemental-offline-docs
           imagePullPolicy: Always
-          # image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-elemental-docs:{{ .Values.image.tag }}
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          # image: {{ template "system_default_registry" . }}{{ .Values.images.elemental.name }}:{{ .Values.images.elemental.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.comingsoon.name }}:{{ .Values.images.comingsoon.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -110,7 +110,7 @@ spec:
       containers:
         - name: rke2-offline-docs
           imagePullPolicy: Always
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-rke2-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.rke2.name }}:{{ .Values.images.rke2.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -139,7 +139,7 @@ spec:
       containers:
         - name: k3s-offline-docs
           imagePullPolicy: Always
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-k3s-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.k3s.name }}:{{ .Values.images.k3s.tag }}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -169,10 +169,8 @@ spec:
       containers:
         - name: carbide-offline-docs
           imagePullPolicy: Always
-          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
-          # image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.comingsoon.name }}:{{ .Values.images.comingsoon.tag }}
+          # image: {{ template "system_default_registry" . }}{{ .Values.images.carbide.name }}:{{ .Values.images.carbide.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -201,9 +199,7 @@ spec:
       containers:
         - name: kubewarden-offline-docs
           imagePullPolicy: Always
-          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-kubewarden-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.kubewarden.name }}:{{ .Values.images.kubewarden.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -232,9 +228,7 @@ spec:
       containers:
         - name: fleet-offline-docs
           imagePullPolicy: Always
-          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-fleet-docs:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.fleet.name }}:{{ .Values.images.fleet.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -263,8 +257,8 @@ spec:
       containers:
         - name: neuvector-offline-docs
           imagePullPolicy: Always
-          image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
-          # image: {{ template "system_default_registry" . }}{{ .Values.image.name }}/carbide-harvester-docs:{{ .Values.image.tag }}
+          # image: {{ template "system_default_registry" . }}{{ .Values.images.neuvector.name }}:{{ .Values.images.neuvector.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.images.comingsoon.name }}:{{ .Values.images.comingsoon.tag }}
           ports:
             - name: http
               containerPort: 80
