@@ -18,7 +18,6 @@ heimdallOperator:
     user: postgres
     password: password
     sslMode: false
-    host: heimdall-postgresql
 prehook:
   image:
     name: carbide/stigatron-prehook
