@@ -25,6 +25,16 @@ entries:
   stigatron:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-01-31T03:51:15.803405671Z"
+    description: A Helm chart for Kubernetes
+    digest: e484895e159715dcd1d3482ba5052942a54054b6ce53c513d84bca22dc233dfb
+    name: stigatron
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-0.1.2/stigatron-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-01-31T03:48:20.066623741Z"
     description: A Helm chart for Kubernetes
     digest: 2d941ed41dd53c02654cc7bace1bc0fe7adda1ebb2321b822242f36dcd049798
@@ -64,4 +74,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-31T03:48:20.06663804Z"
+generated: "2023-01-31T03:51:15.803421871Z"
