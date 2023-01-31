@@ -57,6 +57,7 @@ heimdall:
   image:
     name: carbide/heimdall2
     tag: "0.1.0"
+    path: 0.1.0
   port: 80
   service:
     type: ClusterIP
