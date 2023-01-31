@@ -36,6 +36,16 @@ entries:
   stigatron-ui:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-01-31T02:41:42.372932159Z"
+    description: Rancher Government's helm chart for the Stigatron UI Extension
+    digest: 8b722a36d9a1eee3b472c17b6eb528d4316fd0a0818ff53bbb08f0675fd7c7c3
+    name: stigatron-ui
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.1/stigatron-ui-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-01-31T02:37:15.104297879Z"
     description: Rancher Government's helm chart for the Stigatron UI Extension
     digest: 0575dc909ca11b6cd70173dd0ef7baf35dddecff937e76ad524f15d8947ebea0
@@ -44,4 +54,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-31T02:37:15.104303179Z"
+generated: "2023-01-31T02:41:42.372940759Z"
