@@ -148,7 +148,7 @@ spec:
   target: _blank
   toService:
     name: carbide-offline-docs
-    namespace: carbide-system
+    namespace: {{ .Release.Namespace }}
     port: "80"
     scheme: http
 
@@ -214,7 +214,7 @@ spec:
   label: Neuvector Docs
   sideLabel: security
   toService:
-    name: nv-offline-docs
+    name: neuvector-offline-docs
     namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http

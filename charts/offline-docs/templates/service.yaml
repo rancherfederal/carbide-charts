@@ -137,6 +137,22 @@ spec:
     targetPort: 80
   selector:
     app: harvester-offline-docs
+---
+
+# hauler
+apiVersion: v1
+kind: Service
+metadata:
+  name: hauler-offline-docs
+  namespace: "{{ .Release.Namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hauler-offline-docs
 
 ---
 # neuvector

@@ -36,6 +36,9 @@ images:
   harvester:
     name: "carbide/harvester-docs"
     tag: "0.1.0"
+  hauler:
+    name: "carbide/hauler-docs"
+    tag: "0.1.0"
   rancherDesktop:
     name: "carbide/rancher-desktop-docs"
     tag: "0.1.0"
