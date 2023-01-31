@@ -38,7 +38,7 @@ heimdall:
   jwtSecret: abcde12345
   heimdall:
     image:
-      name: carbide/compliance-operator
+      name: carbide/heimdall2
       tag: "0.1.0"
   postgres:
     enabled: true
