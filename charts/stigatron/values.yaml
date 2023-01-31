@@ -1,15 +1,14 @@
 complianceOperator:
-  image: 
+  image:
     name: carbide/compliance-operator
     tag: "0.1.0"
   imagePullPolicy: Always
   serviceAccountName: stigatron
-
 heimdallOperator:
   image:
     name: carbide/heimdall-operator
     tag: "0.1.0"
-  imagePullPolicy: Always 
+  imagePullPolicy: Always
   serviceAccountName: stigatron
   database:
     # If using an external postgres
@@ -20,19 +19,15 @@ heimdallOperator:
     password: password
     sslMode: false
     host: heimdall-postgresql
-
 prehook:
   image: ubuntu # TODO: SSF Built Tools Image
   tag: latest # TODO: SSF Built Tools Image
   imagePullPolicy: Always
-
 rbac:
   roleName: compliance-operator
   roleBindingName: compliance-operator
-
 alert:
   enabled: false
-
 heimdall:
   # If using an external postgres
   # databaseHost: postgresql.example.com
@@ -40,14 +35,11 @@ heimdall:
   databaseName: heimdall-server-production
   databaseUsername: postgres
   databasePassword: password
-
   jwtSecret: abcde12345
-
   heimdall:
     image:
       name: carbide/compliance-operator
       tag: "0.1.0"
-  
   postgresql:
     enabled: true
     # service:
@@ -58,7 +50,6 @@ heimdall:
       # size: "100Mi"
       # storageClassName: "default"
       # accessMode: "ReadWriteOnce"
-
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
