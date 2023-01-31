@@ -14,7 +14,7 @@ heimdallOperator:
     # If using an external postgres
     # host: postgres
     port: "5432"
-    name: heimdall-server-production
+    name: heimdall
     user: postgres
     password: password
     sslMode: false
@@ -32,7 +32,7 @@ heimdall:
   # If using an external postgres
   # databaseHost: postgresql.example.com
   databasePort: 5432
-  databaseName: heimdall-server-production
+  databaseName: heimdall
   jwtSecret: abcde12345
   heimdall:
     image:
