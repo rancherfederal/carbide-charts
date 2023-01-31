@@ -50,24 +50,24 @@ spec:
               valueFrom:
                 secretKeyRef:
                     key: databaseUsername
-                    name: {{ .Release.Name }}
+                    name: {{ include "heimdall.fullname" . }}-secret
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: databasePassword
-                  name: {{ .Release.Name }}
+                  name: {{ include "heimdall.fullname" . }}-secret
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   key: jwt
-                  name: {{ .Release.Name }}
+                  name: {{ include "heimdall.fullname" . }}-secret
             - name: JWT_EXPIRE_TIME
               value: {{ .Values.heimdall.jwtExpireTime }}
             - name: API_KEY_SECRET
               valueFrom:
                 secretKeyRef:
                   key: api
-                  name: {{ .Release.Name }}
+                  name: {{ include "heimdall.fullname" . }}-secret
             - name: NODE_ENV
               value: {{ .Values.heimdall.nodeEnv }}
             - name: ADMIN_EMAIL
