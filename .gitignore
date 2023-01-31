@@ -14,4 +14,4 @@
 .DS_Store
 
 # Chart dependencies
-**/charts/*.tgz
+# **/charts/*.tgz
