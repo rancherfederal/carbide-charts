@@ -42,6 +42,9 @@ images:
   rancherDesktop:
     name: "carbide/rancher-desktop-docs"
     tag: "0.1.0"
+  nginx-base:
+    name: carbide/nginx-base
+    tag: 0.1.0
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
