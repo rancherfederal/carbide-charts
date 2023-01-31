@@ -14,6 +14,16 @@ entries:
   heimdall2:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-01-31T04:51:55.534123936Z"
+    description: A Helm chart for Kubernetes
+    digest: 79e6b32c56fc6fc56a8e90ead40426d9c7cabba4c806dda88995249c5fe98c60
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.4/heimdall2-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-01-31T04:48:29.756065068Z"
     description: A Helm chart for Kubernetes
     digest: 2bf56605422eeef4bbab4fb73f83f65d2573a2d405d907a6272ae8422816a7a9
@@ -223,4 +233,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-31T04:50:21.309958404Z"
+generated: "2023-01-31T04:51:55.534165026Z"
