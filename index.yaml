@@ -95,6 +95,21 @@ entries:
   stigatron:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-01-31T05:50:07.315733525Z"
+    dependencies:
+    - alias: heimdall
+      name: heimdall2
+      repository: https://rancherfederal.github.io/carbide-charts
+      version: 0.1.6
+    description: A Helm chart for Kubernetes
+    digest: a5eb6adc8983b7069d85768ab069e4f632d4e59ee400de20ec7baff6c5381b53
+    name: stigatron
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-0.1.16/stigatron-0.1.16.tgz
+    version: 0.1.16
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-01-31T05:40:26.195429276Z"
     dependencies:
     - alias: heimdall
@@ -323,4 +338,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-31T05:40:26.195827579Z"
+generated: "2023-01-31T05:50:07.316168629Z"
