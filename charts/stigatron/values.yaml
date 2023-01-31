@@ -33,8 +33,6 @@ heimdall:
   # databaseHost: postgresql.example.com
   databasePort: 5432
   databaseName: heimdall-server-production
-  databaseUsername: postgres
-  databasePassword: password
   jwtSecret: abcde12345
   heimdall:
     image:
@@ -42,6 +40,8 @@ heimdall:
       tag: "0.1.0"
   postgres:
     enabled: true
+    user: postgres
+    password: password
     # service:
     #   type: ClusterIP
     #   port: 5432
