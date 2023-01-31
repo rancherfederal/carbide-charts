@@ -6,6 +6,6 @@ version: 0.1.11
 appVersion: "1.16.0"
 dependencies: 
 - name: heimdall2
-  version: "0.1.3"
+  version: "0.1.4"
   repository: "https://rancherfederal.github.io/carbide-charts"
   alias: heimdall
