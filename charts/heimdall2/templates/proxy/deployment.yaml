@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: {{ .Values.proxy.imagePullPolicy }}
           env:
           - name: HEIMDALL_SVC
-            value: heimdall
+            value: {{ include "heimdall.fullname" . }}
           - name: HEIMDALL_NAMESPACE
             value: {{ .Release.Namespace }}
           - name: HEIMDALL_PORT
