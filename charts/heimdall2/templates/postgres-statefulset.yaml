@@ -47,12 +47,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 key: databaseUsername
-                name: {{ include "heimdall.fullname" . }}
+                name: {{ include "heimdall.fullname" . }}-secret
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: databasePassword
-                name: {{ include "heimdall.fullname" . }}
+                name:{{ include "heimdall.fullname" . }}-secret
         volumeMounts:
         - mountPath: "/var/lib/postgresql/data"
           name: postgresql-data
