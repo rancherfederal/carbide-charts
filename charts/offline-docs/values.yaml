@@ -58,7 +58,7 @@ docs:
     image:
       name: "carbide/comingsoon"
       tag: "0.1.0"
-  rancherDesktop:
+  rancherdesktop:
     enabled: true
     image:
       name: "carbide/rancher-desktop-docs"
