@@ -2,14 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-comingsoon:
-  name: "carbide/comingsoon"
-  tag: "0.1.0"
 docs:
   rancher:
     enabled: true
     image:
-      name: "carbide/rancher-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   rke2:
     enabled: true
@@ -24,7 +21,7 @@ docs:
   neuvector:
     enabled: true
     image:
-      name: "carbide/neuvector-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   fleet:
     enabled: true
@@ -34,7 +31,7 @@ docs:
   longhorn:
     enabled: true
     image:
-      name: "carbide/longhorn-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   kubewarden:
     enabled: true
@@ -44,33 +41,28 @@ docs:
   carbide:
     enabled: true
     image:
-      name: "carbide/carbide-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   elemental:
     enabled: true
     image:
-      name: "carbide/elemental-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   harvester:
     enabled: true
     image:
-      name: "carbide/harvester-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   hauler:
     enabled: true
     image:
-      name: "carbide/hauler-docs"
+      name: "carbide/comingsoon"
       tag: "0.1.0"
   rancherDesktop:
     enabled: true
     image:
       name: "carbide/rancher-desktop-docs"
       tag: "0.1.0"
-  nginx-base:
-    enabled: true
-    image:
-      name: carbide/nginx-base
-      tag: 0.1.0
 
 global:
   cattle:
