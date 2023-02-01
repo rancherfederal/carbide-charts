@@ -1,9 +1,12 @@
+{{- range $key, $value := .Values.docs }}
+{{- with $ -}}
+{{- if $value.enabled }}
 ---
-# rancher
 apiVersion: v1
 kind: Service
 metadata:
-  name: rancher-offline-docs
+  name: {{ $key }}-offline-docs
+  namespace: {{ .Release.Namespace }}
 spec:
   ports:
   - name: http
@@ -11,162 +14,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: rancher-offline-docs
-
----
-# elemental
-apiVersion: v1
-kind: Service
-metadata:
-  name: elemental-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: elemental-offline-docs
-    
----
-# longhorn
-apiVersion: v1
-kind: Service
-metadata:
-  name: longhorn-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: longhorn-offline-docs
-
----
-# rke2
-apiVersion: v1
-kind: Service
-metadata:
-  name: rke2-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: rke2-offline-docs
----
-# k3s
-apiVersion: v1
-kind: Service
-metadata:
-  name: k3s-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: k3s-offline-docs
----
-# carbide
-apiVersion: v1
-kind: Service
-metadata:
-  name: carbide-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: carbide-offline-docs
----
-# kubewarden
-apiVersion: v1
-kind: Service
-metadata:
-  name: kubewarden-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: kubewarden-offline-docs
-
----
-# fleet
-apiVersion: v1
-kind: Service
-metadata:
-  name: fleet-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: fleet-offline-docs
-
----
-# harvester
-apiVersion: v1
-kind: Service
-metadata:
-  name: harvester-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: harvester-offline-docs
----
-
-# hauler
-apiVersion: v1
-kind: Service
-metadata:
-  name: hauler-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: hauler-offline-docs
-
----
-# neuvector
-apiVersion: v1
-kind: Service
-metadata:
-  name: neuvector-offline-docs
-  namespace: "{{ .Release.Namespace }}"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: neuvector-offline-docs
-
+    app: {{ $key }}-offline-docs
+{{- end }}
+{{- end }}
+{{- end }}

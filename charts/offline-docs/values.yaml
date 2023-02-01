@@ -2,49 +2,76 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-images:
-  comingsoon:
-    name: "carbide/comingsoon"
-    tag: "0.1.0"
+comingsoon:
+  name: "carbide/comingsoon"
+  tag: "0.1.0"
+docs:
   rancher:
-    name: "carbide/rancher-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/rancher-docs"
+      tag: "0.1.0"
   rke2:
-    name: "carbide/rke2-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/rke2-docs"
+      tag: "0.1.0"
   k3s:
-    name: "carbide/k3s-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/k3s-docs"
+      tag: "0.1.0"
   neuvector:
-    name: "carbide/neuvector-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/neuvector-docs"
+      tag: "0.1.0"
   fleet:
-    name: "carbide/fleet-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/fleet-docs"
+      tag: "0.1.0"
   longhorn:
-    name: "carbide/longhorn-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/longhorn-docs"
+      tag: "0.1.0"
   kubewarden:
-    name: "carbide/kubewarden-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/kubewarden-docs"
+      tag: "0.1.0"
   carbide:
-    name: "carbide/carbide-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/carbide-docs"
+      tag: "0.1.0"
   elemental:
-    name: "carbide/elemental-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/elemental-docs"
+      tag: "0.1.0"
   harvester:
-    name: "carbide/harvester-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/harvester-docs"
+      tag: "0.1.0"
   hauler:
-    name: "carbide/hauler-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/hauler-docs"
+      tag: "0.1.0"
   rancherDesktop:
-    name: "carbide/rancher-desktop-docs"
-    tag: "0.1.0"
+    enabled: true
+    image:
+      name: "carbide/rancher-desktop-docs"
+      tag: "0.1.0"
   nginx-base:
-    name: carbide/nginx-base
-    tag: 0.1.0
+    enabled: true
+    image:
+      name: carbide/nginx-base
+      tag: 0.1.0
+
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
