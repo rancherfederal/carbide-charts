@@ -1,6 +1,6 @@
 apiVersion: v2
 name: stigatron-ui
-description: Rancher Government's helm chart for the Stigatron UI Extension
+description: Rancher Government Stigatron UI Extension
 type: application
-version: "0.1.5"
+version: 0.1.6
 appVersion: "0.1.0"
