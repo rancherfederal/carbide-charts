@@ -28,6 +28,7 @@ spec:
       {{- end }}
       securityContext:
         runAsUser: 999
+        fsGroup: 999
       serviceAccountName: {{ include "heimdall.fullname" . }}-postgres-sa
       containers:
       - name: postgres
