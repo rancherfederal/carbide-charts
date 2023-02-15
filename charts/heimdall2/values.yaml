@@ -19,7 +19,7 @@ postgres:
   persistence:
     enabled: true
     persistentVolumeClaim: ""
-    storageClassName: default
+    storageClassName: ""
     storageRequest: 10Gi
     accessMode: ReadWriteOnce
   user: heimdall
