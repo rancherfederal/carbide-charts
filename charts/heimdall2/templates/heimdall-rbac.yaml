@@ -19,6 +19,16 @@ rules:
   verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "heimdall.fullname" . }}-rancher-role
+  namespace: {{ .Values.heimdall.rancherNamespace }}
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ include "heimdall.fullname" . }}-rancher-role
@@ -71,5 +81,19 @@ subjects:
   name: {{ include "heimdall.fullname" . }}-sa
 roleRef:
   kind: ClusterRole
+  name: {{ include "heimdall.fullname" . }}-rancher-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "heimdall.fullname" . }}-rancher-rb
+  namespace: {{ .Values.heimdall.rancherNamespace }}
+subjects:
+- kind: ServiceAccount
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "heimdall.fullname" . }}-sa
+roleRef:
+  kind: Role
   name: {{ include "heimdall.fullname" . }}-rancher-role
   apiGroup: rbac.authorization.k8s.io
