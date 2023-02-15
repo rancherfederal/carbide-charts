@@ -1,6 +1,0 @@
-apiVersion: v2
-name: carbide-offline-docs
-description: Rancher Government Offline Docs
-type: application
-version: 0.1.37
-appVersion: "0.1.0"
