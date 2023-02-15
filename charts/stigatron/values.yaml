@@ -18,9 +18,9 @@ heimdallOperator:
     user: postgres
     password: password
     sslMode: false
-prehook:
+hook:
   image:
-    name: carbide/stigatron-prehook
+    name: carbide/stigatron-hook
     tag: "0.1.0"
   imagePullPolicy: Always
 rbac:

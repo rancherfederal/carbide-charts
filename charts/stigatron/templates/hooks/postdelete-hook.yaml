@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stigatron-hook
+  annotations:
+    "helm.sh/hook": post-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-weight": "0"
+spec:
+  serviceAccount: stigatron-hook
+  restartPolicy: Never
+  containers:
+  - name: hook
+    image:  "{{ template "system_default_registry" . }}{{ .Values.hook.image.name }}:{{ .Values.hook.image.tag }}"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        #!/bin/bash
+
+        echo "Cleaning up STIGATRON CRDs.."
+        for crd in $(kubectl get crd -o json | jq -r '.items[].metadata.name | select(contains("compliance.cattle.io"))'); do
+          echo "  - $crd"
+          kubectl delete crd $crd
+        done
