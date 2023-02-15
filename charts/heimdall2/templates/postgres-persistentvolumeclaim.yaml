@@ -6,7 +6,9 @@ metadata:
 spec:
   accessModes:
   - {{ .Values.postgres.persistence.accessMode }}
+  {{- if .Values.postgres.persistence.storageClassName }}
   storageClassName: {{ .Values.postgres.persistence.storageClassName }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.postgres.persistence.storageRequest }}
