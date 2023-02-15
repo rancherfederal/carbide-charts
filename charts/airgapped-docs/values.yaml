@@ -63,7 +63,10 @@ docs:
     image:
       name: "carbide/rancher-desktop-docs"
       tag: "0.1.0"
-
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
+images:
+  carbide:
+    name: carbide/carbide-docs
+    tag: 0.1.0
