@@ -28,7 +28,7 @@ rbac:
   roleBindingName: compliance-operator
 alert:
   enabled: false
-heimdall:
+heimdall2:
   # If using an external postgres
   # databaseHost: postgresql.example.com
   databasePort: 5432
