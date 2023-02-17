@@ -8,4 +8,4 @@ dependencies:
 - name: heimdall2
   version: "0.1.15"
   repository: "https://rancherfederal.github.io/carbide-charts"
-  alias: heimdall
+  alias: heimdall2
