@@ -2,10 +2,10 @@ apiVersion: v2
 name: stigatron
 description: Rancher Government Stigatron Extension
 type: application
-version: 0.1.25
+version: 0.1.26
 appVersion: "0.1.0"
 dependencies: 
 - name: heimdall2
-  version: "0.1.15"
+  version: "0.1.20"
   repository: "https://rancherfederal.github.io/carbide-charts"
   alias: heimdall2
