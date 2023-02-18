@@ -32,10 +32,9 @@ spec:
     spec:
       initContainers:
         - name: copy
-          image: bgulla/copypotomus
+          image: carbide/carbide-whitelabel:0.1.0
           imagePullPolicy: Always
           command:  ["/bin/sh", "-c", "cp -rf /tmp/assets/* /rancher-images/"]
-          # ["/bin/sh", "-c", "cp /config/cassandra.yaml /config/cassandra/"]
           volumeMounts:
           - name: work-dir
             mountPath: /rancher-images/
