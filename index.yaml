@@ -3,6 +3,16 @@ entries:
   airgapped-docs:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-22T17:31:32.991333119Z"
+    description: Rancher Government Airgapped Docs
+    digest: e8c5706103615c0fb7337e7e61f0727698936f785421e553e6eb0f585d7bb84e
+    name: airgapped-docs
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/airgapped-docs-0.1.38/airgapped-docs-0.1.38.tgz
+    version: 0.1.38
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-15T15:21:05.726658122Z"
     description: Rancher Government Airgapped Docs
     digest: 034d0bb6abfc114301145873daa298a25114c4fb8328a035a894855ce540e8fd
@@ -12,6 +22,16 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/airgapped-docs-0.1.37/airgapped-docs-0.1.37.tgz
     version: 0.1.37
   heimdall2:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-22T17:31:33.149377463Z"
+    description: Rancher Government Heimdall2 Tool
+    digest: 2b1c1613c90dc7cf75866b323df8eddf9832798bab1b832dc28c5c22a404c239
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.21/heimdall2-0.1.21.tgz
+    version: 0.1.21
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-02-17T14:16:33.938747756Z"
@@ -653,4 +673,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-17T20:12:49.114690416Z"
+generated: "2023-02-22T17:31:33.149647969Z"
