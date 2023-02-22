@@ -21,8 +21,7 @@ spec:
     spec:
       containers:
         - name: rancher-offline-docs
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
-          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-rancher-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/rancher-docs:{{ .Values.image.tag }}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -51,7 +50,7 @@ spec:
       containers:
         - name: longhorn-offline-docs
           imagePullPolicy: Always
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-longhorn-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/longhorn-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -81,7 +80,7 @@ spec:
         - name: elemental-offline-docs
           imagePullPolicy: Always
           # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-elemental-docs:{{ .Values.image.tag }}
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/elemental-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -110,7 +109,7 @@ spec:
       containers:
         - name: rke2-offline-docs
           imagePullPolicy: Always
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-rke2-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/rke2-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -139,7 +138,7 @@ spec:
       containers:
         - name: k3s-offline-docs
           imagePullPolicy: Always
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-k3s-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/k3s-docs:{{ .Values.image.tag }}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -171,8 +170,8 @@ spec:
           imagePullPolicy: Always
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
-          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-docs:{{ .Values.image.tag }}
+          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -203,7 +202,7 @@ spec:
           imagePullPolicy: Always
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-kubewarden-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/kubewarden-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -234,7 +233,7 @@ spec:
           imagePullPolicy: Always
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
           #image: "{{ .Values.registry }}docs-carbide:{{ .Values.image.tag }}"
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-fleet-docs:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/fleet-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
@@ -263,9 +262,67 @@ spec:
       containers:
         - name: neuvector-offline-docs
           imagePullPolicy: Always
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
-          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/carbide-harvester-docs:{{ .Values.image.tag }}
+          # image: {{ .Values.image.registry }}/{{ .Values.image.name }}/comingsoon:{{ .Values.image.tag }}
+          # image: bgulla/nv:latest
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/neuvector-docs:{{ .Values.image.tag }}
           ports:
             - name: http
               containerPort: 80
 
+---
+# harvester
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harvester-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: harvester-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: harvester-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: harvester-offline-docs
+    spec:
+      containers:
+        - name: harvester-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/harvester-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80
+
+---
+# cncf
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-offline-docs
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: kubernetes-offline-docs
+spec:
+  selector:
+    matchLabels:
+      app: kubernetes-offline-docs
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: kubernetes-offline-docs
+    spec:
+      containers:
+        - name: kubernetes-offline-docs
+          imagePullPolicy: Always
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}/kubernetes-cncf-docs:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 80

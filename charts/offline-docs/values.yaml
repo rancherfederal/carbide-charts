@@ -6,8 +6,8 @@ namespace: carbide-system
 
 image:
   registry: "rgcrprod.azurecr.us"
-  name: "ssf"
-  tag: "1.0.0"
+  name: "carbide"
+  tag: "0.1.0"
 
   # registry: "harbor.lark.lol"
   # name: "carbide"

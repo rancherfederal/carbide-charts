@@ -155,3 +155,18 @@ spec:
   selector:
     app: neuvector-offline-docs
 
+---
+# kubernetes
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-offline-docs
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: kubernetes-offline-docs
