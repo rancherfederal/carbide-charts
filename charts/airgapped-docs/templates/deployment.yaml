@@ -25,6 +25,10 @@ spec:
         - name: {{ $key }}-offline-docs
           image: {{ template "system_default_registry" . }}{{ $value.image.name }}:{{ $value.image.tag }}
           imagePullPolicy: Always
+          {{- if $value.uid }}
+          securityContext:
+            runAsUser: {{ $value.uid }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
