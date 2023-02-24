@@ -95,7 +95,7 @@ data:
         - kubernetes
 
       kubernetes:
-        defaultconf: "/etc/kubernetes/config"
+        defaultconf: "/etc/rancher/rke2/config.yaml"
 
       kubelet:
         cafile:
@@ -189,9 +189,14 @@ data:
 
     version_mapping:
       "v1.23.0+rke2r1": "rke2-stig-1.23"
+      "v1.24.10+rke2r1": "rke2-stig-1.24"
 
     target_mapping:
       "rke2-stig-1.23":
+        - "node"
+        - "etcd"
+        - "master"
+      "rke2-stig-1.24":
         - "node"
         - "etcd"
         - "master"
@@ -205,12 +210,12 @@ data:
     groups: []
   master.yaml: |-
     controls:
-    version: "rancher-profile"
+    version: "rke2-profile"
     id: 1
     text: "Master Node Security Configuration"
     type: "master"
     groups:
-    - id: V-254553
+    - id: "V-254553"
       text: "Checks for V-254553"
       checks:
       - id: V-254553-TLS-apiserver
@@ -306,6 +311,7 @@ data:
           Once configuration file is updated, restart the RKE2 Server. Run the command:
           systemctl restart rke2-server
         scored: true
+
     - id: "V-254555"
       text: "Checks for V-254555"
       checks:
@@ -349,6 +355,7 @@ data:
           'systemctl restart rke2-server' for server hosts and
           'systemctl restart rke2-agent' for agent hosts.
         scored: true
+
     - id: "V-254556"
       text: "Checks for V-254556"
       checks:
@@ -369,6 +376,113 @@ data:
           Once configuration file is updated, restart the RKE2 Server. Run the command:
           systemctl restart rke2-server
         scored: true
+
+    - id: "V-254558"
+      text: "Checks for V-254558"
+      checks:
+      - id: V-254558
+        text: "The Kubernetes API server must have the insecure port flag disabled."
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --insecure-port
+            set: false
+        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--insecure-port = 0\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        scored: true
+
+      #Need to fix
+    - id: "V-254560"
+      text: "Checks for V-254560"
+      checks:
+      - id: V-254560
+        text: "The Kubernetes API server must have the insecure bind address not set."
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --insecure-bind-address
+            set: false
+        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml on the Kubernetes RKE2 Control Plane. \n      #magic___^_^___line\nRemove the value for the --insecure-bind-address setting.\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        scored: true
+
+    - id: "V-254562"
+      text: "Checks for V-254562"
+      checks:
+      - id: V-254562
+        text: "The Kubernetes API server must have anonymous authentication disabled."
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --anonymous-auth
+            compare:
+              op: eq
+              value: false
+            set: true
+        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--anonymous-auth=false\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        scored: true
+
+    - id: "V-254563"
+      text: "Checks for V-254563"
+      checks:
+      - id: V-254563
+        text: "All audit records must identify any containers associated with the event within Rancher RKE2."
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --audit-log-maxage
+            compare:
+              op: gte
+              value: 30
+            set: true
+        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--audit-log-maxage=30\n      #magic___^_^___line\nnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        scored: true
+
+    - id: "V-254572"
+      text: "Checks for V-254572"
+      checks:
+      - id: V-254572
+        text: "Rancher RKE2 must prohibit the installation of patches, updates, and instantiation of container images without explicit privileged status."
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --authorization-mode
+            compare:
+              op: eq
+              value: "RBAC,Node"
+            set: true
+        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file. \n--authorization-mode=RBAC,Node\n        #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        scored: true
+
+    - id: "V-254573"
+      text: "Checks for V-254573"
+      checks:
+      - id: V-254573
+        text: "Rancher RKE2 keystore must implement encryption to prevent unauthorized disclosure of information at rest within Rancher RKE2."
+        audit_config: "/bin/cat $kubernetesconf"
+        tests:
+          # bin_op: or
+          test_items:
+            - path: '{.secrets-encryption}'
+              compare:
+                op: eq
+                value: true
+            # - path: '{.secrets-encryption}'
+            #   set: false
+        remediation: |
+          Enable secrets encryption.
+
+          Edit the RKE2 configuration file on all RKE2 servers, located at /etc/rancher/rke2/config.yaml, so that it does NOT contain:
+
+          secrets-encryption: false
+
+          or that secrets-encryption is set to true.
+        scored: true
+  node.yaml: |-
+    controls:
+    version: "rke2-profile"
+    id: 12
+    text: "Worker Node Security Configuration"
+    type: "node"
+    groups: 
     - id: "V-254557"
       text: "Checks for V-254557"
       checks:
@@ -388,18 +502,6 @@ data:
 
           Once configuration file is updated, restart the RKE2 Agent. Run the command:
           systemctl restart rke2-agent
-        scored: true
-    - id: "V-254558"
-      text: "Checks for V-254558"
-      checks:
-      - id: V-254558
-        text: "The Kubernetes API server must have the insecure port flag disabled."
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --insecure-port
-            set: false
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--insecure-port = 0\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
         scored: true
     - id: "V-254559"
       text: "Checks for V-254559"
@@ -421,19 +523,6 @@ data:
           Once configuration file is updated, restart the RKE2 Agent. Run the command:
           systemctl restart rke2-agent
         scored: true
-      #Need to fix
-    - id: "V-254560"
-      text: "Checks for V-254560"
-      checks:
-      - id: V-254560
-        text: "The Kubernetes API server must have the insecure bind address not set."
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --insecure-bind-address
-            set: false
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml on the Kubernetes RKE2 Control Plane. \n      #magic___^_^___line\nRemove the value for the --insecure-bind-address setting.\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
-        scored: true
     - id: "V-254561"
       text: "Checks for V-254561"
       checks:
@@ -454,36 +543,6 @@ data:
 
           Once configuration file is updated, restart the RKE2 Agent. Run the command:
           systemctl restart rke2-agent
-        scored: true
-    - id: "V-254562"
-      text: "Checks for V-254562"
-      checks:
-      - id: V-254562
-        text: "The Kubernetes API server must have anonymous authentication disabled."
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --anonymous-auth
-            compare:
-              op: eq
-              value: false
-            set: true
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--anonymous-auth=false\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
-        scored: true
-    - id: "V-254563"
-      text: "Checks for V-254563"
-      checks:
-      - id: V-254563
-        text: "All audit records must identify any containers associated with the event within Rancher RKE2."
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --audit-log-maxage
-            compare:
-              op: gte
-              value: 30
-            set: true
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--audit-log-maxage=30\n      #magic___^_^___line\nnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
         scored: true
 
     # MANUAL
@@ -648,47 +707,6 @@ data:
 
           kubectl create -f restricted.yml
 
-    - id: "V-254572"
-      text: "Checks for V-254572"
-      checks:
-      - id: V-254572
-        text: "Rancher RKE2 must prohibit the installation of patches, updates, and instantiation of container images without explicit privileged status."
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --authorization-mode
-            compare:
-              op: eq
-              value: "RBAC,Node"
-            set: true
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file. \n--authorization-mode=RBAC,Node\n        #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
-        scored: true
-
-    - id: "V-254573"
-      text: "Checks for V-254573"
-      checks:
-      - id: V-254573
-        text: "Rancher RKE2 keystore must implement encryption to prevent unauthorized disclosure of information at rest within Rancher RKE2."
-        audit_config: "/bin/cat $kubernetesconf"
-        tests:
-          bin_op: or
-          test_items:
-            - path: '{.secrets-encryption}'
-              compare:
-                op: eq
-                value: true
-            - path: '{.secrets-encryption}'
-              set: false
-        remediation: |
-          Enable secrets encryption.
-
-          Edit the RKE2 configuration file on all RKE2 servers, located at /etc/rancher/rke2/config.yaml, so that it does NOT contain:
-
-          secrets-encryption: false
-
-          or that secrets-encryption is set to true.
-        scored: true
-
     # MANUAL
     - id: "V-254574"
       text: "Checks for V-254574"
@@ -714,11 +732,3 @@ data:
         type: "skip"
         remediation: |
           Upgrade RKE2 to the supported version. Institute and adhere to the policies and procedures to ensure that patches are consistently applied within the time allowed.
-  node.yaml: |-
-    ---
-    controls:
-    version: "rke2-profile"
-    id: 12
-    text: "Worker Node Security Configuration"
-    type: "node"
-    groups: []
