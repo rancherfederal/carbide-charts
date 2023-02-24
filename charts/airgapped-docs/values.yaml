@@ -13,61 +13,74 @@ images:
 docs:
   kubernetes:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/kubernetes-cncf-docs"
       tag: "0.1.0"
   rancher:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/rancher-docs"
       tag: "0.1.0"
   rke2:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/rke2-docs"
       tag: "0.1.0"
   k3s:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/k3s-docs"
       tag: "0.1.0"
   neuvector:
     enabled: true
+    uid: 65532
     image:
-      name: "carbide/neuvector-docs"
+      # name: "carbide/neuvector-docs"
+      name: carbide/comingsoon
       tag: "0.1.0"
   fleet:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/fleet-docs"
       tag: "0.1.0"
   longhorn:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/longhorn-docs"
       tag: "0.1.0"
   kubewarden:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/kubewarden-docs"
       tag: "0.1.0"
   carbide:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/carbide-docs"
       tag: "0.1.0"
   elemental:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/elemental-docs"
       tag: "0.1.0"
   harvester:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/harvester-docs"
       tag: "0.1.0"
   rancherdesktop:
     enabled: true
+    uid: 65532
     image:
       name: "carbide/rancher-desktop-docs"
       tag: "0.1.0"
