@@ -3,4 +3,4 @@ name: stigatron-ui
 description: Rancher Government Stigatron UI Extension
 type: application
 version: 0.1.14
-appVersion: "0.1.0"
+appVersion: "0.3.0"
