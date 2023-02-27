@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: rke2-stig-1.24
+  name: rke2-stig-1.24-preview
   namespace: cis-operator-system
 data:
   config.yaml: |-
