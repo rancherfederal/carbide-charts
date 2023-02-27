@@ -2,5 +2,5 @@ apiVersion: v2
 name: stigatron-ui
 description: Rancher Government Stigatron UI Extension
 type: application
-version: 0.1.14
-appVersion: "0.3.0"
+version: 0.1.15
+appVersion: "0.1.0"
