@@ -188,15 +188,15 @@ data:
         defaultconf: /etc/kubernetes/manifests/etcd.yaml
 
     version_mapping:
-      "v1.23.0+rke2r1": "rke2-stig-1.23"
-      "v1.24.10+rke2r1": "rke2-stig-1.24"
+      "v1.23.0+rke2r1": "rke2-stig-1.23-preview"
+      "v1.24.0+rke2r1": "rke2-stig-1.24-preview"
 
     target_mapping:
-      "rke2-stig-1.23":
+      "rke2-stig-1.23-preview":
         - "node"
         - "etcd"
         - "master"
-      "rke2-stig-1.24":
+      "rke2-stig-1.24-preview":
         - "node"
         - "etcd"
         - "master"

@@ -5,5 +5,5 @@ metadata:
   annotations:
     compliance.cattle.io/stigatron-enabled: "true"
 spec:
-  benchmarkVersion: rke2-stig-1.24
+  benchmarkVersion: rke2-stig-1.24-preview
   skipTests: []
