@@ -205,6 +205,21 @@ entries:
   stigatron:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-28T00:11:48.848238022Z"
+    dependencies:
+    - alias: heimdall2
+      name: heimdall2
+      repository: https://rancherfederal.github.io/carbide-charts
+      version: 0.1.20
+    description: Rancher Government Stigatron Extension
+    digest: fb5426998ffbb9f7461ac91266bfd4d8e69936c6bc08752afa488d5fe7afbf2a
+    name: stigatron
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-0.1.31/stigatron-0.1.31.tgz
+    version: 0.1.31
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-24T21:47:45.611133529Z"
     dependencies:
     - alias: heimdall2
@@ -624,6 +639,16 @@ entries:
     version: 0.1.0
   stigatron-ui:
   - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-28T00:11:49.09629603Z"
+    description: Rancher Government Stigatron UI Extension
+    digest: b337b4d15ac69e5c0006ecaa2c5986df25194c5a005f1c9dc9a0a6a14ca532eb
+    name: stigatron-ui
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.16/stigatron-ui-0.1.16.tgz
+    version: 0.1.16
+  - apiVersion: v2
     appVersion: 0.3.0
     created: "2023-02-27T21:09:52.930943172Z"
     description: Rancher Government Stigatron UI Extension
@@ -723,4 +748,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-27T21:09:52.931110875Z"
+generated: "2023-02-28T00:11:49.096610434Z"
