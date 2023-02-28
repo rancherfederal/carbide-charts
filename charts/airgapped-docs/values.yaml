@@ -37,9 +37,9 @@ docs:
       tag: "0.1.0"
   neuvector:
     enabled: true
-    uid: 65532
+    uid: 100
     image:
-      # name: "carbide/neuvector-docs"
+      name: "carbide/neuvector-docs"
       name: carbide/comingsoon
       tag: "0.1.0"
   fleet:
