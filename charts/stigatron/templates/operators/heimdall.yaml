@@ -40,4 +40,7 @@ spec:
           envFrom:
             - secretRef:
                 name: heimdall-operator
+          env:
+          - name: STIGATRON_NAMESPACE
+            value: {{ .Release.Namespace | quote }}
       serviceAccountName: {{ .Values.heimdallOperator.serviceAccountName }}-heimdall-operator-sa
