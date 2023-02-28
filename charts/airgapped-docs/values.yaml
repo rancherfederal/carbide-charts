@@ -40,7 +40,6 @@ docs:
     uid: 100
     image:
       name: "carbide/neuvector-docs"
-      name: carbide/comingsoon
       tag: "0.1.0"
   fleet:
     enabled: true
