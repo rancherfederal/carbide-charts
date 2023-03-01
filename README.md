@@ -11,6 +11,12 @@ helm search repo carbide-charts
 helm install example-release carbide-charts/<chart>
 ```
 
+If you would like to do add the carbide-charts to the Rancher Manager Chart Catalog, please follow the steps in the [Rancher Manager Docs](https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/helm-charts-in-rancher/create-apps#docusaurus_skipToContent_fallback) and use the following chart catalog Git Repo URL with the branch name of main:
+
+```
+https://github.com/rancherfederal/carbide-charts.git
+```
+
 ## How to Use (Airgaped Environments)
 
 ### On Connected Environment
