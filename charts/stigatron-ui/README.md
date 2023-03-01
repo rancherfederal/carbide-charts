@@ -4,7 +4,7 @@ STIGATRON-UI Chart
 
 | Type | Chart Version | App Version |
 | ---- | ------------- | ----------- |
-| application | `0.1.0` | `0.1.17` |
+| application | `0.1.17` | `0.1.0` |
 
 ## Installing the Chart
 ```bash
