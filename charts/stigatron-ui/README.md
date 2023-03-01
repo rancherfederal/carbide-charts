@@ -2,8 +2,6 @@ STIGATRON-UI Chart
 ----------------------------------------------
 
 
-Rancher Government Stigatron UI Extension
-
 | Type | Chart Version | App Version |
 | ---- | ------------- | ----------- |
 | application | `0.1.0` | `0.1.17` |

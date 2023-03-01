@@ -2,8 +2,6 @@ STIGATRON Chart
 ----------------------------------------------
 
 
-Rancher Government Stigatron Extension
-
 | Type | Chart Version | App Version |
 | ---- | ------------- | ----------- |
 | application | `0.1.0` | `0.1.35` |

@@ -9,4 +9,4 @@ Rancher Government Heimdall2 Tool
 | application | `0.1.0` | `0.1.22` |
 
 
-This chart is a dependency and does not require any installation and configuration.
+This chart is a dependency and typically does not require any installation and configuration.

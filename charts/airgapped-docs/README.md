@@ -2,8 +2,6 @@ Airgapped-Docs Chart
 ----------------------------------------------
 
 
-Rancher Government Airgapped Docs
-
 | Type | Chart Version | App Version |
 | ---- | ------------- | ----------- |
 | application | `0.1.0` | `0.1.41` |
