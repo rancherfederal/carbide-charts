@@ -9,7 +9,6 @@ metadata:
   labels:
 {{ include "rancher.labels" . | indent 4 }}
 spec:
-
 {{- if (gt (int .Values.replicas) 0) }}
   replicas: {{ .Values.replicas }}
 {{- end  }}
