@@ -64,6 +64,17 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/airgapped-docs-0.1.37/airgapped-docs-0.1.37.tgz
     version: 0.1.37
   heimdall2:
+ - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-17T13:05:22.822209647Z"
+    description: Rancher Government Heimdall2 Tool
+    digest: 3b2b13a4b601cced7bd4ec05083d23158de94eb4658ebc780a7c209543a9e82b
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.23/heimdall2-0.1.23.tgz
+    version: 0.1.23
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-03-17T13:04:22.822209647Z"
