@@ -129,7 +129,7 @@ spec:
           - mountPath: /rancher
             name: rcidf
         - name: rancher-url-finder
-          image: {{ .Values.heimdall.rcidf.registry }}/{{ .Values.heimdall.rcidf.name }}:{{ .Values.heimdall.rcidf.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.heimdall.rcidf.name }}:{{ .Values.heimdall.rcidf.tag }}
           command: ['./rcidf', '--write-file', '/rancher/url', 'url']
           volumeMounts:
           - mountPath: /rancher
