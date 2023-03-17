@@ -30,9 +30,10 @@ spec:
         app: {{ template "rancher.fullname" . }}
         release: {{ .Release.Name }}
     spec:
+{{- if .Values.carbideWhitelabel.enabled }}
       initContainers:
         - name: copy
-          image: carbide/carbide-whitelabel:0.1.0
+          image: {{ .Values.carbideWhitelabel.image }}:{{ .Values.carbideWhitelabel.tag }}
           imagePullPolicy: Always
           command:  ["/bin/sh", "-c", "cp -rf /tmp/assets/* /rancher-images/"]
           volumeMounts:
@@ -71,6 +72,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms: {{ include "linux-node-selector-terms" . | nindent 14 }}
       tolerations: {{ include "linux-node-tolerations" . | nindent 8 }}
+{{- end }}
       containers:
       - image: {{ .Values.rancherImage }}:{{ default .Chart.AppVersion .Values.rancherImageTag }}
         imagePullPolicy: {{ default "IfNotPresent" .Values.rancherImagePullPolicy }}

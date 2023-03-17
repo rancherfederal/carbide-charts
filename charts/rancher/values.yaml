@@ -43,7 +43,7 @@ restrictedAdmin: false
 #   value: "1.0"
 
 # Fully qualified name to reach your Rancher server
-hostname: carbide.lark.lol
+# hostname: rancher.my.org
 
 ## Optional array of imagePullSecrets containing private registry credentials
 ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -170,4 +170,10 @@ postDelete:
   ignoreTimeoutError: false
 
 # Set a bootstrap password. If leave empty, a random password will be generated.
-bootstrapPassword: "admin"
+bootstrapPassword: ""
+
+carbideWhitelabel:
+  enabled: true
+  image: carbide/carbide-whitelabel
+  tag: "0.1.0"
+
