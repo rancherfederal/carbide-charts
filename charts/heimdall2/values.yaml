@@ -48,7 +48,6 @@ heimdall:
     router: ""
     axios: ""
   rcidf: # rancher-cluster-id-finder
-    registry: rgcrprod.azurecr.us
     name: carbide/rcidf
     tag: "0.1.0"
   databaseName: "heimdall"
