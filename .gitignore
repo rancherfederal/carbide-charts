@@ -16,3 +16,4 @@
 # Chart dependencies
 **/charts/*.tgz
 Chart.lock
+.frigate
