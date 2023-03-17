@@ -3,10 +3,10 @@ name: stigatron
 description: Rancher Government Stigatron Extension
 icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
 type: application
-version: 0.1.38
+version: 0.1.39
 appVersion: "0.1.0"
 dependencies:
   - name: heimdall2
-    version: "0.1.22"
+    version: "0.1.24"
     repository: "https://rancherfederal.github.io/carbide-charts"
     alias: heimdall2
