@@ -123,7 +123,7 @@ spec:
             name: rcidf
       initContainers:
         - name: rancher-cluster-id-finder
-          image: {{ .Values.heimdall.rcidf.registry }}/{{ .Values.heimdall.rcidf.name }}:{{ .Values.heimdall.rcidf.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.heimdall.rcidf.name }}:{{ .Values.heimdall.rcidf.tag }}
           command: ['./rcidf', '--write-file', '/rancher/id', 'id']
           volumeMounts:
           - mountPath: /rancher
