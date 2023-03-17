@@ -81,7 +81,6 @@ The following table lists the configurable parameters of the Stigatron chart and
 | `heimdall2.heimdall.paths.vue` | `""` |  |
 | `heimdall2.heimdall.paths.router` | `""` |  |
 | `heimdall2.heimdall.paths.axios` | `""` |  |
-| `heimdall2.heimdall.rcidf.registry` | `"rgcrprod.azurecr.us"` |  |
 | `heimdall2.heimdall.rcidf.name` | `"carbide/rcidf"` |  |
 | `heimdall2.heimdall.rcidf.tag` | `"0.1.0"` |  |
 | `heimdall2.heimdall.databaseName` | `"heimdall"` |  |
