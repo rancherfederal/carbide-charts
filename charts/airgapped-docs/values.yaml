@@ -5,82 +5,72 @@ global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
 
-images:
-  carbide:
-    name: carbide/carbide-docs
-    tag: 0.1.0
+defaults:
+  containerPort: 8080
+  uid: 65532
+  image:
+    tag: "0.1.1"
 
 docs:
   kubernetes:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/kubernetes-cncf-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   rancher:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/rancher-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   rke2:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/rke2-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   k3s:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/k3s-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   neuvector:
     enabled: true
     uid: 100
     image:
       name: "carbide/neuvector-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   fleet:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/fleet-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   longhorn:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/longhorn-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   kubewarden:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/kubewarden-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   carbide:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/carbide-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   elemental:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/elemental-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   harvester:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/harvester-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
   rancherdesktop:
     enabled: true
-    uid: 65532
     image:
       name: "carbide/rancher-desktop-docs"
-      tag: "0.1.0"
+      # tag: "0.1.1"
 
