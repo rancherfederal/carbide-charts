@@ -184,26 +184,6 @@ spec:
 apiVersion: ui.cattle.io/v1
 kind: NavLink
 metadata:
-  name: hauler-offline-docs
-spec:
-  label: TODO Hauler Docs
-  target: _blank
-  description: swiss-army tool
-  group: Airgap-friendly Docs
-  iconSrc:   
-  label: Hauler Docs
-  sideLabel: air-gap
-  toService:
-    name: hauler-offline-docs
-    namespace: "{{ .Release.Namespace }}"
-    port: "80"
-    scheme: http
-
----
-
-apiVersion: ui.cattle.io/v1
-kind: NavLink
-metadata:
   name: nv-offline-docs
 spec:
   label: TODO Neuvector Docs
