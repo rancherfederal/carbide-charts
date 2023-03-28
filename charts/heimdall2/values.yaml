@@ -9,8 +9,8 @@ proxy:
     port: 80
 postgres:
   image:
-    name: carbide/postgres
-    tag: "13"
+    name: carbide/heimdall-postgres
+    tag: "13.1"
   imagePullPolicy: IfNotPresent
   port: 5432
   service:
