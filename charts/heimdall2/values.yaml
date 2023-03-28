@@ -2,7 +2,7 @@ proxy:
   imagePullPolicy: IfNotPresent
   image:
     name: carbide/heimdall-proxy
-    tag: "0.1.0"
+    tag: "0.1.1"
   port: 8080
   service:
     type: ClusterIP
