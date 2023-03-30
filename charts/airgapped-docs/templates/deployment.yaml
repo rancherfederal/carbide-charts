@@ -23,15 +23,13 @@ spec:
     spec:
       containers:
         - name: {{ $key }}-offline-docs
-          image: {{ template "system_default_registry" . }}{{ $value.image.name }}:{{ $value.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ $value.image.name }}:{{ $value.image.tag | default .Values.defaults.image.tag }}
           imagePullPolicy: Always
-          {{- if $value.uid }}
           securityContext:
-            runAsUser: {{ $value.uid }}
-          {{- end }}
+            runAsUser: {{ $value.uid | default .Values.defaults.uid }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ $value.containerPort | default .Values.defaults.containerPort }}
 {{- end }}
 {{- end -}}
 {{- end }}

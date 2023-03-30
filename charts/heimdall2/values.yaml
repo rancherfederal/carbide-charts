@@ -2,15 +2,15 @@ proxy:
   imagePullPolicy: IfNotPresent
   image:
     name: carbide/heimdall-proxy
-    tag: "0.1.0"
+    tag: "0.1.1"
   port: 8080
   service:
     type: ClusterIP
     port: 80
 postgres:
   image:
-    name: carbide/postgres
-    tag: "13"
+    name: carbide/heimdall-postgres
+    tag: "13.1"
   imagePullPolicy: IfNotPresent
   port: 5432
   service:
@@ -49,14 +49,14 @@ heimdall:
     axios: ""
   rcidf: # rancher-cluster-id-finder
     name: carbide/rcidf
-    tag: "0.1.0"
+    tag: "0.1.1"
   databaseName: "heimdall"
   # repository: mitre/heimdall2
   # tag: 2.6.32
   image:
     name: carbide/heimdall2
     tag: "0.1.0"
-    path: 0.1.0
+    path: 0.1.1
   port: 8080
   service:
     type: ClusterIP
