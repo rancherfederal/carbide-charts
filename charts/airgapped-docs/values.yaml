@@ -34,7 +34,6 @@ docs:
       # tag: "0.1.1"
   neuvector:
     enabled: true
-    uid: 100
     image:
       name: "carbide/neuvector-docs"
       # tag: "0.1.1"
@@ -73,4 +72,3 @@ docs:
     image:
       name: "carbide/rancher-desktop-docs"
       # tag: "0.1.1"
-
