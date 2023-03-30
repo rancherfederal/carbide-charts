@@ -187,6 +187,7 @@ spec:
     namespace: "{{ .Release.Namespace }}"
     port: "80"
     scheme: http
+
 {{- end }}
 {{- if .Values.docs.neuvector.enabled }}
 ---
