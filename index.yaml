@@ -290,6 +290,26 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.0/heimdall2-0.1.0.tgz
     version: 0.1.0
   rancher:
+  - apiVersion: v2
+    appVersion: v2.7.2
+    created: "2023-04-12T18:44:48.880275028Z"
+    description: Install Rancher Server to manage Kubernetes clusters across providers.
+    digest: 5ee7a74dc110c9ff94cfc2138e4b62d0728d987ac4d97cac3183ece78a2e4573
+    home: https://rancher.com
+    icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
+    keywords:
+    - rancher
+    kubeVersion: < 1.26.0-0
+    maintainers:
+    - email: charts@rancher.com
+      name: Rancher Labs
+    name: rancher
+    sources:
+    - https://github.com/rancher/rancher
+    - https://github.com/rancher/server-chart
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-v2.7.2/rancher-v2.7.2.tgz
+    version: v2.7.2
   - apiVersion: v1
     appVersion: v2.7.1
     created: "2023-03-17T18:12:20.070355246Z"
@@ -879,6 +899,17 @@ entries:
   stigatron-ui:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-04-12T18:44:49.088948416Z"
+    description: Rancher Government Stigatron UI Extension
+    digest: 90c8f985ea0a3fd1bad8e91c5b0814fba19849d9998b228e4b1ac453b0af15c3
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: stigatron-ui
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.21/stigatron-ui-0.1.21.tgz
+    version: 0.1.21
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-03-30T12:35:36.807667593Z"
     description: Rancher Government Stigatron UI Extension
     digest: 495d6e2b238073f4ff4560bb24b03cb2f3fb7445cba26e460bd955755dfb015b
@@ -1030,4 +1061,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-30T13:31:44.424434751Z"
+generated: "2023-04-12T18:44:49.089316518Z"
