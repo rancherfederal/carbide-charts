@@ -7,7 +7,7 @@ complianceOperator:
 heimdallOperator:
   image:
     name: carbide/heimdall-operator
-    tag: "0.1.0"
+    tag: "0.1.1"
   imagePullPolicy: Always
   serviceAccountName: stigatron
   database:
@@ -21,7 +21,7 @@ heimdallOperator:
 hook:
   image:
     name: carbide/stigatron-hook
-    tag: "0.1.0"
+    tag: "0.1.1"
   imagePullPolicy: Always
 rbac:
   roleName: compliance-operator
@@ -35,9 +35,12 @@ heimdall2:
   databaseName: heimdall
   jwtSecret: abcde12345
   heimdall:
+    rcidf: # rancher-cluster-id-finder
+      name: carbide/rcidf
+      tag: "0.1.1"
     image:
       name: carbide/heimdall2
-      tag: "0.1.0"
+      tag: "0.1.1"
   postgres:
     enabled: true
     user: postgres
