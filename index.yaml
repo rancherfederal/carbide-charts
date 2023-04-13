@@ -88,6 +88,17 @@ entries:
   heimdall2:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-04-13T00:33:17.655312071Z"
+    description: Rancher Government Heimdall2 Tool
+    digest: 5b17711bf3caced3fe137326bcc899d121fb134abf4d9cf8367bbba4f5f312fd
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.30/heimdall2-0.1.30.tgz
+    version: 0.1.30
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-03-30T12:35:36.349745629Z"
     description: Rancher Government Heimdall2 Tool
     digest: 99f803775b0d07c39ff2a2a5e47d5fa67ca27e1be7d139e92d923bf52b9cc72e
@@ -351,6 +362,22 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-v2.7.0/rancher-v2.7.0.tgz
     version: v2.7.0
   stigatron:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2023-04-13T00:33:17.852727497Z"
+    dependencies:
+    - alias: heimdall2
+      name: heimdall2
+      repository: https://rancherfederal.github.io/carbide-charts
+      version: 0.1.29
+    description: Rancher Government Stigatron Extension
+    digest: ad8335845e16711e9e9b773f0bd300091e987bcb2178951cf578d1b5121cd40e
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: stigatron
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-0.1.41/stigatron-0.1.41.tgz
+    version: 0.1.41
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-03-30T12:35:36.587402413Z"
@@ -1061,4 +1088,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-12T18:44:49.089316518Z"
+generated: "2023-04-13T00:33:17.854197715Z"
