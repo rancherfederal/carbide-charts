@@ -88,6 +88,17 @@ entries:
   heimdall2:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-04-25T19:29:08.204042294Z"
+    description: Rancher Government Heimdall2 Tool
+    digest: e07c4a6cbb18be3138f454bfed199279fd3410bbeac511766e2d3b7d6fdfa7f8
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.35/heimdall2-0.1.35.tgz
+    version: 0.1.35
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-04-13T00:47:41.331976131Z"
     description: Rancher Government Heimdall2 Tool
     digest: 6433fc39b3c1929c5f50809463374744f11b4129d1e676253df9930014cec41f
@@ -312,6 +323,26 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.0/heimdall2-0.1.0.tgz
     version: 0.1.0
   rancher:
+  - apiVersion: v2
+    appVersion: v2.7.3
+    created: "2023-04-25T19:29:08.409532186Z"
+    description: Install Rancher Server to manage Kubernetes clusters across providers.
+    digest: bd3d6eb9706ffc0bf3de6bc03480439b4f1b365bfa423e4aac35b029baad46fa
+    home: https://rancher.com
+    icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
+    keywords:
+    - rancher
+    kubeVersion: < 1.26.0-0
+    maintainers:
+    - email: charts@rancher.com
+      name: Rancher Labs
+    name: rancher
+    sources:
+    - https://github.com/rancher/rancher
+    - https://github.com/rancher/server-chart
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-v2.7.3/rancher-v2.7.3.tgz
+    version: v2.7.3
   - apiVersion: v2
     appVersion: v2.7.2
     created: "2023-04-12T18:44:48.880275028Z"
@@ -1115,4 +1146,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-13T00:56:44.865267984Z"
+generated: "2023-04-25T19:29:08.409909194Z"
