@@ -3,9 +3,5 @@ name: heimdall2
 description: Rancher Government Heimdall2 Tool
 icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
 type: application
-<<<<<<< HEAD
 version: 0.1.39
 appVersion: "0.1.1"
-=======
-version: 0.1.8
->>>>>>> a4be51b (AUTOMATION: SSF Prod Chart Update for heimdall2)
