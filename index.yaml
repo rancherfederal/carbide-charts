@@ -88,6 +88,17 @@ entries:
   heimdall2:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-05-10T13:46:45.686192627Z"
+    description: Rancher Government Heimdall2 Tool
+    digest: 0544f0a8dddd6d6a1f6d64e82fb82149692c5abcb7a995c8ac13a3b1e660cdbc
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.39/heimdall2-0.1.39.tgz
+    version: 0.1.39
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-04-25T19:29:08.204042294Z"
     description: Rancher Government Heimdall2 Tool
     digest: e07c4a6cbb18be3138f454bfed199279fd3410bbeac511766e2d3b7d6fdfa7f8
@@ -1146,4 +1157,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-25T19:29:08.409909194Z"
+generated: "2023-05-10T13:46:45.68674623Z"
