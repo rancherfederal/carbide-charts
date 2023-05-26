@@ -62,6 +62,7 @@ heimdall:
     port: 80
   jwtExpireTime: 1d
   fleetNamespace: cattle-fleet-system
+  impersonationNamespace: cattle-impersonation-system
   rancherNamespace: cattle-system
   localLoginDisabled: true
   # secret as in "secret value" not k8s secret
