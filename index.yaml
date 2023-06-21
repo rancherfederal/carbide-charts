@@ -88,6 +88,17 @@ entries:
   heimdall2:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-06-21T23:43:46.987113576Z"
+    description: Rancher Government Heimdall2 Tool
+    digest: 298b30d8db8d7924d4908f93e8aa5d50fa1d1ecc7b4b733b09016da3fb7b15ac
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: heimdall2
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.43/heimdall2-0.1.43.tgz
+    version: 0.1.43
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-05-26T12:47:08.189073626Z"
     description: Rancher Government Heimdall2 Tool
     digest: b1722b291854a612ad1eec52d74cba5e3bb82438c0e7a858e2d69052a5dbe54b
@@ -345,6 +356,26 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.0/heimdall2-0.1.0.tgz
     version: 0.1.0
   rancher:
+  - apiVersion: v2
+    appVersion: v2.7.4
+    created: "2023-06-21T23:43:47.184415166Z"
+    description: Install Rancher Server to manage Kubernetes clusters across providers.
+    digest: 54894e90bbd853970e4d5194d610216f7dec7b87c7ca4fb080afc84c70dcc3d4
+    home: https://rancher.com
+    icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
+    keywords:
+    - rancher
+    kubeVersion: < 1.26.0-0
+    maintainers:
+    - email: charts@rancher.com
+      name: Rancher Labs
+    name: rancher
+    sources:
+    - https://github.com/rancher/rancher
+    - https://github.com/rancher/server-chart
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-2.7.4/rancher-2.7.4.tgz
+    version: 2.7.4
   - apiVersion: v2
     appVersion: v2.7.3
     created: "2023-04-25T19:29:08.409532186Z"
@@ -1199,4 +1230,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-26T12:50:28.845141441Z"
+generated: "2023-06-21T23:43:47.184682964Z"
