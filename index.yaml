@@ -411,7 +411,7 @@ entries:
     appVersion: v2.7.2
     created: "2023-04-12T18:44:48.880275028Z"
     description: Install Rancher Server to manage Kubernetes clusters across providers.
-    digest: 5ee7a74dc110c9ff94cfc2138e4b62d0728d987ac4d97cac3183ece78a2e4573
+    digest: 86deedcc08a9d40cbaaf383d1adaaa4325ffcd4543ebf71eda76cc0f988fa34f
     home: https://rancher.com
     icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
     keywords:
@@ -431,7 +431,7 @@ entries:
     appVersion: v2.7.1
     created: "2023-03-17T18:12:20.070355246Z"
     description: Install Rancher Server to manage Kubernetes clusters across providers.
-    digest: c1d1bfc453dae4a632b5bf23e20e041bef4ce6f0612fed559b9e7588bd1d0c07
+    digest: dbb9351d10e5cb03ebee7a6ae36660b48f727c78f1c30979c0a150e7b38f33df
     home: https://rancher.com
     icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
     keywords:
@@ -451,7 +451,7 @@ entries:
     appVersion: v2.7.0
     created: "2023-03-17T18:02:14.558489121Z"
     description: Install Rancher Server to manage Kubernetes clusters across providers.
-    digest: 3a458ceffe8b7dd83db8ffdc9554cbd9aef48e9a2329286313a9df0b4194022e
+    digest: d2dcb6b0c2d4aabc854a0283ba284b4c9a8b3f06e7aeb699abfd77b999d15b0b
     home: https://rancher.com
     icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
     keywords:
