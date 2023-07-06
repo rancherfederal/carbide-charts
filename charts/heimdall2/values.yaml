@@ -49,7 +49,7 @@ heimdall:
     axios: ""
   rcidf: # rancher-cluster-id-finder
     name: carbide/rcidf
-    tag: "0.1.2-RC2"
+    tag: "0.1.2"
   databaseName: "heimdall"
   # repository: mitre/heimdall2
   # tag: 2.6.32
