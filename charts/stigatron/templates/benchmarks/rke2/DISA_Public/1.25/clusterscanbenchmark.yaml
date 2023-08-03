@@ -1,0 +1,11 @@
+apiVersion: cis.cattle.io/v1
+kind: ClusterScanBenchmark
+metadata:
+  name: rke2-stig-1.25
+  annotations:
+    field.cattle.io/description: RKE2 1.25 STIG Profile
+spec:
+  clusterProvider: rke2
+  customBenchmarkConfigMapName: rke2-stig-1.25
+  customBenchmarkConfigMapNamespace: cis-operator-system
+  minKubernetesVersion: 1.25.0

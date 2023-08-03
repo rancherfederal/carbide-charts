@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: rke2-stig-1.23
+  name: rke2-stig-1.25
   namespace: cis-operator-system
 data:
   config.yaml: |-
@@ -188,10 +188,10 @@ data:
         defaultconf: /etc/kubernetes/manifests/etcd.yaml
 
     version_mapping:
-      "v1.23.0+rke2r1": "rke2-stig-1.23"
+      "v1.25.0+rke2r1": "rke2-stig-1.25"
 
     target_mapping:
-      "rke2-stig-1.23":
+      "rke2-stig-1.25":
         - "node"
         - "etcd"
         - "master"
@@ -473,7 +473,6 @@ data:
         text: ""
         type: "skip"
         remediation: ""
-
     - id: "V-254568"
       text: ""
       checks:
@@ -514,7 +513,6 @@ data:
         text: ""
         type: "skip"
         remediation: ""
-
     # MANUAL
     - id: "V-254571"
       text: ""

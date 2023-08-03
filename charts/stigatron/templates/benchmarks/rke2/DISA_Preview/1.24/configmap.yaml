@@ -205,21 +205,21 @@ data:
     controls:
     version: "rke2-profile"
     id: 10
-    text: "Etcd Security Configuration"
+    text: ""
     type: "etcd"
     groups: []
   master.yaml: |-
     controls:
     version: "rke2-profile"
     id: 1
-    text: "Master Node Security Configuration"
+    text: ""
     type: "master"
     groups:
     - id: "V-254553"
-      text: "Checks for V-254553"
+      text: ""
       checks:
       - id: V-254553-TLS-apiserver
-        text: "Rancher RKE2 must protect authenticity of communications sessions with the use of FIPS-validated 140-2 or 140-3 security requirements for cryptographic modules."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
@@ -228,10 +228,10 @@ data:
               op: valid_elements
               value: VersionTLS12
             set: true
-        remediation: "Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nkube-controller-manager-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-scheduler-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-apiserver-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\n      #magic___^_^___line\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
       - id: V-254553-TLS-controller
-        text: "Rancher RKE2 must protect authenticity of communications sessions with the use of FIPS-validated 140-2 or 140-3 security requirements for cryptographic modules."
+        text: ""
         audit: "/bin/ps -fC $controllermanagerbin"
         tests:
           test_items:
@@ -240,10 +240,10 @@ data:
               op: valid_elements
               value: VersionTLS12
             set: true
-        remediation: "Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nkube-controller-manager-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-scheduler-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-apiserver-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\n      #magic___^_^___line\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
       - id: V-254553-TLS-scheduler
-        text: "Rancher RKE2 must protect authenticity of communications sessions with the use of FIPS-validated 140-2 or 140-3 security requirements for cryptographic modules."
+        text: ""
         audit: "/bin/ps -fC $schedulerbin"
         tests:
           test_items:
@@ -252,10 +252,10 @@ data:
               op: valid_elements
               value: VersionTLS12
             set: true
-        remediation: "Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nkube-controller-manager-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-scheduler-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-apiserver-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\n      #magic___^_^___line\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
       - id: V-254553-Cipher-apiserver
-        text: "Rancher RKE2 must protect authenticity of communications sessions with the use of FIPS-validated 140-2 or 140-3 security requirements for cryptographic modules."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
@@ -264,10 +264,10 @@ data:
               op: valid_elements
               value: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
             set: true
-        remediation: "Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nkube-controller-manager-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-scheduler-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-apiserver-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\n      #magic___^_^___line\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
       - id: V-254553-Cipher-controller
-        text: "Rancher RKE2 must protect authenticity of communications sessions with the use of FIPS-validated 140-2 or 140-3 security requirements for cryptographic modules."
+        text: ""
         audit: "/bin/ps -fC $controllermanagerbin"
         tests:
           test_items:
@@ -276,10 +276,10 @@ data:
               op: valid_elements
               value: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
             set: true
-        remediation: "Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nkube-controller-manager-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-scheduler-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-apiserver-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\n      #magic___^_^___line\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
       - id: V-254553-Cipher-scheduler
-        text: "Rancher RKE2 must protect authenticity of communications sessions with the use of FIPS-validated 140-2 or 140-3 security requirements for cryptographic modules."
+        text: ""
         audit: "/bin/ps -fC $schedulerbin"
         tests:
           test_items:
@@ -288,14 +288,14 @@ data:
               op: valid_elements
               value: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
             set: true
-        remediation: "Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nkube-controller-manager-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-scheduler-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\nkube-apiserver-arg: \n- \"tls-min-version=VersionTLS12\"\n- \"tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\n      #magic___^_^___line\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
 
     - id: "V-254554"
-      text: "Checks for V-254554"
+      text: ""
       checks:
       - id: V-254554
-        text: "RKE2 must use a centralized user management solution to support account management functions."
+        text: ""
         audit: "/bin/ps -fC $controllermanagerbin"
         tests:
           test_items:
@@ -304,19 +304,14 @@ data:
               op: eq
               value: true
             set: true
-        remediation: |
-          Edit the Controller Manager pod specification file /var/lib/rancher/rke2/agent/pod-manifests/kube-controller-manager.yaml on the RKE2 Control Plane to set the below parameter:
-          --use-service-account-credentials argument=true
-
-          Once configuration file is updated, restart the RKE2 Server. Run the command:
-          systemctl restart rke2-server
+        remediation: ""
         scored: true
 
     - id: "V-254555"
-      text: "Checks for V-254555"
+      text: ""
       checks:
       - id: V-254555
-        text: "Rancher RKE2 components must be configured in accordance with the security configuration settings based on DoD security configuration or implementation guidance, including SRGs, STIGs, NSA configuration guides, CTOs, and DTMs."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           bin_op: and
@@ -331,36 +326,14 @@ data:
               op: eq
               value: blocking-strict
             set: true
-        remediation: |
-          Audit logging and policies
-          1)
-          Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, so that it contains required configuration. For example:
-          kube-apiserver-arg: "audit-policy-file=/etc/rancher/rke2/audit-policy.yaml"
-          kube-apiserver-arg: "audit-log-mode=blocking-strict"
-          If configuration file is updated, restart the RKE2 Server. Run the command:
-          systemctl restart rke2-server
-          2)
-          Edit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, so that it contains required configuration. For example:
-          profile: cis-1.5
-          If configuration file is updated, restart the RKE2 Server. Run the command:
-          systemctl restart rke2-server
-          3)
-          Edit the audit policy file, by default located at /etc/rancher/rke2/audit-policy.yaml to look like below:
-          # Log all requests at the RequestResponse level.
-          apiVersion: audit.k8s.io/v1
-          kind: Policy
-          rules:
-          - level: RequestResponse
-          If configuration files are updated on a host, restart the RKE2 Service. Run the command:
-          'systemctl restart rke2-server' for server hosts and
-          'systemctl restart rke2-agent' for agent hosts.
+        remediation: ""
         scored: true
 
     - id: "V-254556"
-      text: "Checks for V-254556"
+      text: ""
       checks:
       - id: V-254556
-        text: "The Kubernetes Controller Manager must have secure binding."
+        text: ""
         audit: "/bin/ps -fC $controllermanagerbin"
         tests:
           test_items:
@@ -369,46 +342,41 @@ data:
               op: eq
               value: "127.0.0.1"
             set: true
-        remediation: |
-          Edit the Controller Manager pod specification file /var/lib/rancher/rke2/agent/pod-manifests/kube-controller-manager.yaml on the RKE2 Control Plane to set the below parameter:
-          --bind-address argument=127.0.0.1
-
-          Once configuration file is updated, restart the RKE2 Server. Run the command:
-          systemctl restart rke2-server
+        remediation: ""
         scored: true
 
     - id: "V-254558"
-      text: "Checks for V-254558"
+      text: ""
       checks:
       - id: V-254558
-        text: "The Kubernetes API server must have the insecure port flag disabled."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
           - flag: --insecure-port
             set: false
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--insecure-port = 0\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
 
       #Need to fix
     - id: "V-254560"
-      text: "Checks for V-254560"
+      text: ""
       checks:
       - id: V-254560
-        text: "The Kubernetes API server must have the insecure bind address not set."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
           - flag: --insecure-bind-address
             set: false
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml on the Kubernetes RKE2 Control Plane. \n      #magic___^_^___line\nRemove the value for the --insecure-bind-address setting.\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
 
     - id: "V-254562"
-      text: "Checks for V-254562"
+      text: ""
       checks:
       - id: V-254562
-        text: "The Kubernetes API server must have anonymous authentication disabled."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
@@ -417,14 +385,14 @@ data:
               op: eq
               value: false
             set: true
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--anonymous-auth=false\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
 
     - id: "V-254563"
-      text: "Checks for V-254563"
+      text: ""
       checks:
       - id: V-254563
-        text: "All audit records must identify any containers associated with the event within Rancher RKE2."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
@@ -433,14 +401,14 @@ data:
               op: gte
               value: 30
             set: true
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file \n--audit-log-maxage=30\n      #magic___^_^___line\nnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
 
     - id: "V-254572"
-      text: "Checks for V-254572"
+      text: ""
       checks:
       - id: V-254572
-        text: "Rancher RKE2 must prohibit the installation of patches, updates, and instantiation of container images without explicit privileged status."
+        text: ""
         audit: "/bin/ps -fC $apiserverbin"
         tests:
           test_items:
@@ -449,14 +417,14 @@ data:
               op: eq
               value: "RBAC,Node"
             set: true
-        remediation: "Edit the /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml file. \n--authorization-mode=RBAC,Node\n        #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
         scored: true
 
     - id: "V-254573"
-      text: "Checks for V-254573"
+      text: ""
       checks:
       - id: V-254573
-        text: "Rancher RKE2 keystore must implement encryption to prevent unauthorized disclosure of information at rest within Rancher RKE2."
+        text: ""
         audit_config: "/bin/cat $kubernetesconf"
         tests:
           # bin_op: or
@@ -467,27 +435,20 @@ data:
                 value: true
             # - path: '{.secrets-encryption}'
             #   set: false
-        remediation: |
-          Enable secrets encryption.
-
-          Edit the RKE2 configuration file on all RKE2 servers, located at /etc/rancher/rke2/config.yaml, so that it does NOT contain:
-
-          secrets-encryption: false
-
-          or that secrets-encryption is set to true.
+        remediation: ""
         scored: true
   node.yaml: |-
     controls:
     version: "rke2-profile"
     id: 12
-    text: "Worker Node Security Configuration"
+    text: ""
     type: "node"
     groups: 
     - id: "V-254557"
-      text: "Checks for V-254557"
+      text: ""
       checks:
       - id: V-254557
-        text: "The Kubernetes Kubelet must have anonymous authentication disabled."
+        text: ""
         audit: "/bin/ps -fC $kubeletbin"
         tests:
           test_items:
@@ -496,18 +457,13 @@ data:
               op: eq
               value: false
             set: true
-        remediation: |
-          Edit the Kubernetes Kubelet file etc/rancher/rke2/config.yaml on the RKE2 Control Plane and set the following:
-          --anonymous-auth=false
-
-          Once configuration file is updated, restart the RKE2 Agent. Run the command:
-          systemctl restart rke2-agent
+        remediation: ""
         scored: true
     - id: "V-254559"
-      text: "Checks for V-254559"
+      text: ""
       checks:
       - id: V-254559
-        text: "The Kubernetes Kubelet must have the read-only port flag disabled."
+        text: ""
         audit: "/bin/ps -fC $kubeletbin"
         tests:
           test_items:
@@ -516,18 +472,13 @@ data:
               op: eq
               value: "0"
             set: true
-        remediation: |
-          Edit the Kubernetes Kubelet file etc/rancher/rke2/config.yaml on the RKE2 Control Plane and set the following:
-          --read-only-port=0
-
-          Once configuration file is updated, restart the RKE2 Agent. Run the command:
-          systemctl restart rke2-agent
+        remediation: ""
         scored: true
     - id: "V-254561"
-      text: "Checks for V-254561"
+      text: ""
       checks:
       - id: V-254561
-        text: "The Kubernetes kubelet must enable explicit authorization."
+        text: ""
         audit: "/bin/ps -fC $kubeletbin"
         tests:
           test_items:
@@ -536,63 +487,50 @@ data:
               op: eq
               value: "Webhook"
             set: true
-        remediation: |
-          Edit the Kubernetes Kubelet file etc/rancher/rke2/config.yaml on the RKE2 Control Plane and set the following:
-
-          --authorization-mode=Webhook
-
-          Once configuration file is updated, restart the RKE2 Agent. Run the command:
-          systemctl restart rke2-agent
+        remediation: ""
         scored: true
 
     # MANUAL
     - id: "V-254564"
-      text: "Checks for V-254564"
+      text: ""
       checks:
       - id: V-254564
-        text: " Configuration and authentication files for Rancher RKE2 must be protected."
+        text: ""
         type: "skip"
-        remediation: "File system permissions:\n1. Fix permissions of the files in /etc/rancher/rke2\ncd /etc/rancher/rke2\nchmod 0640 ./*\nchown root:root ./*\nls -l\n      #magic___^_^___line\n2. Fix permissions of the files in /var/lib/rancher/rke2\ncd /var/lib/rancher/rke2\nchown root:root ./*\nls -l \n      #magic___^_^___line\n3. Fix permissions of the files and directories in /var/lib/rancher/rke2/agent\ncd /var/lib/rancher/rke2/agent\nchown root:root ./*\nchmod 0700 pod-manifests\nchmod 0700 etc\nfind . -maxdepth 1 -type f -name \"*.kubeconfig\" -exec chmod 0640 {} \\;\nfind . -maxdepth 1 -type f -name \"*.crt\" -exec chmod 0600 {} \\;\nfind . -maxdepth 1 -type f -name \"*.key\" -exec chmod 0600 {} \\;\nls -l\n      #magic___^_^___line\n4. Fix permissions of the files in /var/lib/rancher/rke2/bin\ncd /var/lib/rancher/rke2/agent/bin\nchown root:root ./*\nchmod 0750 ./*\nls -l\n      #magic___^_^___line\n5. Fix permissions directory of /var/lib/rancher/rke2/data\ncd /var/lib/rancher/rke2/agent\nchown root:root data\nchmod 0750 data\nls -l\n      #magic___^_^___line\n6. Fix permissions of files in /var/lib/rancher/rke2/data\ncd /var/lib/rancher/rke2/data\nchown root:root ./*\nchmod 0640 ./*\nls -l\n      #magic___^_^___line\n7. Fix permissions in /var/lib/rancher/rke2/server\ncd /var/lib/rancher/rke2/server\nchown root:root ./*\nchmod 0700 cred\nchmod 0700 db\nchmod 0700 tls\nchmod 0750 manifests\nchmod 0750 logs\nchmod 0600 token\nls -l\n      #magic___^_^___line\nEdit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, to contain the following:\n      #magic___^_^___line\nwrite-kubeconfig-mode: \"0640\"\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
 
     # MANUAL
     - id: "V-254565"
-      text: "Checks for V-254565"
+      text: ""
       checks:
       - id: V-254565
-        text: " Rancher RKE2 must be configured with only essential configurations."
+        text: ""
         type: "skip"
-        remediation: "Disable unnecessary RKE2 components.\nEdit the RKE2 Server configuration file on all RKE2 Server hosts, located at /etc/rancher/rke2/config.yaml, so that it contains a \"disable\" flag for all unnecessary components. \n      #magic___^_^___line\nExample:\ndisable: rke2-canal\ndisable: rke2-coredns\ndisable: rke2-ingress-nginx\ndisable: rke2-kube-proxy\ndisable: rke2-metrics-server\n      #magic___^_^___line\nOnce configuration file is updated, restart the RKE2 Server. Run the command:\nsystemctl restart rke2-server\n"
+        remediation: ""
 
     # MANUAL
     - id: "V-254566"
-      text: "Checks for V-254566"
+      text: ""
       checks:
       - id: V-254566
-        text: " Rancher RKE2 runtime must enforce ports, protocols, and services that adhere to the PPSM CAL."
+        text: ""
         type: "skip"
-        remediation: |
-          Review the documentation covering how to set these PPSs and update this configuration file:
-
-          /etc/rancher/rke2/config.yaml
-
-          Once configuration file is updated, restart the RKE2 Server. Run the command:
-          systemctl restart rke2-server
+        remediation: ""
 
     # MANUAL
     - id: "V-254567"
-      text: "Checks for V-254567"
+      text: ""
       checks:
       - id: V-254567
-        text: "Rancher RKE2 must store only cryptographic representations of passwords."
+        text: ""
         type: "skip"
-        remediation: |
-          Any secrets stored as environment variables must be moved to the secret files with the proper protections and enforcements or placed within a password vault.
+        remediation: ""
 
     - id: "V-254568"
-      text: "Checks for V-254568"
+      text: ""
       checks:
       - id: V-254568
-        text: "Rancher RKE2 must terminate all network connections associated with a communications session at the end of the session, or as follows: for in-band management sessions (privileged sessions), the session must be terminated after five minutes of inactivity."
+        text: ""
         audit: "/bin/ps -fC $kubeletbin"
         tests:
           test_items:
@@ -601,19 +539,14 @@ data:
               op: eq
               value: "5m"
             set: true
-        remediation: |
-          Edit the Kubernetes Kubelet file etc/rancher/rke2/config.yaml on the RKE2 Control Plane and set the following:
-          --streaming-connection-idle-timeout=5m
-
-          Once configuration file is updated, restart the RKE2 Agent. Run the command:
-          systemctl restart rke2-agent
+        remediation: ""
         scored: true
 
     - id: "V-254569"
-      text: "Checks for V-254569"
+      text: ""
       checks:
       - id: V-254569
-        text: "Rancher RKE2 runtime must isolate security functions from nonsecurity functions."
+        text: ""
         audit: "/bin/ps -fC $kubeletbin"
         tests:
           test_items:
@@ -622,115 +555,41 @@ data:
               op: eq
               value: true
             set: true
-        remediation: |
-          Edit the Kubernetes Kubelet file etc/rancher/rke2/config.yaml on the RKE2 Control Plane and set the following:
-          --protect-kernel-defaults=true
-
-          Once configuration file is updated, restart the RKE2 Agent. Run the command:
-          systemctl restart rke2-agent
+        remediation: ""
         scored: true
 
     # MANUAL
     - id: "V-254570"
-      text: "Checks for V-254570"
+      text: ""
       checks:
       - id: V-254570
-        text: "Rancher RKE2 runtime must maintain separate execution domains for each container by assigning each container a separate address space to prevent unauthorized and unintended information transfer via shared system resources."
+        text: ""
         type: "skip"
-        remediation: |
-          System namespaces are reserved and isolated.
-
-          A resource cannot move to a new namespace; the resource must be deleted and recreated in the new namespace.
-
-          kubectl delete <resource_type> <resource_name>
-          kubectl create -f <resource.yaml> --namespace=<user_created_namespace>
+        remediation: ""
 
     # MANUAL
     - id: "V-254571"
-      text: "Checks for V-254571"
+      text: ""
       checks:
       - id: V-254571
-        text: "Rancher RKE2 must prevent nonprivileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures."
+        text: ""
         type: "skip"
-        remediation: |
-          From the Server node, save the following policy to a file called restricted.yml.
-          apiVersion: policy/v1beta1
-          kind: PodSecurityPolicy
-          metadata:
-            name: restricted
-            annotations:
-              seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
-              apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
-              seccomp.security.alpha.kubernetes.io/defaultProfileName:  'runtime/default'
-              apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
-          spec:
-            privileged: false
-            # Required to prevent escalations to root.
-            allowPrivilegeEscalation: false
-            # This is redundant with non-root + disallow privilege escalation,
-            # but we can provide it for defense in depth.
-            requiredDropCapabilities:
-              - ALL
-            # Allow core volume types.
-            volumes:
-              - 'configMap'
-              - 'emptyDir'
-              - 'projected'
-              - 'secret'
-              - 'downwardAPI'
-              # Assume that persistentVolumes set up by the cluster admin are safe to use.
-              - 'persistentVolumeClaim'
-            hostNetwork: false
-            hostIPC: false
-            hostPID: false
-            runAsUser:
-              # Require the container to run without root privileges.
-              rule: 'MustRunAsNonRoot'
-            seLinux:
-              # This policy assumes the nodes are using AppArmor rather than SELinux.
-              rule: 'RunAsAny'
-            supplementalGroups:
-              rule: 'MustRunAs'
-              ranges:
-                # Forbid adding the root group.
-              - min: 1
-                max: 65535
-            fsGroup:
-            rule: 'MustRunAs'
-            ranges:
-                # Forbid adding the root group.
-                - min: 1
-                  max: 65535
-            readOnlyRootFilesystem: false
-
-          To implement the policy, run the command:
-
-          kubectl create -f restricted.yml
+        remediation: ""
 
     # MANUAL
     - id: "V-254574"
-      text: "Checks for V-254574"
+      text: ""
       checks:
       - id: V-254574
-        text: "Rancher RKE2 must remove old components after updated versions have been installed."
+        text: ""
         type: "skip"
-        remediation: |
-          Remove any old pods that are using older images. On the RKE2 Control Plane, run the command:
-
-          kubectl delete pod podname
-          (Note: "podname" is the name of the pod to delete.)
-
-          Run the command:
-          systemctl restart rke2-server
+        remediation: ""
 
     # MANUAL
     - id: "V-254575"
-      text: "Checks for V-254575"
+      text: ""
       checks:
       - id: V-254575
-        text: "Rancher RKE2 registry must contain the latest images with most recent updates and execute within Rancher RKE2 runtime as authorized by IAVM, CTOs, DTMs, and STIGs."
+        text: ""
         type: "skip"
-        remediation: |
-          Upgrade RKE2 to the supported version. Institute and adhere to the policies and procedures to ensure that patches are consistently applied within the time allowed.
-
-
+        remediation: ""
