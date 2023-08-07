@@ -35,6 +35,12 @@ data:
           - /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml
         defaultconf: /etc/kubernetes/manifests/kube-apiserver.yaml
 
+      psa:
+        bins: []
+        confs:
+          - /etc/rancher/rke2/rke2-pss.yaml
+        defaultconf: /etc/rancher/rke2/rke2-pss.yaml
+
       scheduler:
         bins:
           - "kube-scheduler"
@@ -513,14 +519,44 @@ data:
         text: ""
         type: "skip"
         remediation: ""
-    # MANUAL
+
     - id: "V-254571"
       text: ""
       checks:
       - id: V-254571
         text: ""
-        type: "skip"
+        audit: "/bin/cat $psaconf"
+        tests:
+          bin_op: and
+          test_items:
+            - path: '{.plugins[0].defaults.enforce}'
+              compare:
+                op: eq
+                value: "restricted"
+            - path: '{.plugins[0].defaults.enforce-version}'
+              compare:
+                op: eq
+                value: "latest"
+              
+            - path: '{.plugins[0].defaults.audit}'
+              compare:
+                op: eq
+                value: "restricted"
+            - path: '{.plugins[0].defaults.audit-version}'
+              compare:
+                op: eq
+                value: "latest"
+
+            - path: '{.plugins[0].defaults.warn}'
+              compare:
+                op: eq
+                value: "restricted"
+            - path: '{.plugins[0].defaults.warn-version}'
+              compare:
+                op: eq
+                value: "latest"
         remediation: ""
+        scored: true
 
     - id: "V-254572"
       text: ""
