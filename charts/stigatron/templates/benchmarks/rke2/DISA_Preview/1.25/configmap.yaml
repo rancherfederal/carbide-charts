@@ -15,6 +15,7 @@ data:
         - flanneld
         - kubernetes
         - kubelet
+        - psa
 
       kubernetes:
         confs:
@@ -34,6 +35,12 @@ data:
           - /var/snap/kube-apiserver/current/args
           - /var/lib/rancher/rke2/agent/pod-manifests/kube-apiserver.yaml
         defaultconf: /etc/kubernetes/manifests/kube-apiserver.yaml
+
+      psa:
+        bins: []
+        confs:
+          - /etc/rancher/rke2/rke2-pss.yaml
+        defaultconf: /etc/rancher/rke2/rke2-pss.yaml
 
       scheduler:
         bins:
@@ -95,7 +102,7 @@ data:
         - kubernetes
 
       kubernetes:
-        defaultconf: "/etc/rancher/rke2/config.yaml"
+        defaultconf: "/etc/kubernetes/config"
 
       kubelet:
         cafile:
@@ -188,14 +195,9 @@ data:
         defaultconf: /etc/kubernetes/manifests/etcd.yaml
 
     version_mapping:
-      "v1.23.0+rke2r1": "rke2-stig-1.23-preview"
       "v1.25.0+rke2r1": "rke2-stig-1.25-preview"
 
     target_mapping:
-      "rke2-stig-1.23-preview":
-        - "node"
-        - "etcd"
-        - "master"
       "rke2-stig-1.25-preview":
         - "node"
         - "etcd"
@@ -210,12 +212,12 @@ data:
     groups: []
   master.yaml: |-
     controls:
-    version: "rke2-profile"
+    version: "rancher-profile"
     id: 1
     text: ""
     type: "master"
     groups:
-    - id: "V-254553"
+    - id: V-254553
       text: ""
       checks:
       - id: V-254553-TLS-apiserver
@@ -306,7 +308,6 @@ data:
             set: true
         remediation: ""
         scored: true
-
     - id: "V-254555"
       text: ""
       checks:
@@ -328,7 +329,6 @@ data:
             set: true
         remediation: ""
         scored: true
-
     - id: "V-254556"
       text: ""
       checks:
@@ -344,106 +344,6 @@ data:
             set: true
         remediation: ""
         scored: true
-
-    - id: "V-254558"
-      text: ""
-      checks:
-      - id: V-254558
-        text: ""
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --insecure-port
-            set: false
-        remediation: ""
-        scored: true
-
-      #Need to fix
-    - id: "V-254560"
-      text: ""
-      checks:
-      - id: V-254560
-        text: ""
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --insecure-bind-address
-            set: false
-        remediation: ""
-        scored: true
-
-    - id: "V-254562"
-      text: ""
-      checks:
-      - id: V-254562
-        text: ""
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --anonymous-auth
-            compare:
-              op: eq
-              value: false
-            set: true
-        remediation: ""
-        scored: true
-
-    - id: "V-254563"
-      text: ""
-      checks:
-      - id: V-254563
-        text: ""
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --audit-log-maxage
-            compare:
-              op: gte
-              value: 30
-            set: true
-        remediation: ""
-        scored: true
-
-    - id: "V-254572"
-      text: ""
-      checks:
-      - id: V-254572
-        text: ""
-        audit: "/bin/ps -fC $apiserverbin"
-        tests:
-          test_items:
-          - flag: --authorization-mode
-            compare:
-              op: eq
-              value: "RBAC,Node"
-            set: true
-        remediation: ""
-        scored: true
-
-    - id: "V-254573"
-      text: ""
-      checks:
-      - id: V-254573
-        text: ""
-        audit_config: "/bin/cat $kubernetesconf"
-        tests:
-          # bin_op: or
-          test_items:
-            - path: '{.secrets-encryption}'
-              compare:
-                op: eq
-                value: true
-            # - path: '{.secrets-encryption}'
-            #   set: false
-        remediation: ""
-        scored: true
-  node.yaml: |-
-    controls:
-    version: "rke2-profile"
-    id: 12
-    text: ""
-    type: "node"
-    groups: 
     - id: "V-254557"
       text: ""
       checks:
@@ -457,6 +357,18 @@ data:
               op: eq
               value: false
             set: true
+        remediation: ""
+        scored: true
+    - id: "V-254558"
+      text: ""
+      checks:
+      - id: V-254558
+        text: ""
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --insecure-port
+            set: false
         remediation: ""
         scored: true
     - id: "V-254559"
@@ -474,6 +386,19 @@ data:
             set: true
         remediation: ""
         scored: true
+      #Need to fix
+    - id: "V-254560"
+      text: ""
+      checks:
+      - id: V-254560
+        text: ""
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --insecure-bind-address
+            set: false
+        remediation: ""
+        scored: true
     - id: "V-254561"
       text: ""
       checks:
@@ -486,6 +411,36 @@ data:
             compare:
               op: eq
               value: "Webhook"
+            set: true
+        remediation: ""
+        scored: true
+    - id: "V-254562"
+      text: ""
+      checks:
+      - id: V-254562
+        text: ""
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --anonymous-auth
+            compare:
+              op: eq
+              value: false
+            set: true
+        remediation: ""
+        scored: true
+    - id: "V-254563"
+      text: ""
+      checks:
+      - id: V-254563
+        text: ""
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --audit-log-maxage
+            compare:
+              op: gte
+              value: 30
             set: true
         remediation: ""
         scored: true
@@ -525,7 +480,6 @@ data:
         text: ""
         type: "skip"
         remediation: ""
-
     - id: "V-254568"
       text: ""
       checks:
@@ -567,14 +521,77 @@ data:
         type: "skip"
         remediation: ""
 
-    # MANUAL
     - id: "V-254571"
       text: ""
       checks:
       - id: V-254571
         text: ""
-        type: "skip"
+        audit: "/bin/cat $psaconf"
+        tests:
+          bin_op: and
+          test_items:
+            - path: '{.plugins[0].defaults.enforce}'
+              compare:
+                op: eq
+                value: "restricted"
+            - path: '{.plugins[0].defaults.enforce-version}'
+              compare:
+                op: eq
+                value: "latest"
+              
+            - path: '{.plugins[0].defaults.audit}'
+              compare:
+                op: eq
+                value: "restricted"
+            - path: '{.plugins[0].defaults.audit-version}'
+              compare:
+                op: eq
+                value: "latest"
+
+            - path: '{.plugins[0].defaults.warn}'
+              compare:
+                op: eq
+                value: "restricted"
+            - path: '{.plugins[0].defaults.warn-version}'
+              compare:
+                op: eq
+                value: "latest"
         remediation: ""
+        scored: true
+
+    - id: "V-254572"
+      text: ""
+      checks:
+      - id: V-254572
+        text: ""
+        audit: "/bin/ps -fC $apiserverbin"
+        tests:
+          test_items:
+          - flag: --authorization-mode
+            compare:
+              op: eq
+              value: "RBAC,Node"
+            set: true
+        remediation: ""
+        scored: true
+
+    - id: "V-254573"
+      text: ""
+      checks:
+      - id: V-254573
+        text: ""
+        audit_config: "/bin/cat $kubernetesconf"
+        tests:
+          bin_op: or
+          test_items:
+            - path: '{.secrets-encryption}'
+              compare:
+                op: eq
+                value: true
+            - path: '{.secrets-encryption}'
+              set: false
+        remediation: ""
+        scored: true
 
     # MANUAL
     - id: "V-254574"
@@ -593,3 +610,11 @@ data:
         text: ""
         type: "skip"
         remediation: ""
+  node.yaml: |-
+    ---
+    controls:
+    version: "rke2-profile"
+    id: 12
+    text: ""
+    type: "node"
+    groups: []

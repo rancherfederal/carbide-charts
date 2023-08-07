@@ -15,6 +15,7 @@ data:
         - flanneld
         - kubernetes
         - kubelet
+        - psa
 
       kubernetes:
         confs:

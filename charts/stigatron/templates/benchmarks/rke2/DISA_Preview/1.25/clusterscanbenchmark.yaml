@@ -8,4 +8,5 @@ spec:
   clusterProvider: rke2
   customBenchmarkConfigMapName: rke2-stig-1.25-preview
   customBenchmarkConfigMapNamespace: cis-operator-system
-  minKubernetesVersion: 1.25.0
+  minKubernetesVersion: "1.25.0"
+  maxKubernetesVersion: "1.25.30"
