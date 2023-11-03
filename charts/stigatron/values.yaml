@@ -53,6 +53,13 @@ heimdall2:
       # size: "100Mi"
       # storageClassName: "default"
       # accessMode: "ReadWriteOnce"
+nats:
+  config:
+    jetstream:
+      enabled: true
+      fileStore:
+        pvc:
+          enabled: false
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
