@@ -194,7 +194,7 @@ spec:
           readOnly: true
 {{- end }}
 {{- if .Values.carbide.whitelabel.enabled }}
-        - mountPath: /usr/share/rancher/ui-dashboard/dashboard/_nuxt/shell/assets/images/pl
+        - mountPath: /usr/share/rancher/ui-dashboard/dashboard/img
           name: work-dir
 {{- else if and .Values.customLogos.enabled (or (eq .Values.customLogos.volumeKind "persistentVolumeClaim") (and (eq .Values.customLogos.volumeKind "configMap") (.Values.customLogos.volumeName))) }}
         # Mount rancher custom-logos volume
