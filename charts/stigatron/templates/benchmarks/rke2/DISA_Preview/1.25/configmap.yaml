@@ -530,29 +530,29 @@ data:
         tests:
           bin_op: and
           test_items:
-            - path: '{.plugins[0].defaults.enforce}'
+            - path: '{.plugins[0].configuration.defaults.enforce}'
               compare:
                 op: eq
                 value: "restricted"
-            - path: '{.plugins[0].defaults.enforce-version}'
+            - path: '{.plugins[0].configuration.defaults.enforce-version}'
               compare:
                 op: eq
                 value: "latest"
               
-            - path: '{.plugins[0].defaults.audit}'
+            - path: '{.plugins[0].configuration.defaults.audit}'
               compare:
                 op: eq
                 value: "restricted"
-            - path: '{.plugins[0].defaults.audit-version}'
+            - path: '{.plugins[0].configuration.defaults.audit-version}'
               compare:
                 op: eq
                 value: "latest"
 
-            - path: '{.plugins[0].defaults.warn}'
+            - path: '{.plugins[0].configuration.defaults.warn}'
               compare:
                 op: eq
                 value: "restricted"
-            - path: '{.plugins[0].defaults.warn-version}'
+            - path: '{.plugins[0].configuration.defaults.warn-version}'
               compare:
                 op: eq
                 value: "latest"
