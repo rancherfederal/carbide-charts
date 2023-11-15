@@ -4,13 +4,11 @@
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
-
 defaults:
   containerPort: 8080
   uid: 65532
   image:
     tag: "0.1.1"
-
 docs:
   kubernetes:
     enabled: true
@@ -72,3 +70,6 @@ docs:
     image:
       name: "carbide/rancher-desktop-docs"
       # tag: "0.1.1"
+image:
+  repository: carbide/k3s-docs
+  tag: 0.1.2
