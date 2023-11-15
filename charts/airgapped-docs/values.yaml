@@ -70,6 +70,3 @@ docs:
     image:
       name: "carbide/rancher-desktop-docs"
       # tag: "0.1.1"
-image:
-  repository: carbide/k3s-docs
-  tag: 0.1.2
