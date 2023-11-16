@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: rke2-stig-1.25-preview
+  name: rke2-stig-1.26
   namespace: cis-operator-system
 data:
   config.yaml: |-
@@ -195,10 +195,10 @@ data:
         defaultconf: /etc/kubernetes/manifests/etcd.yaml
 
     version_mapping:
-      "v1.25.0+rke2r1": "rke2-stig-1.25-preview"
+      "v1.26.0+rke2r1": "rke2-stig-1.26"
 
     target_mapping:
-      "rke2-stig-1.25-preview":
+      "rke2-stig-1.26":
         - "node"
         - "etcd"
         - "master"
@@ -538,7 +538,7 @@ data:
               compare:
                 op: eq
                 value: "latest"
-        
+              
             - path: '{.plugins[0].configuration.defaults.audit}'
               compare:
                 op: eq

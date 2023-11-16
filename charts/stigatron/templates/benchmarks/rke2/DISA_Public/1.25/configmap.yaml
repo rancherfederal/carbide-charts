@@ -526,33 +526,33 @@ data:
       checks:
       - id: V-254571
         text: ""
-        audit: "/bin/cat $psaconf"
+        audit_config: "/bin/cat $psaconf"
         tests:
           bin_op: and
           test_items:
-            - path: '{.plugins[0].defaults.enforce}'
+            - path: '{.plugins[*].configuration.defaults.enforce}'
               compare:
                 op: eq
                 value: "restricted"
-            - path: '{.plugins[0].defaults.enforce-version}'
+            - path: '{.plugins[*].configuration.defaults.enforce-version}'
               compare:
                 op: eq
                 value: "latest"
               
-            - path: '{.plugins[0].defaults.audit}'
+            - path: '{.plugins[*].configuration.defaults.audit}'
               compare:
                 op: eq
                 value: "restricted"
-            - path: '{.plugins[0].defaults.audit-version}'
+            - path: '{.plugins[*].configuration.defaults.audit-version}'
               compare:
                 op: eq
                 value: "latest"
 
-            - path: '{.plugins[0].defaults.warn}'
+            - path: '{.plugins[*].configuration.defaults.warn}'
               compare:
                 op: eq
                 value: "restricted"
-            - path: '{.plugins[0].defaults.warn-version}'
+            - path: '{.plugins[*].configuration.defaults.warn-version}'
               compare:
                 op: eq
                 value: "latest"
