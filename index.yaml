@@ -3,6 +3,17 @@ entries:
   airgapped-docs:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2023-11-16T21:44:18.185669553Z"
+    description: Rancher Government Airgapped Docs
+    digest: 799a14bc50d7ba6f021cad1858ca5de6c0aacef82ed938f75125bd8187a0d004
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: airgapped-docs
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/airgapped-docs-0.1.45/airgapped-docs-0.1.45.tgz
+    version: 0.1.45
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2023-03-30T13:31:44.424227035Z"
     description: Rancher Government Airgapped Docs
     digest: 9dab10d409b364f720a09eee99a01936c8082ac8ff5c124f9d2f075c936d50cb
@@ -579,6 +590,25 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-v2.7.0/rancher-v2.7.0.tgz
     version: 2.7.0
   stigatron:
+  - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2023-11-16T21:44:18.352205556Z"
+    dependencies:
+    - alias: heimdall2
+      name: heimdall2
+      repository: https://rancherfederal.github.io/carbide-charts
+      version: 0.1.41
+    - alias: nats
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.4
+    description: Rancher Government Stigatron Extension
+    digest: 9d40c1aa5e181ab7aa1a36b6d42e0cb9ef30ba26d6067d24701a359c1180418b
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: stigatron
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-0.2.4/stigatron-0.2.4.tgz
+    version: 0.2.4
   - apiVersion: v2
     appVersion: 0.2.0
     created: "2023-11-07T15:10:45.374517456Z"
@@ -1457,4 +1487,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-07T15:10:45.562519066Z"
+generated: "2023-11-16T21:44:18.35263675Z"
