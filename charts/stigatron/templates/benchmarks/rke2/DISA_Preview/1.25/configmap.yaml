@@ -538,7 +538,7 @@ data:
               compare:
                 op: eq
                 value: "latest"
-              
+        
             - path: '{.plugins[0].configuration.defaults.audit}'
               compare:
                 op: eq
