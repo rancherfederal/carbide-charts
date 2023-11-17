@@ -70,3 +70,8 @@ docs:
     image:
       name: "carbide/rancher-desktop-docs"
       # tag: "0.1.2"
+  hauler:
+    enabled: true
+    image:
+      name: "carbide/hauler-docs"
+      # tag: "0.1.2"
