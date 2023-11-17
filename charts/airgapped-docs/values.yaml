@@ -8,65 +8,65 @@ defaults:
   containerPort: 8080
   uid: 65532
   image:
-    tag: "0.1.1"
+    tag: "0.1.2"
 docs:
   kubernetes:
     enabled: true
     image:
       name: "carbide/kubernetes-cncf-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   rancher:
     enabled: true
     image:
       name: "carbide/rancher-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   rke2:
     enabled: true
     image:
       name: "carbide/rke2-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   k3s:
     enabled: true
     image:
       name: "carbide/k3s-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   neuvector:
     enabled: true
     image:
       name: "carbide/neuvector-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   fleet:
     enabled: true
     image:
       name: "carbide/fleet-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   longhorn:
     enabled: true
     image:
       name: "carbide/longhorn-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   kubewarden:
     enabled: true
     image:
       name: "carbide/kubewarden-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   carbide:
     enabled: true
     image:
       name: "carbide/carbide-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   elemental:
     enabled: true
     image:
       name: "carbide/elemental-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   harvester:
     enabled: true
     image:
       name: "carbide/harvester-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
   rancherdesktop:
     enabled: true
     image:
       name: "carbide/rancher-desktop-docs"
-      # tag: "0.1.1"
+      # tag: "0.1.2"
