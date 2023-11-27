@@ -58,8 +58,19 @@ nats:
     jetstream:
       enabled: true
       fileStore:
+        enabled: true
+        dir: /tmp/jetstream
         pvc:
           enabled: false
+  podTemplate:
+    configChecksumAnnotation: true
+    merge:
+      spec:
+        securityContext:
+          runAsNonRoot: true
+          fsGroup: 65534
+          runAsUser: 65534
+          runAsGroup: 65534
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
