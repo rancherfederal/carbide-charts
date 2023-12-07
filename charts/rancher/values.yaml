@@ -155,7 +155,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.1.21
+    tag: v0.1.22
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -190,4 +190,4 @@ carbide:
   whitelabel:
     enabled: true
     image: carbide/carbide-whitelabel
-    tag: "0.1.1"
+    tag: "0.1.2"
