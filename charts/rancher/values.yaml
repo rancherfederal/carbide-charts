@@ -19,17 +19,18 @@ auditLog:
   maxBackup: 1
   maxSize: 100
 
-  # Image for collecting rancher audit logs.
-  # Important: update pkg/image/export/resolve.go when this default image is changed, so that it's reflected accordingly in rancher-images.txt generated for air-gapped setups.
-  image:
-    repository: "rancher/mirrored-bci-micro"
-    tag: 15.4.14.3
-    # Override imagePullPolicy image
-    # options: Always, Never, IfNotPresent
-    pullPolicy: "IfNotPresent"
-
 # As of Rancher v2.5.0 this flag is deprecated and must be set to 'true' in order for Rancher to start
 addLocal: "true"
+
+# Image for collecting rancher audit logs.
+# Important: update pkg/image/export/main.go when this default image is changed, so that it's reflected accordingly in rancher-images.txt generated for air-gapped setups.
+busyboxImage: rancher/mirrored-library-busybox
+busyboxImageTag: 1.34.1
+
+# Override imagePullPolicy for busybox images
+# options: Always, Never, IfNotPresent
+# Defaults to IfNotPresent
+# busyboxImagePullPolicy: <pullPolicy>
 
 # Add debug flag to Rancher server
 debug: false
@@ -60,8 +61,6 @@ ingress:
   includeDefaultExtraAnnotations: true
   extraAnnotations: {}
   ingressClassName: ""
-  # backend port number
-  servicePort: 80
 
   # configurationSnippet - Add additional Nginx configuration. This example statically sets a header on the ingress.
   # configurationSnippet: |
@@ -71,12 +70,6 @@ ingress:
     # options: rancher, letsEncrypt, secret
     source: rancher
     secretName: tls-rancher-ingress
-
-### service ###
-# Override to use NodePort or LoadBalancer service type - default is ClusterIP
-service:
-  type: ""
-  annotations: {}
 
 ### LetsEncrypt config ###
 # ProTip: The production environment only allows you to register a name 5 times a week.
@@ -111,9 +104,6 @@ rancherImage: rancher/rancher
 # Number of Rancher server replicas. Setting to negative number will dynamically between 0 and the abs(replicas) based on available nodes.
 # of available nodes in the cluster
 replicas: 3
-
-# Set priorityClassName to avoid eviction
-priorityClassName: rancher-critical
 
 # Set pod resource requests/limits for Rancher.
 resources: {}
@@ -155,7 +145,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.1.22
+    tag: v0.1.19
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -174,20 +164,9 @@ livenessProbe:
 readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 30
-
-global:
-  cattle:
-    psp:
-      # will default to true on 1.24 and below, and false for 1.25 and above
-      # can be changed manually to true or false to bypass version checks and force that option
-      enabled: ""
-
-# helm values to use when installing the rancher-webhook chart.
-# helm values set here will override all other global values used when installing the webhook such as priorityClassName and systemRegistry settings.
-webhook: ""
  
 carbide:
   whitelabel:
     enabled: true
     image: carbide/carbide-whitelabel
-    tag: "0.1.2"
+    tag: "0.1.0"
