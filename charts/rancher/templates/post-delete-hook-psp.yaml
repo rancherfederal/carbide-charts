@@ -1,3 +1,4 @@
+{{- if eq (include "rancher.chart_psp_enabled" . ) "true" -}}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -30,3 +31,4 @@ spec:
   volumes:
     - 'secret'
     - 'configMap'
+{{- end }}
