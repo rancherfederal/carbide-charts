@@ -8,70 +8,76 @@ defaults:
   containerPort: 8080
   uid: 65532
   image:
-    tag: "0.1.2"
+    tag: "0.1.3"
 docs:
   kubernetes:
     enabled: true
     image:
       name: "carbide/kubernetes-cncf-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   rancher:
     enabled: true
     image:
       name: "carbide/rancher-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   rke2:
     enabled: true
     image:
       name: "carbide/rke2-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   k3s:
     enabled: true
     image:
       name: "carbide/k3s-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   neuvector:
     enabled: true
     image:
       name: "carbide/neuvector-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   fleet:
     enabled: true
     image:
       name: "carbide/fleet-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   longhorn:
     enabled: true
     image:
       name: "carbide/longhorn-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   kubewarden:
     enabled: true
     image:
       name: "carbide/kubewarden-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   carbide:
     enabled: true
     image:
       name: "carbide/carbide-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   elemental:
     enabled: true
     image:
       name: "carbide/elemental-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   harvester:
     enabled: true
     image:
       name: "carbide/harvester-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   rancherdesktop:
     enabled: true
     image:
       name: "carbide/rancher-desktop-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
   hauler:
     enabled: true
     image:
       name: "carbide/hauler-docs"
-      # tag: "0.1.2"
+      # tag: "0.1.x"
+  neuvector-vdb-explorer:
+    enabled: true
+    image:
+      name: "neuvector/vdb-explorer"
+      tag: "latest"
+    containerPort: 80
