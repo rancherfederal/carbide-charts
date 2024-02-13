@@ -3,5 +3,5 @@ name: airgapped-docs
 description: Rancher Government Airgapped Docs
 icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
 type: application
-version: 0.1.47
-appVersion: "0.1.2"
+version: 0.1.48
+appVersion: "0.1.3"
