@@ -4,7 +4,7 @@ Airgapped-Docs Chart
 
 | Type | Chart Version | App Version |
 | ---- | ------------- | ----------- |
-| application | `0.1.46` | `0.1.2` |
+| application | `0.1.49` | `0.1.4` |
 
 ## Installing the Chart
 ```bash
