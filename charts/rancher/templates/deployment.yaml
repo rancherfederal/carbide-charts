@@ -105,6 +105,10 @@ spec:
           value: {{ .Release.Namespace }}
         - name: CATTLE_PEER_SERVICE
           value: {{ template "rancher.fullname" . }}
+{{- if .Values.carbide.whitelabel.enabled }}
+        - name: CATTLE_BASE_UI_BRAND
+          value: "rancher"
+{{- end }}
 {{- if .Values.features }}
         - name: CATTLE_FEATURES
           value: "{{ .Values.features }}"
