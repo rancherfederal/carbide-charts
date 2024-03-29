@@ -190,4 +190,4 @@ carbide:
   whitelabel:
     enabled: true
     image: carbide/carbide-whitelabel
-    tag: "0.1.1"
+    tag: "0.1.2"
