@@ -6,7 +6,7 @@
 NAME                            CHART VERSION   APP VERSION     DESCRIPTION
 carbide-charts/airgapped-docs   0.1.50          0.1.5           Rancher Government Airgapped Docs
 carbide-charts/heimdall2        0.1.45          0.1.1           Rancher Government Heimdall2 Tool
-carbide-charts/rancher          2.8.2           v2.8.2          Install Rancher Server to manage Kubernetes...
+carbide-charts/rancher          2.8.5           v2.8.5          Install Rancher Server to manage Kubernetes...
 carbide-charts/stigatron        0.2.5           0.2.2           Rancher Government Stigatron Extension
 carbide-charts/stigatron-ui     0.2.3           0.2.0           Rancher Government Stigatron UI Extension
 ```
