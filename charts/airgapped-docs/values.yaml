@@ -8,7 +8,7 @@ defaults:
   containerPort: 8080
   uid: 65532
   image:
-    tag: "0.1.5"
+    tag: "0.1.6"
 docs:
   kubernetes:
     enabled: true
