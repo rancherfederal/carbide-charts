@@ -65,7 +65,7 @@ ingress:
   includeDefaultExtraAnnotations: true
   extraAnnotations: {}
   ingressClassName: ""
-  # Certain ingress controllers will will require the pathType or path to be set to a different value.
+  # Certain ingress controllers will require the pathType or path to be set to a different value.
   pathType: ImplementationSpecific
   path: "/"
   # backend port number
@@ -163,7 +163,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.1.26
+    tag: v0.2.1
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -189,13 +189,6 @@ readinessProbe:
   timeoutSeconds: 5
   periodSeconds: 30
   failureThreshold: 5
-
-global:
-  cattle:
-    psp:
-      # will default to true on 1.24 and below, and false for 1.25 and above
-      # can be changed manually to true or false to bypass version checks and force that option
-      enabled: ""
 
 # helm values to use when installing the rancher-webhook chart.
 # helm values set here will override all other global values used when installing the webhook such as priorityClassName and systemRegistry settings.
