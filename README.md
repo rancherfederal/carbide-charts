@@ -29,7 +29,7 @@ helm install <release-name> carbide-charts/<chart>
 
 If you would like to do add the Carbide Helm Charts to the Rancher Manager Chart Catalog, so you are able to use the user interface to install them, please follow the steps in the [Rancher Manager Docs](https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/helm-charts-in-rancher).
 
-## How to Use (Airgaped Environments)
+## How to Use (Airgapped Environments)
 
 ### For Helm Chart Repositories
 

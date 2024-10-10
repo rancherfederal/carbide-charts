@@ -22,7 +22,7 @@ spec:
   toService:
     name: rancher-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.elemental.enabled }}
@@ -49,7 +49,7 @@ spec:
   toService:
     name: elemental-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.longhorn.enabled }}
@@ -76,7 +76,7 @@ spec:
   toService:
     name: longhorn-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.k3s.enabled }}
@@ -103,7 +103,7 @@ spec:
   toService:
     name: k3s-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.rke2.enabled }}
@@ -130,7 +130,7 @@ spec:
   toService:
     name: rke2-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.carbide.enabled }}
@@ -157,7 +157,7 @@ spec:
   toService:
     name: carbide-offline-docs
     namespace: {{ .Release.Namespace }}
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.kubewarden.enabled }}
@@ -185,7 +185,7 @@ spec:
   toService:
     name: kubewarden-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 
 {{- end }}
@@ -207,7 +207,7 @@ spec:
   toService:
     name: neuvector-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.fleet.enabled }}
@@ -227,7 +227,7 @@ spec:
   toService:
     name: fleet-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 
 {{- end }}
@@ -248,7 +248,7 @@ spec:
   toService:
     name: harvester-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.kubernetes.enabled }}
@@ -269,7 +269,7 @@ spec:
   toService:
     name: kubernetes-offline-docs
     namespace:  "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.rancherdesktop.enabled }}
@@ -290,7 +290,7 @@ spec:
   toService:
     name: rancherdesktop-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.hauler.enabled }}
@@ -311,7 +311,7 @@ spec:
   toService:
     name: hauler-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
 {{- if .Values.docs.hauler.enabled }}
@@ -332,6 +332,6 @@ spec:
   toService:
     name: neuvector-vdb-explorer-offline-docs
     namespace: "{{ .Release.Namespace }}"
-    port: "80"
+    port: "8080"
     scheme: http
 {{- end }}
