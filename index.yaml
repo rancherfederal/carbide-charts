@@ -3,6 +3,17 @@ entries:
   airgapped-docs:
   - apiVersion: v2
     appVersion: 0.1.7
+    created: "2024-10-24T17:56:22.024235311Z"
+    description: Rancher Government Airgapped Docs
+    digest: 52d10f68b60d75db7b64a4f08008d04121c5743ef84d489530b274e98c1a03dd
+    icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
+    name: airgapped-docs
+    type: application
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/airgapped-docs-0.1.53/airgapped-docs-0.1.53.tgz
+    version: 0.1.53
+  - apiVersion: v2
+    appVersion: 0.1.7
     created: "2024-10-15T00:13:04.444309528Z"
     description: Rancher Government Airgapped Docs
     digest: 445f147d34d19a1feaef7dd8e9092406ac8538ee812a411c9b6f1de910590b01
@@ -1984,4 +1995,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-24T17:51:35.651078392Z"
+generated: "2024-10-24T17:56:22.024501412Z"
