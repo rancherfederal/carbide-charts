@@ -4,6 +4,11 @@
 global:
   cattle:
     systemDefaultRegistry: "rgcrprod.azurecr.us"
+  ipv4:
+    enabled: true
+  ipv6:
+    enabled: true
+
 defaults:
   containerPort: 8080
   uid: 65532
@@ -17,16 +22,19 @@ docs:
       # tag: "0.1.x"
   rancher:
     enabled: true
+    useHtmlBase: true
     image:
       name: "carbide/rancher-docs"
       # tag: "0.1.x"
   rke2:
     enabled: true
+    useHtmlBase: true
     image:
       name: "carbide/rke2-docs"
       # tag: "0.1.x"
   k3s:
     enabled: true
+    useHtmlBase: true
     image:
       name: "carbide/k3s-docs"
       # tag: "0.1.x"
@@ -37,6 +45,7 @@ docs:
       # tag: "0.1.x"
   fleet:
     enabled: true
+    useHtmlBase: true
     image:
       name: "carbide/fleet-docs"
       # tag: "0.1.x"
@@ -62,6 +71,7 @@ docs:
       # tag: "0.1.x"
   harvester:
     enabled: true
+    useHtmlBase: true
     image:
       name: "carbide/harvester-docs"
       # tag: "0.1.x"

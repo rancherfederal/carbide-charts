@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    worker_processes  auto;
+
+    error_log /dev/stdout debug;
+    pid        /run/nginx/nginx.pid;
+
+    events {
+        worker_connections  1024;
+    }
+
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log /dev/stdout;
+
+        sendfile        on;
+
+        keepalive_timeout  65;
+
+        server {
+            {{- if .Values.global.ipv4.enabled }}
+            listen       8080;
+            {{- end }}
+            {{- if .Values.global.ipv6.enabled }}
+            listen  [::]:8080;
+            {{- end }}
+            server_name  localhost;
+
+            port_in_redirect off;
+            root   /var/lib/nginx/html;
+
+            location / {
+                try_files $uri $uri/ @htmlext;
+            }
+
+            location ~ \.html$ {
+                try_files $uri =404;
+            }   
+
+            location @htmlext {
+                rewrite ^(.*)$ $1.html last;
+            }
+        }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html-config
+data:
+  nginx.conf: |
+    worker_processes  auto;
+
+    error_log /dev/stdout info;
+    pid        /run/nginx/nginx.pid;
+
+
+    events {
+        worker_connections  1024;
+    }
+
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log /dev/stdout;
+
+        sendfile        on;
+
+        keepalive_timeout  65;
+
+        server {
+            {{- if .Values.global.ipv4.enabled }}
+            listen       8080;
+            {{- end }}
+            {{- if .Values.global.ipv6.enabled }}
+            listen  [::]:8080;
+            {{- end }}
+            server_name  localhost;
+
+            port_in_redirect off;
+            root   /var/lib/nginx/html;
+            rewrite ^/(.*)/$ /$1.html permanent;
+
+            location / {
+                rewrite ^/(.*)/$ /$1 permanent;
+                try_files $uri $uri/ @htmlext;
+            }
+
+            location ~ \.html$ {
+                try_files $uri =404;
+            }   
+
+            location @htmlext {
+                rewrite ^(.*)$ $1.html last;
+            }
+        }
+    }
