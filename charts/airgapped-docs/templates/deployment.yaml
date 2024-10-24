@@ -27,9 +27,27 @@ spec:
           imagePullPolicy: Always
           securityContext:
             runAsUser: {{ $value.uid | default .Values.defaults.uid }}
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
           ports:
             - name: http
               containerPort: {{ $value.containerPort | default .Values.defaults.containerPort }}
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+      {{- if $value.useHtmlBase }}
+          name: nginx-html-config
+      {{- else }}
+          name: nginx-config
+      {{- end }}
 {{- end }}
 {{- end -}}
 {{- end }}
