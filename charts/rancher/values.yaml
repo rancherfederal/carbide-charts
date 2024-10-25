@@ -6,11 +6,11 @@ additionalTrustedCAs: false
 antiAffinity: preferred
 topologyKey: kubernetes.io/hostname
 
-# Audit Logs https://rancher.com/docs/rancher/v2.x/en/installation/api-auditing/
+# Audit Logs
+# Source: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log
 # The audit log is piped to the console of the rancher-audit-log container in the rancher pod.
-# https://rancher.com/docs/rancher/v2.x/en/installation/api-auditing/
-# destination stream to sidecar container console or hostPath volume
-# level: Verbosity of logs, 0 to 3. 0 is off 3 is a lot.
+# level: Verbosity of logs, 0 to 3. 0 is off, 3 most verbose.
+# Docs: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log#audit-log-levels
 auditLog:
   destination: sidecar
   hostPath: /var/log/rancher/audit/
@@ -23,7 +23,7 @@ auditLog:
   # Important: update pkg/image/export/resolve.go when this default image is changed, so that it's reflected accordingly in rancher-images.txt generated for air-gapped setups.
   image:
     repository: "rancher/mirrored-bci-micro"
-    tag: 15.4.14.3
+    tag: 15.6.24.2
     # Override imagePullPolicy image
     # options: Always, Never, IfNotPresent
     pullPolicy: "IfNotPresent"
@@ -163,7 +163,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.1.26
+    tag: v0.2.2
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -189,13 +189,6 @@ readinessProbe:
   timeoutSeconds: 5
   periodSeconds: 30
   failureThreshold: 5
-
-global:
-   cattle:
-     psp:
-       # will default to true on 1.24 and below, and false for 1.25 and above
-       # can be changed manually to true or false to bypass version checks and force that option
-       enabled: ""
 
 # helm values to use when installing the rancher-webhook chart.
 # helm values set here will override all other global values used when installing the webhook such as priorityClassName and systemRegistry settings.
