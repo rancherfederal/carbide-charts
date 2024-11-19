@@ -6,11 +6,11 @@ additionalTrustedCAs: false
 antiAffinity: preferred
 topologyKey: kubernetes.io/hostname
 
-# Audit Logs
-# Source: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log
+# Audit Logs https://rancher.com/docs/rancher/v2.x/en/installation/api-auditing/
 # The audit log is piped to the console of the rancher-audit-log container in the rancher pod.
-# level: Verbosity of logs, 0 to 3. 0 is off, 3 most verbose.
-# Docs: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log#audit-log-levels
+# https://rancher.com/docs/rancher/v2.x/en/installation/api-auditing/
+# destination stream to sidecar container console or hostPath volume
+# level: Verbosity of logs, 0 to 3. 0 is off 3 is a lot.
 auditLog:
   destination: sidecar
   hostPath: /var/log/rancher/audit/
@@ -23,7 +23,7 @@ auditLog:
   # Important: update pkg/image/export/resolve.go when this default image is changed, so that it's reflected accordingly in rancher-images.txt generated for air-gapped setups.
   image:
     repository: "rancher/mirrored-bci-micro"
-    tag: 15.6.24.2
+    tag: 15.4.14.3
     # Override imagePullPolicy image
     # options: Always, Never, IfNotPresent
     pullPolicy: "IfNotPresent"
@@ -36,11 +36,6 @@ debug: false
 
 # When starting Rancher for the first time, bootstrap the admin as restricted-admin
 restrictedAdmin: false
-
-# Control how the Rancher agents validate TLS connections
-# Valid options: strict, or system-store
-# Note, for new installations empty will default to strict on 2.9+, or system-store on 2.8 or older
-agentTLSMode: ""
 
 # Extra environment variables passed to the rancher pods.
 # extraEnv:
@@ -65,9 +60,6 @@ ingress:
   includeDefaultExtraAnnotations: true
   extraAnnotations: {}
   ingressClassName: ""
-  # Certain ingress controllers will require the pathType or path to be set to a different value.
-  pathType: ImplementationSpecific
-  path: "/"
   # backend port number
   servicePort: 80
 
@@ -163,7 +155,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.2.2
+    tag: v0.1.25
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -176,19 +168,19 @@ postDelete:
 # Set a bootstrap password. If leave empty, a random password will be generated.
 bootstrapPassword: ""
 
-startupProbe:
-  ## should be ready within 2 minutes
-  timeoutSeconds: 5
-  periodSeconds: 10
-  failureThreshold: 12
 livenessProbe:
-  timeoutSeconds: 5
+  initialDelaySeconds: 60
   periodSeconds: 30
-  failureThreshold: 5
 readinessProbe:
-  timeoutSeconds: 5
+  initialDelaySeconds: 5
   periodSeconds: 30
-  failureThreshold: 5
+
+global:
+  cattle:
+    psp:
+      # will default to true on 1.24 and below, and false for 1.25 and above
+      # can be changed manually to true or false to bypass version checks and force that option
+      enabled: ""
 
 # helm values to use when installing the rancher-webhook chart.
 # helm values set here will override all other global values used when installing the webhook such as priorityClassName and systemRegistry settings.
