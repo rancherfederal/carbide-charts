@@ -27,9 +27,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
   {{- printf "%s-%s" .Chart.Name .Chart.Version | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Render Values in configurationSnippet
-*/}}
+# Render Values in configurationSnippet
 {{- define "configurationSnippet" -}}
   {{- tpl (.Values.ingress.configurationSnippet) . | nindent 6 -}}
 {{- end -}}
@@ -78,12 +76,26 @@ add below linux tolerations to workloads could be scheduled to those linux nodes
 {{- end -}}
 
 {{/*
-    Select correct auditLog image
+Define the chosen value for PSPs. If this value is "", then the user did not set the value. This will
+result in psps on <=1.24 and no psps on >=1.25. If the value is true/false, then the user specifically
+chose an option, and that option will be used. If it is set otherwise, then we fail so the user can correct
+the invalid value.
 */}}
-{{- define "auditLog_image" -}}
-  {{- if .Values.busyboxImage }}
-    {{- .Values.busyboxImage}}
-  {{- else }}
-    {{- .Values.auditLog.image.repository -}}:{{- .Values.auditLog.image.tag -}}
-  {{- end }}
+
+{{- define "rancher.chart_psp_enabled" -}}
+{{- if kindIs "bool" .Values.global.cattle.psp.enabled -}}
+{{ .Values.global.cattle.psp.enabled }}
+{{- else if empty .Values.global.cattle.psp.enabled -}}
+  {{- if gt (len (lookup "rbac.authorization.k8s.io/v1" "ClusterRole" "" "")) 0 -}}
+    {{- if (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy") -}}
+true
+    {{- else -}}
+false
+    {{- end -}}
+  {{- else -}}
+true
+  {{- end -}}
+{{- else -}}
+{{- fail "Invalid value for .Values.global.cattle.psp.enabled - must be a bool of true, false, or \"\"" -}}
+{{- end -}}
 {{- end -}}
