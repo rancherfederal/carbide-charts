@@ -13,7 +13,7 @@ defaults:
   containerPort: 8080
   uid: 65532
   image:
-    tag: "0.1.7"
+    tag: "0.1.8"
 docs:
   kubernetes:
     enabled: true
@@ -71,7 +71,6 @@ docs:
       # tag: "0.1.x"
   harvester:
     enabled: true
-    useHtmlBase: true
     image:
       name: "carbide/harvester-docs"
       # tag: "0.1.x"
