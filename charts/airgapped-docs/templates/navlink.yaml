@@ -250,6 +250,7 @@ spec:
     namespace: "{{ .Release.Namespace }}"
     port: "8080"
     scheme: http
+    path: /v1.4
 {{- end }}
 {{- if .Values.docs.kubernetes.enabled }}
 ---

@@ -4,7 +4,7 @@
 
 ```bash
 NAME                            CHART VERSION   APP VERSION     DESCRIPTION
-carbide-charts/airgapped-docs   0.1.53          0.1.7           Rancher Government Airgapped Docs
+carbide-charts/airgapped-docs   0.1.54          0.1.8           Rancher Government Airgapped Docs
 carbide-charts/heimdall2        0.1.45          0.1.1           Rancher Government Heimdall2 Tool
 carbide-charts/rancher          2.10.1          v2.10.1          Install Rancher Server to manage Kubernetes...
 carbide-charts/stigatron        0.2.5           0.2.2           Rancher Government Stigatron Extension
