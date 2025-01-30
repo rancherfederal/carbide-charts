@@ -573,6 +573,15 @@ data:
         text: ""
         type: "skip"
         remediation: ""
+
+    # MANUAL
+    - id: "V-268321"
+      text: ""
+      checks:
+      - id: V-268321
+        text: ""
+        type: "skip"
+        remediation: ""
   node.yaml: |-
     ---
     controls:
