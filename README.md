@@ -6,9 +6,9 @@
 NAME                            CHART VERSION   APP VERSION     DESCRIPTION
 carbide-charts/airgapped-docs   0.1.54          0.1.8           Rancher Government Airgapped Docs
 carbide-charts/heimdall2        0.1.45          0.1.1           Rancher Government Heimdall2 Tool
-carbide-charts/rancher          2.10.2          v2.10.2          Install Rancher Server to manage Kubernetes...
-carbide-charts/stigatron        0.2.5           0.2.2           Rancher Government Stigatron Extension
-carbide-charts/stigatron-ui     0.2.3           0.2.0           Rancher Government Stigatron UI Extension
+carbide-charts/rancher          2.10.2          v2.10.2         Install Rancher Server to manage Kubernetes clu...
+carbide-charts/stigatron        0.4.0           0.4.0           Rancher Government Stigatron Extension
+carbide-charts/stigatron-ui     0.3.0           0.3.0           Rancher Government Stigatron UI Extension
 ```
 
 ## How To Use (Connected Environments)
@@ -36,33 +36,8 @@ If you would like to do add the Carbide Helm Charts to the Rancher Manager Chart
 #### On Connected Environment
 
 ```bash
-# generate the hauler manfiest for the carbide charts
-cat <<EOF > carbide-charts.yaml
-apiVersion: content.hauler.cattle.io/v1alpha1
-kind: Charts
-metadata:
-  name: carbide-charts
-spec:
-  charts:
-    - name: airgapped-docs
-      repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 0.1.51
-    - name: heimdall2
-      repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 0.1.45
-    - name: rancher
-      repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 2.9.4
-    - name: stigatron
-      repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 0.2.5
-    - name: stigatron-ui
-      repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 0.2.3
-EOF
-
-# fetch the content from generated hauler manifest
-hauler store sync -f carbide-charts.yaml
+# fetch the content from carbide charts hauler manifest
+hauler store sync --filename https://raw.githubusercontent.com/zackbradys/carbide-charts/refs/heads/main/carbide-charts.yaml
 
 # save and output the content from the hauler store to tarball
 hauler store save --filename carbide-charts.tar.zst
@@ -72,11 +47,13 @@ hauler store save --filename carbide-charts.tar.zst
 
 ```bash
 # load the content from the tarball to the hauler store
-hauler store load carbide-charts.tar.zst
+hauler store load --filename carbide-charts.tar.zst
 
-# server the content from the hauler store
+# example install method with helm oci and hauler registry
+hauler store serve registry
+helm install <release-name> oci://<FQDN or IP>:<PORT>/hauler/<chart> --version <version>
+
+# example install method with helm repo and hauler fileserver
 hauler store serve fileserver
-
-# example install of a helm chart
 helm install <release-name> http://<FQDN or IP>:<PORT>/<chart>.tgz
 ```
