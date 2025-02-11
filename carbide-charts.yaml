@@ -1,0 +1,21 @@
+apiVersion: content.hauler.cattle.io/v1
+kind: Charts
+metadata:
+  name: carbide-charts
+spec:
+  charts:
+    - name: airgapped-docs
+      repoURL: https://rancherfederal.github.io/carbide-charts
+      version: 0.1.54
+    - name: heimdall2
+      repoURL: https://rancherfederal.github.io/carbide-charts
+      version: 0.1.45
+    - name: rancher
+      repoURL: https://rancherfederal.github.io/carbide-charts
+      version: 2.10.2
+    - name: stigatron
+      repoURL: https://rancherfederal.github.io/carbide-charts
+      version: 0.4.0
+    - name: stigatron-ui
+      repoURL: https://rancherfederal.github.io/carbide-charts
+      version: 0.3.0
