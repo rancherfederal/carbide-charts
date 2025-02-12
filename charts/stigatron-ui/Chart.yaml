@@ -1,7 +1,11 @@
 apiVersion: v2
 name: stigatron-ui
+version: 0.3.0
+appVersion: 0.3.0
+
+type: application
 description: Rancher Government Stigatron UI Extension
 icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
-type: application
-version: 0.3.0
-appVersion: "0.3.0"
+
+annotations:
+  classification: UNCLASSIFIED

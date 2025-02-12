@@ -1,15 +1,21 @@
 apiVersion: v2
 name: stigatron
+version: 0.4.0
+appVersion: 0.4.0
+
+type: application
 description: Rancher Government Stigatron Extension
 icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
-version: "0.4.0"
-appVersion: "0.4.0"
+
 dependencies:
   - name: heimdall2
-    version: "0.1.41"
-    repository: "https://rancherfederal.github.io/carbide-charts"
+    version: 0.1.41
+    repository: https://rancherfederal.github.io/carbide-charts
     alias: heimdall2
   - name: nats
-    version: "1.1.5"
-    repository: https://nats-io.github.io/k8s/helm/charts/
+    version: 1.1.5
+    repository: https://nats-io.github.io/k8s/helm/charts
     alias: nats
+
+annotations:
+  classification: UNCLASSIFIED

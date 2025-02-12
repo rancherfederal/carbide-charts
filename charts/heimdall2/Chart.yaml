@@ -1,7 +1,12 @@
 apiVersion: v2
 name: heimdall2
+version: 0.1.45
+appVersion: 0.1.1
+
+type: application
 description: Rancher Government Heimdall2 Tool
 icon: https://raw.githubusercontent.com/rancherfederal/carbide-docs/main/static/img/carbide-logo.svg
-type: application
-version: 0.1.45
-appVersion: "0.1.1"
+
+annotations:
+  classification: UNCLASSIFIED
+
