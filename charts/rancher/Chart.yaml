@@ -14,3 +14,6 @@ sources:
 maintainers:
   - name: Rancher Labs
     email: charts@rancher.com
+
+annotations:
+  classification: UNCLASSIFIED
