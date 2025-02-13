@@ -37,7 +37,7 @@ If you would like to do add the Carbide Helm Charts to the Rancher Manager Chart
 
 ```bash
 # fetch the content from carbide charts hauler manifest
-hauler store sync --filename https://raw.githubusercontent.com/zackbradys/carbide-charts/refs/heads/main/carbide-charts.yaml
+hauler store sync --filename https://raw.githubusercontent.com/rancherfederal/carbide-charts/refs/heads/main/carbide-charts.yaml
 
 # save and output the content from the hauler store to tarball
 hauler store save --filename carbide-charts.tar.zst
