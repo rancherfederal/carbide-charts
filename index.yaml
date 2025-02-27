@@ -499,6 +499,28 @@ entries:
     - https://github.com/rancherfederal/carbide-charts/releases/download/heimdall2-0.1.0/heimdall2-0.1.0.tgz
     version: 0.1.0
   rancher:
+  - annotations:
+      classification: UNCLASSIFIED
+    apiVersion: v2
+    appVersion: v2.10.3
+    created: "2025-02-27T18:46:29.159402841Z"
+    description: Install Rancher Server to manage Kubernetes clusters across providers
+    digest: efb57f32aa11de4b4a80fb9846e3d2f0450ffa882c29d1f3d97d830efc960b98
+    home: https://rancher.com
+    icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
+    keywords:
+    - rancher
+    kubeVersion: < 1.32.0-0
+    maintainers:
+    - email: charts@rancher.com
+      name: Rancher Labs
+    name: rancher
+    sources:
+    - https://github.com/rancher/rancher
+    - https://github.com/rancher/server-chart
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-2.10.3/rancher-2.10.3.tgz
+    version: 2.10.3
   - apiVersion: v2
     appVersion: v2.10.2
     created: "2025-01-29T20:51:08.701266549Z"
@@ -2329,4 +2351,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-27T18:37:02.317425066Z"
+generated: "2025-02-27T18:46:29.160143809Z"
