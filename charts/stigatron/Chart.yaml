@@ -1,6 +1,6 @@
 apiVersion: v2
 name: stigatron
-version: 0.4.0
+version: 0.4.1
 appVersion: 0.4.0
 
 type: application
