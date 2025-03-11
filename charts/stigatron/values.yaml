@@ -7,7 +7,7 @@ complianceOperator:
 heimdallOperator:
   image:
     name: carbide/heimdall-operator
-    tag: "0.3.0"
+    tag: "0.4.0"
   imagePullPolicy: Always
   serviceAccountName: stigatron
   database:
