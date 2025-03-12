@@ -1,13 +1,13 @@
 complianceOperator:
   image:
     name: carbide/compliance-operator
-    tag: "0.4.0"
+    tag: "0.4.2"
   imagePullPolicy: Always
   serviceAccountName: stigatron
 heimdallOperator:
   image:
     name: carbide/heimdall-operator
-    tag: "0.4.0"
+    tag: "0.4.2"
   imagePullPolicy: Always
   serviceAccountName: stigatron
   database:
