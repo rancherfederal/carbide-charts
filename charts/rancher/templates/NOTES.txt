@@ -19,4 +19,4 @@ kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{
 ```
 
 
-Happy Containering!!
+Happy Containering!

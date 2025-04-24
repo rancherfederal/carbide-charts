@@ -29,7 +29,7 @@ rules:
     verbs: [ "get", "list", "delete" ]
   - apiGroups: [ "admissionregistration.k8s.io" ]
     resources: [ "validatingwebhookconfigurations", "mutatingwebhookconfigurations" ]
-    verbs: [ "get", "list", "delete" ] 
+    verbs: [ "get", "list", "delete" ]
   - apiGroups: [ "networking.k8s.io" ]
     resources: [ "ingresses" ]
     verbs: [ "delete" ]
