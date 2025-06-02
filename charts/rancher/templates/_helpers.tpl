@@ -60,10 +60,11 @@ add below linux tolerations to workloads could be scheduled to those linux nodes
 
 {{- define "linux-node-selector-terms" -}}
 {{- $key := "kubernetes.io/os" -}}
-- key: {{ $key }}
-  operator: NotIn
-  values:
-  - windows
+- matchExpressions:
+  - key: {{ $key }}
+    operator: NotIn
+    values:
+    - windows
 {{- end -}}
 
 {{- define "system_default_registry" -}}
