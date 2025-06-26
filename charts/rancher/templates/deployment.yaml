@@ -1,66 +1,280 @@
-{{- if .Values.ingress.enabled }}
-{{- if or (.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress") (not (.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress")) }}
-apiVersion: networking.k8s.io/v1
-{{- else }}
-apiVersion: networking.k8s.io/v1beta1
-{{- end }}
-kind: Ingress
+kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: {{ template "rancher.fullname" . }}
+  annotations:
+{{- if (lt (int .Values.replicas) 0) }}
+    management.cattle.io/scale-available: "{{ sub 0 (int .Values.replicas)}}"
+{{- end  }}
   labels:
 {{ include "rancher.labels" . | indent 4 }}
-  annotations:
-{{- if .Values.ingress.configurationSnippet }}
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      {{- template "configurationSnippet" . }}
-{{- end }}
-{{- if eq .Values.tls "external" }}
-    nginx.ingress.kubernetes.io/ssl-redirect: "false" # turn off ssl redirect for external.
+spec:
+{{- if (gt (int .Values.replicas) 0) }}
+  replicas: {{ .Values.replicas }}
+{{- end  }}
+  selector:
+    matchLabels:
+      app: {{ template "rancher.fullname" . }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+{{- if (eq (int .Values.replicas) 1) }}
+      maxUnavailable: 0
 {{- else }}
-  {{- if ne .Values.ingress.tls.source "secret" }}
-    {{- $certmanagerVer :=  split "." .Values.certmanager.version -}}
-    {{- if or (.Capabilities.APIVersions.Has "certmanager.k8s.io/v1alpha1") (and (gt (len $certmanagerVer._0) 0) (eq (int $certmanagerVer._0) 0) (lt (int $certmanagerVer._1) 11)) }}
-    certmanager.k8s.io/issuer: {{ template "rancher.fullname" . }}
-    {{- else }}
-    cert-manager.io/issuer: {{ template "rancher.fullname" . }}
-    cert-manager.io/issuer-kind: Issuer
-    {{- end }}
+      maxUnavailable: 1
+{{- end }}
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ template "rancher.fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+{{- if .Values.carbide.whitelabel.enabled }}
+      initContainers:
+        - name: copy
+          image: {{ .Values.carbide.whitelabel.image }}:{{ .Values.carbide.whitelabel.tag }}
+          imagePullPolicy: Always
+          command:  ["/bin/sh", "-c", "cp -rf /tmp/assets/* /rancher-images/"]
+          volumeMounts:
+          - name: work-dir
+            mountPath: /rancher-images/
+{{- end }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      serviceAccountName: {{ template "rancher.fullname" . }}
+{{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 6 }}
+{{- end }}
+      affinity:
+        podAntiAffinity:
+{{- if eq .Values.antiAffinity "required" }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - {{ template "rancher.fullname" . }}
+            topologyKey: {{ .Values.topologyKey | default "kubernetes.io/hostname" }}
+{{- else }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ template "rancher.fullname" . }}
+              topologyKey: {{ .Values.topologyKey | default "kubernetes.io/hostname" }}
+{{- end }}
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms: {{ include "linux-node-selector-terms" . | nindent 14 }}
+      tolerations: {{ include "linux-node-tolerations" . | nindent 8 }}
+{{- if .Values.extraTolerations }}
+{{ toYaml .Values.extraTolerations | indent 8 }}
+{{- end }}
+      containers:
+      - image: {{ .Values.rancherImage }}:{{ default .Chart.AppVersion .Values.rancherImageTag }}
+        imagePullPolicy: {{ default "IfNotPresent" .Values.rancherImagePullPolicy }}
+        name: {{ template "rancher.name" . }}
+        ports:
+        - containerPort: 80
+          protocol: TCP
+{{- if (and .Values.hostPort (gt (int .Values.hostPort) 0)) }}
+        - containerPort: 444
+          hostPort: {{ int .Values.hostPort }}
+          protocol: TCP
+{{- end}}
+        args:
+{{- if .Values.debug }}
+        - "--debug"
+{{- end }}
+{{- if .Values.privateCA }}
+        # Private CA - don't clear ca certs
+{{- else if and (eq .Values.tls "ingress") (eq .Values.ingress.tls.source "rancher") }}
+        # Rancher self-signed - don't clear ca certs
+{{- else }}
+        # Public trusted CA - clear ca certs
+        - "--no-cacerts"
+{{- end }}
+        - "--http-listen-port=80"
+        - "--https-listen-port=443"
+        - "--add-local={{ .Values.addLocal }}"
+        env:
+        - name: CATTLE_NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: CATTLE_PEER_SERVICE
+          value: {{ template "rancher.fullname" . }}
+{{- if .Values.carbide.whitelabel.enabled }}
+        - name: CATTLE_BASE_UI_BRAND
+          value: "rancher"
+{{- end }}
+{{- if .Values.features }}
+        - name: CATTLE_FEATURES
+          value: "{{ .Values.features }}"
+{{- end}}
+{{- if .Values.noDefaultAdmin }}
+        - name: CATTLE_NO_DEFAULT_ADMIN
+          value: "{{ .Values.noDefaultAdmin }}"
+{{- end}}
+{{- if gt (int .Values.auditLog.level) 0 }}
+        - name: AUDIT_LEVEL
+          value: {{ .Values.auditLog.level | quote }}
+        - name: AUDIT_LOG_MAXAGE
+          value: {{ .Values.auditLog.maxAge | quote }}
+        - name: AUDIT_LOG_MAXBACKUP
+          value: {{ .Values.auditLog.maxBackup | quote }}
+        - name: AUDIT_LOG_MAXSIZE
+          value: {{ .Values.auditLog.maxSize | quote }}
+{{- end }}
+{{- if .Values.proxy }}
+        - name: HTTP_PROXY
+          value: {{ .Values.proxy }}
+        - name: HTTPS_PROXY
+          value: {{ .Values.proxy }}
+        - name: NO_PROXY
+          value: {{ .Values.noProxy }}
+{{- end }}
+{{- if .Values.systemDefaultRegistry }}
+        - name: CATTLE_SYSTEM_DEFAULT_REGISTRY
+          value: {{ .Values.systemDefaultRegistry }}
+{{- end }}
+{{- if .Values.useBundledSystemChart }}
+        - name: CATTLE_SYSTEM_CATALOG
+          value: bundled
+{{- end }}
+{{- if .Values.restrictedAdmin }}
+        - name: CATTLE_RESTRICTED_DEFAULT_ADMIN
+          value: "true"
+{{- end}}
+{{- if .Values.bootstrapPassword }}
+        - name: CATTLE_BOOTSTRAP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: "bootstrap-secret"
+              key: "bootstrapPassword"
+{{- end }}
+{{- if .Values.agentTLSMode }}
+        - name: CATTLE_AGENT_TLS_MODE
+          value: "{{ .Values.agentTLSMode }}"
+{{- end }}
+{{- if .Values.extraEnv }}
+{{ toYaml .Values.extraEnv | indent 8}}
+{{- end }}
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          {{- with .Values.livenessProbe.initialDelaySeconds}}
+          initialDelaySeconds: {{ . }}
+          {{- end }}
+          timeoutSeconds: {{.Values.livenessProbe.timeoutSeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          failureThreshold: {{.Values.livenessProbe.failureThreshold }}
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          {{- with .Values.readinessProbe.initialDelaySeconds}}
+          initialDelaySeconds: {{ . }}
+          {{- end }}
+          timeoutSeconds: {{.Values.readinessProbe.timeoutSeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          failureThreshold: {{.Values.readinessProbe.failureThreshold }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+{{- if .Values.additionalTrustedCAs }}
+        - mountPath: /etc/pki/trust/anchors/ca-additional.pem
+          name: tls-ca-additional-volume
+          subPath: ca-additional.pem
+          readOnly: true
+        - mountPath: /etc/rancher/ssl/ca-additional.pem
+          name: tls-ca-additional-volume
+          subPath: ca-additional.pem
+          readOnly: true
+{{- end }}
+{{- if .Values.privateCA }}
+        # Pass CA cert into rancher for private CA
+        - mountPath: /etc/rancher/ssl/cacerts.pem
+          name: tls-ca-volume
+          subPath: cacerts.pem
+          readOnly: true
+{{- end }}
+{{- if .Values.carbide.whitelabel.enabled }}
+        - mountPath: /usr/share/rancher/ui-dashboard/dashboard/img
+          name: work-dir
+{{- else if and .Values.customLogos.enabled (or (eq .Values.customLogos.volumeKind "persistentVolumeClaim") (and (eq .Values.customLogos.volumeKind "configMap") (.Values.customLogos.volumeName))) }}
+        # Mount rancher custom-logos volume
+        - mountPath: /usr/share/rancher/ui/assets/images/logos
+          name: custom-logos
+          subPath: {{ .Values.customLogos.volumeSubpaths.emberUi | default "ember" | quote }}
+        - mountPath: /usr/share/rancher/ui-dashboard/dashboard/_nuxt/assets/images/pl
+          name: custom-logos
+          subPath: {{ .Values.customLogos.volumeSubpaths.vueUi | default "vue" | quote }}
+{{- end }}
+{{- if gt (int .Values.auditLog.level) 0 }}
+        - mountPath: /var/log/auditlog
+          name: audit-log
+{{- end }}
+{{- if eq .Values.auditLog.destination "sidecar" }}
+  {{- if gt (int .Values.auditLog.level) 0 }}
+      # Make audit logs available for Rancher log collector tools.
+      - image: {{ include "auditLog_image" . }}
+        imagePullPolicy: {{ default .Values.auditLog.image.pullPolicy .Values.busyboxImagePullPolicy }}
+        name: {{ template "rancher.name" . }}-audit-log
+        command: ["tail"]
+        args: ["-F", "/var/log/auditlog/rancher-api-audit.log"]
+        volumeMounts:
+        - mountPath: /var/log/auditlog
+          name: audit-log
   {{- end }}
 {{- end }}
-{{- if .Values.ingress.includeDefaultExtraAnnotations }}
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+      volumes:
+{{- if .Values.carbide.whitelabel.enabled }}
+      - name: work-dir
+        emptyDir: {}
 {{- end }}
-{{- if .Values.ingress.extraAnnotations }}
-{{ toYaml .Values.ingress.extraAnnotations | indent 4 }}
+{{- if .Values.additionalTrustedCAs }}
+      - name: tls-ca-additional-volume
+        secret:
+          defaultMode: 0400
+          secretName: tls-ca-additional
 {{- end }}
-spec:
-{{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+{{- if .Values.privateCA }}
+      - name: tls-ca-volume
+        secret:
+          defaultMode: 0400
+          secretName: tls-ca
 {{- end }}
-  rules:
-  - host: {{ .Values.hostname }}  # hostname to access rancher server
-    http:
-      paths:
-      - backend:
-          {{- if or (.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress") (not (.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress")) }}
-          service:
-            name: {{ template "rancher.fullname" . }}
-            port:
-              number: {{ .Values.ingress.servicePort }}
-          {{- else }}
-          serviceName: {{ template "rancher.fullname" . }}
-          servicePort: {{ .Values.ingress.servicePort }}
-          {{- end }}
-        {{- if or (.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress") (not (.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress")) }}
-        pathType: {{ .Values.ingress.pathType }}
-        path: {{ .Values.ingress.path }}
-        {{- end }}
-{{- if eq .Values.tls "ingress" }}
-  tls:
-  - hosts:
-    - {{ .Values.hostname }}
-    secretName: {{ .Values.ingress.tls.secretName }}
+{{- if gt (int .Values.auditLog.level) 0 }}
+  {{- if eq .Values.auditLog.destination "hostPath" }}
+      - name: audit-log
+        hostPath:
+          path: {{ .Values.auditLog.hostPath }}
+          type: DirectoryOrCreate
+  {{- else }}
+      - name: audit-log
+        emptyDir: {}
+  {{- end }}
 {{- end }}
+{{- if and .Values.customLogos.enabled (or (eq .Values.customLogos.volumeKind "persistentVolumeClaim") (and (eq .Values.customLogos.volumeKind "configMap") (.Values.customLogos.volumeName))) }}
+      - name: custom-logos
+  {{- if (eq .Values.customLogos.volumeKind "persistentVolumeClaim") }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.customLogos.volumeName | default (printf "%s-custom-logos" (include "rancher.fullname" .)) }}
+  {{- else if (eq .Values.customLogos.volumeKind "configMap") }}
+        configMap:
+          name: {{ .Values.customLogos.volumeName }}
+  {{- end }}
 {{- end }}
