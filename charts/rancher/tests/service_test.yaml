@@ -1,46 +1,36 @@
-suite: Test Service
+suite: Test persistentVolumeClaim
 templates:
-- service.yaml
+- pvc.yaml
 tests:
-- it: should set NodePort service type
+- it: should create custom-logos pvc if customLogos.enabled and customLogos.volumeKind persistentVolumeClaim
   set:
-    service.type: NodePort
+    customLogos.enabled: true
+    customLogos.volumeKind: persistentVolumeClaim
   asserts:
   - equal:
-      path: spec.type
-      value: NodePort
-- it: should set LoadBalancer service type
+      path: metadata.name
+      value: RELEASE-NAME-rancher-custom-logos
+- it: should not create custom-logos pvc if customLogos.enabled and customLogos.volumeKind=persistentVolumeClaim and customLogos.volumeName 
   set:
-    service.type: LoadBalancer
+    customLogos.enabled: true
+    customLogos.volumeKind: persistentVolumeClaim
+    customLogos.volumeName: existing-pvc
   asserts:
-  - equal:
-      path: spec.type
-      value: LoadBalancer
-- it: should default to ClusterIP service type
-  asserts:
-  - isNull:
-      path: spec.type
-- it: should set provided service annotation correctly
+  - hasDocuments:
+      count: 0
+    template: pvc.yaml
+- it: should not create custom-logos pvc if not customLogos.enabled and customLogos.volumeKind=configMap
   set:
-    service.annotations:
-      beta.cloud.google.com/backend-config: '{"default": "rancher-config"}'
+    customLogos.enabled: true
+    customLogos.volumeKind: configMap
   asserts:
-  - equal:
-      path: metadata.annotations
-      value:
-        beta.cloud.google.com/backend-config: '{"default": "rancher-config"}'
-- it: should set multiple provided service annotations correctly
+  - hasDocuments:
+      count: 0
+    template: pvc.yaml
+- it: should not create custom-logos pvc if not customLogos.enabled
   set:
-    service.annotations:
-      beta.cloud.google.com/backend-config: '{"default": "rancher-config"}'
-      cloud.google.com/neg: '{"ingress": true}'
+    customLogos.enabled: false
   asserts:
-  - equal:
-      path: metadata.annotations
-      value:
-        beta.cloud.google.com/backend-config: '{"default": "rancher-config"}'
-        cloud.google.com/neg: '{"ingress": true}'
-- it: should not include service annotations if none are provided
-  asserts:
-  - isNull:
-      path: metadata.annotations
+  - hasDocuments:
+      count: 0
+    template: pvc.yaml
