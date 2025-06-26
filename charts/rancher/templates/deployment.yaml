@@ -92,6 +92,8 @@ spec:
           hostPort: {{ int .Values.hostPort }}
           protocol: TCP
 {{- end}}
+        - containerPort: 6666
+          protocol: TCP
         args:
 {{- if .Values.debug }}
         - "--debug"
@@ -150,10 +152,6 @@ spec:
         - name: CATTLE_SYSTEM_CATALOG
           value: bundled
 {{- end }}
-{{- if .Values.restrictedAdmin }}
-        - name: CATTLE_RESTRICTED_DEFAULT_ADMIN
-          value: "true"
-{{- end}}
 {{- if .Values.bootstrapPassword }}
         - name: CATTLE_BOOTSTRAP_PASSWORD
           valueFrom:
@@ -165,6 +163,10 @@ spec:
         - name: CATTLE_AGENT_TLS_MODE
           value: "{{ .Values.agentTLSMode }}"
 {{- end }}
+        - name: IMPERATIVE_API_DIRECT
+          value: "true"
+        - name: IMPERATIVE_API_APP_SELECTOR
+          value: {{ template "rancher.fullname" . }}
 {{- if .Values.extraEnv }}
 {{ toYaml .Values.extraEnv | indent 8}}
 {{- end }}
