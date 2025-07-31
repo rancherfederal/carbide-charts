@@ -37,9 +37,6 @@ addLocal: "true"
 # Add debug flag to Rancher server
 debug: false
 
-# When starting Rancher for the first time, bootstrap the admin as restricted-admin
-restrictedAdmin: false
-
 # Control how the Rancher agents validate TLS connections
 # Valid options: strict, or system-store
 # Note, for new installations empty will default to strict on 2.9+, or system-store on 2.8 or older
@@ -71,7 +68,8 @@ ingress:
   # Certain ingress controllers will require the pathType or path to be set to a different value.
   pathType: ImplementationSpecific
   path: "/"
-  # backend port number
+  # Backend port number; should use either: 80, or 443.
+  # Must use 443 when `service.disableHTTP` is set to true.
   servicePort: 80
 
   # configurationSnippet - Add additional Nginx configuration. This example statically sets a header on the ingress.
@@ -88,6 +86,9 @@ ingress:
 service:
   type: ""
   annotations: {}
+  # An optional security setting to disables the HTTP port of the rancher service
+  # When set true, you must also set `ingress.servicePort` to 443 and the appropriate ingress annotation to use HTTPS
+  disableHTTP: false
 
 ### LetsEncrypt config ###
 # ProTip: The production environment only allows you to register a name 5 times a week.
@@ -99,7 +100,7 @@ letsEncrypt:
     # options: traefik, nginx
     class: ""
 # If you are using certs signed by a private CA set to 'true' and set the 'tls-ca'
-# in the 'rancher-system' namespace. See the README.md for details
+# in the 'cattle-system' namespace. See the README.md for details
 privateCA: false
 
 # http[s] proxy server passed into rancher server.
@@ -166,7 +167,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.3.1
+    tag: v0.4.1
   namespaceList:
     - cattle-fleet-system
     - cattle-system
