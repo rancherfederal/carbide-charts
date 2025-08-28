@@ -12,7 +12,7 @@ spec:
       version: 0.1.45
     - name: rancher
       repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 2.11.4
+      version: 2.11.5
     - name: stigatron
       repoURL: https://rancherfederal.github.io/carbide-charts
       version: 0.4.0
