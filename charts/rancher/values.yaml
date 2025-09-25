@@ -6,30 +6,18 @@ additionalTrustedCAs: false
 antiAffinity: preferred
 topologyKey: kubernetes.io/hostname
 
+# Audit Logs
 # Source: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log
+# The audit log is piped to the console of the rancher-audit-log container in the rancher pod.
+# level: Verbosity of logs, 0 to 3. 0 is off, 3 most verbose.
+# Docs: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log#audit-log-levels
 auditLog:
-  enabled: false
-
-  # level can be one of 0, 1, 2, or 3 with 3 being the most verbose. This value is a system level default and may
-  # impact the verbosity on any AuditPolicies you define. See below for a description of each log level:
-  #   0: Only log metadata such as URI, method, user, etc
-  #   1: Log metadata, request headers, and response headers
-  #   2: Log metadata, request header, response headers, and request body
-  #   3: Log metadata, request header, response heaeders, request body, and response body
-  level: 0
-
-  # destination may be one of "sidecar" or "hostpath". When set to "sidecar" logs will be sent and output to a sidecar
-  # container called "rancher-audit-log". When "hostpath" logs are written to a hostpath volume called "audit-log" to
-  # a directory configured by auditLog.hostPath.
   destination: sidecar
   hostPath: /var/log/rancher/audit/
-
+  level: 0
   maxAge: 1
   maxBackup: 1
   maxSize: 100
-
-  # Set pod resource requests/limits for Audit log sidecar (ONLY used if destination=sidecar).
-  resources: {}
 
   # Image for collecting rancher audit logs.
   # Important: update pkg/image/export/resolve.go when this default image is changed, so that it's reflected accordingly in rancher-images.txt generated for air-gapped setups.
@@ -45,6 +33,9 @@ addLocal: "true"
 
 # Add debug flag to Rancher server
 debug: false
+
+# When starting Rancher for the first time, bootstrap the admin as restricted-admin
+restrictedAdmin: false
 
 # Control how the Rancher agents validate TLS connections
 # Valid options: strict, or system-store
@@ -77,8 +68,7 @@ ingress:
   # Certain ingress controllers will require the pathType or path to be set to a different value.
   pathType: ImplementationSpecific
   path: "/"
-  # Backend port number; should use either: 80, or 443.
-  # Must use 443 when `service.disableHTTP` is set to true.
+  # backend port number
   servicePort: 80
 
   # configurationSnippet - Add additional Nginx configuration. This example statically sets a header on the ingress.
@@ -95,9 +85,6 @@ ingress:
 service:
   type: ""
   annotations: {}
-  # An optional security setting to disables the HTTP port of the rancher service
-  # When set true, you must also set `ingress.servicePort` to 443 and the appropriate ingress annotation to use HTTPS
-  disableHTTP: false
 
 ### LetsEncrypt config ###
 # ProTip: The production environment only allows you to register a name 5 times a week.
@@ -109,7 +96,7 @@ letsEncrypt:
     # options: traefik, nginx
     class: ""
 # If you are using certs signed by a private CA set to 'true' and set the 'tls-ca'
-# in the 'cattle-system' namespace. See the README.md for details
+# in the 'rancher-system' namespace. See the README.md for details
 privateCA: false
 
 # http[s] proxy server passed into rancher server.
@@ -128,8 +115,6 @@ rancherImage: rancher/rancher
 # options: Always, Never, IfNotPresent
 # Defaults to IfNotPresent
 # rancherImagePullPolicy: <pullPolicy>
-
-# aggregationRegistrationTimeout: 5m
 
 # Number of Rancher server replicas. Setting to negative number will dynamically between 0 and the abs(replicas) based on available nodes.
 # of available nodes in the cluster
@@ -178,7 +163,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.5.0
+    tag: v0.3.0
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -187,11 +172,6 @@ postDelete:
   timeout: 120
   # by default, the job will fail if it fail to uninstall any of the apps
   ignoreTimeoutError: false
-
-preUpgrade:
-  image:
-    repository: rancher/shell
-    tag: v0.5.0
 
 # Set a bootstrap password. If leave empty, a random password will be generated.
 bootstrapPassword: ""
@@ -204,14 +184,6 @@ startupProbe:
 
 # Additional taints to tolerate
 extraTolerations: {}
-
-# Additional node selector terms for the rancher deployment
-# Ex:
-#  - key: topology.kubernetes.io/zone
-#    operator: In
-#    values:
-#      - us-north-42
-extraNodeSelectorTerms: {}
 
 livenessProbe:
   timeoutSeconds: 5
@@ -230,34 +202,8 @@ webhook: ""
 # helm values set here will override all other global values used when installing the fleet chart.
 fleet: ""
 
-# Create a dynamic manifests via values:
-# Beware: There will be no validation on these resource manifests in `extraObjects` - they must be valid k8s resources.
-# If you encounter issues installing/upgrading rancher while using these, please investigate these first.
-extraObjects: []
-# - apiVersion: "networking.k8s.io/v1"
-#   kind: NetworkPolicy
-#   metadata:
-#     name: allow-https-444-to-rancher
-#     namespace: your-namespace  # Change to the appropriate namespace
-#   spec:
-#     podSelector:
-#       matchLabels:
-#         app: rancher  # Selects pods labeled with "app: rancher"
-#     policyTypes:
-#       - Ingress  # Controls inbound traffic to the selected pods
-#     ingress:
-#       - ports:
-#           - protocol: TCP
-#             port: 444  # Allows only TCP traffic on port 444 (custom HTTPS port)
-#     # Since no other ingress rules are defined, all other traffic is denied by default.
-# - apiVersion: "networking.k8s.io/v1"
-#   kind: NetworkPolicy
-#   metadata:
-#     name: rancher-deny-ingress
-#     namespace: cattle-system
-#   spec:
-#     podSelector:
-#       matchLabels:
-#         app: rancher
-#     policyTypes:
-#       - Ingress
+carbide:
+  whitelabel:
+    enabled: true
+    image: carbide/carbide-whitelabel
+    tag: "0.1.4"
