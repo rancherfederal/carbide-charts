@@ -44,36 +44,6 @@ heritage: {{ .Release.Service }}
 release: {{ .Release.Name }}
 {{- end }}
 
-{{/*
-Generate the labels for pre-upgrade-hook.
-*/}}
-{{- define "rancher.preupgradelabels" -}}
-app: {{ template "rancher.fullname" . }}-pre-upgrade
-chart: {{ template "rancher.chartname" . }}
-heritage: {{ .Release.Service }}
-release: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Generate the Kubernetes recommended common labels.
-
-Usage:
-  include "rancher.commonLabels" (dict "context" . "component" "xyz" "partOf" "abc")
-*/}}
-{{- define "rancher.commonLabels" -}}
-{{- $ctx := .context }}
-app.kubernetes.io/name: {{ $ctx.Chart.Name | quote }}
-app.kubernetes.io/instance: {{ $ctx.Release.Name | quote }}
-app.kubernetes.io/version: {{ $ctx.Chart.AppVersion | quote }}
-app.kubernetes.io/managed-by: {{ $ctx.Release.Service | quote }}
-{{- with .component }}
-app.kubernetes.io/component: {{ . | quote }}
-{{- end }}
-{{- with .partOf }}
-app.kubernetes.io/part-of: {{ . | quote }}
-{{- end }}
-{{- end }}
-
 # Windows Support
 
 {{/*
@@ -90,10 +60,11 @@ add below linux tolerations to workloads could be scheduled to those linux nodes
 
 {{- define "linux-node-selector-terms" -}}
 {{- $key := "kubernetes.io/os" -}}
-- key: {{ $key }}
-  operator: NotIn
-  values:
-  - windows
+- matchExpressions:
+  - key: {{ $key }}
+    operator: NotIn
+    values:
+    - windows
 {{- end -}}
 
 {{- define "system_default_registry" -}}
@@ -115,11 +86,4 @@ add below linux tolerations to workloads could be scheduled to those linux nodes
   {{- else }}
     {{- .Values.auditLog.image.repository -}}:{{- .Values.auditLog.image.tag -}}
   {{- end }}
-{{- end -}}
-
-{{/*
-    Determine the registration mode, defaulting to online if not specified
-*/}}
-{{ define "registration.mode" -}}
-{{ default "online" .Values.registration.mode | quote }}
 {{- end -}}
