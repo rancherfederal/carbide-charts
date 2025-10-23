@@ -546,6 +546,28 @@ entries:
   - annotations:
       classification: UNCLASSIFIED
     apiVersion: v2
+    appVersion: v2.11.7
+    created: "2025-10-23T17:44:46.521990258Z"
+    description: Install Rancher Server to manage Kubernetes clusters across providers
+    digest: 9eedbe51c6be88024bf47f5f9f6ebed3382e8281a9bcd2eba75b8505c025a5b5
+    home: https://rancher.com
+    icon: https://github.com/rancher/ui/blob/master/public/assets/images/logos/welcome-cow.svg
+    keywords:
+    - rancher
+    kubeVersion: < 1.33.0-0
+    maintainers:
+    - email: charts@rancher.com
+      name: Rancher Labs
+    name: rancher
+    sources:
+    - https://github.com/rancher/rancher
+    - https://github.com/rancher/server-chart
+    urls:
+    - https://github.com/rancherfederal/carbide-charts/releases/download/rancher-2.11.7/rancher-2.11.7.tgz
+    version: 2.11.7
+  - annotations:
+      classification: UNCLASSIFIED
+    apiVersion: v2
     appVersion: v2.11.6
     created: "2025-09-25T16:17:43.324330466Z"
     description: Install Rancher Server to manage Kubernetes clusters across providers
@@ -2857,4 +2879,4 @@ entries:
     urls:
     - https://github.com/rancherfederal/carbide-charts/releases/download/stigatron-ui-0.1.0/stigatron-ui-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-25T19:14:26.18077904Z"
+generated: "2025-10-23T17:44:46.522457322Z"
