@@ -6,24 +6,15 @@ additionalTrustedCAs: false
 antiAffinity: preferred
 topologyKey: kubernetes.io/hostname
 
+# Audit Logs
 # Source: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log
+# The audit log is piped to the console of the rancher-audit-log container in the rancher pod.
+# level: Verbosity of logs, 0 to 3. 0 is off, 3 most verbose.
+# Docs: https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/enable-api-audit-log#audit-log-levels
 auditLog:
-  enabled: false
-
-  # level can be one of 0, 1, 2, or 3 with 3 being the most verbose. This value is a system level default and may
-  # impact the verbosity on any AuditPolicies you define. See below for a description of each log level:
-  #   0: Only log metadata such as URI, method, user, etc
-  #   1: Log metadata, request headers, and response headers
-  #   2: Log metadata, request header, response headers, and request body
-  #   3: Log metadata, request header, response heaeders, request body, and response body
-  level: 0
-
-  # destination may be one of "sidecar" or "hostpath". When set to "sidecar" logs will be sent and output to a sidecar
-  # container called "rancher-audit-log". When "hostpath" logs are written to a hostpath volume called "audit-log" to
-  # a directory configured by auditLog.hostPath.
   destination: sidecar
   hostPath: /var/log/rancher/audit/
-
+  level: 0
   maxAge: 1
   maxBackup: 1
   maxSize: 100
@@ -132,8 +123,6 @@ rancherImage: rancher/rancher
 # Defaults to IfNotPresent
 # rancherImagePullPolicy: <pullPolicy>
 
-# aggregationRegistrationTimeout: 5m
-
 # Number of Rancher server replicas. Setting to negative number will dynamically between 0 and the abs(replicas) based on available nodes.
 # of available nodes in the cluster
 replicas: 3
@@ -181,7 +170,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.5.0
+    tag: v0.4.1
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -190,11 +179,6 @@ postDelete:
   timeout: 120
   # by default, the job will fail if it fail to uninstall any of the apps
   ignoreTimeoutError: false
-
-preUpgrade:
-  image:
-    repository: rancher/shell
-    tag: v0.5.0
 
 # Set a bootstrap password. If leave empty, a random password will be generated.
 bootstrapPassword: ""
@@ -264,3 +248,9 @@ extraObjects: []
 #         app: rancher
 #     policyTypes:
 #       - Ingress
+
+carbide:
+  whitelabel:
+    enabled: true
+    image: carbide/carbide-whitelabel
+    tag: "0.1.6"
