@@ -30,6 +30,16 @@ spec:
         app: {{ template "rancher.fullname" . }}
         release: {{ .Release.Name }}
     spec:
+{{- if .Values.carbide.whitelabel.enabled }}
+      initContainers:
+        - name: copy
+          image: {{ .Values.carbide.whitelabel.image }}:{{ .Values.carbide.whitelabel.tag }}
+          imagePullPolicy: Always
+          command:  ["/bin/sh", "-c", "cp -rf /tmp/assets/* /rancher-images/"]
+          volumeMounts:
+          - name: work-dir
+            mountPath: /rancher-images/
+{{- end }}
       priorityClassName: {{ .Values.priorityClassName }}
       serviceAccountName: {{ template "rancher.fullname" . }}
 {{- if .Values.imagePullSecrets }}
@@ -71,8 +81,8 @@ spec:
       {{- toYaml .Values.extraTolerations | nindent 8 }}
       {{- end }}
       containers:
-      - image: "{{ template "rancher.image" . }}:{{ template "rancher.imageTag" . }}"
-        imagePullPolicy: {{ include "rancher.imagePullPolicy" . }}
+      - image: {{ .Values.rancherImage }}:{{ default .Chart.AppVersion .Values.rancherImageTag }}
+        imagePullPolicy: {{ default "IfNotPresent" .Values.rancherImagePullPolicy }}
         name: {{ template "rancher.name" . }}
         ports:
         - containerPort: 80
@@ -82,8 +92,6 @@ spec:
           hostPort: {{ int .Values.hostPort }}
           protocol: TCP
 {{- end}}
-        - containerPort: 6666
-          protocol: TCP
         args:
 {{- if .Values.debug }}
         - "--debug"
@@ -104,6 +112,10 @@ spec:
           value: {{ .Release.Namespace }}
         - name: CATTLE_PEER_SERVICE
           value: {{ template "rancher.fullname" . }}
+{{- if .Values.carbide.whitelabel.enabled }}
+        - name: CATTLE_BASE_UI_BRAND
+          value: "rancher"
+{{- end }}
 {{- if .Values.features }}
         - name: CATTLE_FEATURES
           value: "{{ .Values.features }}"
@@ -112,9 +124,7 @@ spec:
         - name: CATTLE_NO_DEFAULT_ADMIN
           value: "{{ .Values.noDefaultAdmin }}"
 {{- end}}
-{{- if .Values.auditLog.enabled }}
-        - name: AUDIT_LOG_ENABLED
-          value: "true"
+{{- if gt (int .Values.auditLog.level) 0 }}
         - name: AUDIT_LEVEL
           value: {{ .Values.auditLog.level | quote }}
         - name: AUDIT_LOG_MAXAGE
@@ -140,6 +150,10 @@ spec:
         - name: CATTLE_SYSTEM_CATALOG
           value: bundled
 {{- end }}
+{{- if .Values.restrictedAdmin }}
+        - name: CATTLE_RESTRICTED_DEFAULT_ADMIN
+          value: "true"
+{{- end}}
 {{- if .Values.bootstrapPassword }}
         - name: CATTLE_BOOTSTRAP_PASSWORD
           valueFrom:
@@ -150,18 +164,6 @@ spec:
 {{- if .Values.agentTLSMode }}
         - name: CATTLE_AGENT_TLS_MODE
           value: "{{ .Values.agentTLSMode }}"
-{{- end }}
-        - name: IMPERATIVE_API_DIRECT
-          value: "true"
-        - name: IMPERATIVE_API_APP_SELECTOR
-          value: {{ template "rancher.fullname" . }}
-{{- if .Values.aggregationRegistrationTimeout }}
-        - name: AGGREGATION_REGISTRATION_TIMEOUT
-          value: {{ .Values.aggregationRegistrationTimeout }}
-{{- end }}
-{{- if .Values.cacheSyncTimeout }}
-        - name: CACHE_SYNC_TIMEOUT
-          value: {{ .Values.cacheSyncTimeout }}
 {{- end }}
 {{- if .Values.extraEnv }}
 {{ toYaml .Values.extraEnv | indent 8}}
@@ -214,7 +216,10 @@ spec:
           subPath: cacerts.pem
           readOnly: true
 {{- end }}
-{{- if and .Values.customLogos.enabled (or (eq .Values.customLogos.volumeKind "persistentVolumeClaim") (and (eq .Values.customLogos.volumeKind "configMap") (.Values.customLogos.volumeName))) }}
+{{- if .Values.carbide.whitelabel.enabled }}
+        - mountPath: /usr/share/rancher/ui-dashboard/dashboard/img
+          name: work-dir
+{{- else if and .Values.customLogos.enabled (or (eq .Values.customLogos.volumeKind "persistentVolumeClaim") (and (eq .Values.customLogos.volumeKind "configMap") (.Values.customLogos.volumeName))) }}
         # Mount rancher custom-logos volume
         - mountPath: /usr/share/rancher/ui/assets/images/logos
           name: custom-logos
@@ -223,14 +228,14 @@ spec:
           name: custom-logos
           subPath: {{ .Values.customLogos.volumeSubpaths.vueUi | default "vue" | quote }}
 {{- end }}
-{{- if .Values.auditLog.enabled }}
+{{- if gt (int .Values.auditLog.level) 0 }}
         - mountPath: /var/log/auditlog
           name: audit-log
 {{- end }}
 {{- if eq .Values.auditLog.destination "sidecar" }}
-  {{- if .Values.auditLog.enabled }}
+  {{- if gt (int .Values.auditLog.level) 0 }}
       # Make audit logs available for Rancher log collector tools.
-      - image: "{{ printf "%s%s" (include "defaultOrOverrideRegistry" (list . (default "" .Values.auditLog.image.registry))) (include "auditLog.image" .) }}"
+      - image: {{ include "auditLog_image" . }}
         imagePullPolicy: {{ default .Values.auditLog.image.pullPolicy .Values.busyboxImagePullPolicy }}
         name: {{ template "rancher.name" . }}-audit-log
         command: ["tail"]
@@ -244,6 +249,10 @@ spec:
   {{- end }}
 {{- end }}
       volumes:
+{{- if .Values.carbide.whitelabel.enabled }}
+      - name: work-dir
+        emptyDir: {}
+{{- end }}
 {{- if .Values.additionalTrustedCAs }}
       - name: tls-ca-additional-volume
         secret:
@@ -256,7 +265,7 @@ spec:
           defaultMode: 0400
           secretName: tls-ca
 {{- end }}
-{{- if .Values.auditLog.enabled }}
+{{- if gt (int .Values.auditLog.level) 0 }}
   {{- if eq .Values.auditLog.destination "hostPath" }}
       - name: audit-log
         hostPath:

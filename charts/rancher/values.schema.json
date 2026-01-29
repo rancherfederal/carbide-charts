@@ -1,8 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:rancher:schema:rancher-chart:v1",
-  "title": "Rancher Chart Values",
-  "type": "object",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "properties": {
     "agentTLSMode": {
       "type": ["string", "null"],
@@ -21,58 +18,21 @@
           "type": "integer",
           "enum": [0, 1, 2, 3],
           "description": "auditLog.level must be a number 0-3; 0 to disable, 3 for most verbose"
-        },
-        "enabled": {
-          "type": "boolean",
-          "description": "auditLog.enabled must be a boolean"
         }
       }
     },
-    "service": {
-      "type": "object",
-      "description": "The default rancher service configuration",
-      "properties": {
-        "type": {
-          "type": ["string", "null"],
-          "enum": ["ClusterIP", "LoadBalancer", "NodePort", "", null]
-        },
-        "disableHTTP": {
-          "type": "boolean"
-        }
-      }
+    "busyboxImage": {
+      "type": "string",
+      "description": "[DEPRECATED] This value is deprecated, use `auditLog.image.repository` & `auditLog.image.tag` instead.",
+      "deprecated": true
     },
-    "ingress": {
-      "type": "object",
-      "description": "The default rancher ingress configuration",
-      "properties": {
-        "servicePort": {
-          "type": "integer",
-          "enum": [443, 80]
-        }
-      }
+    "busyboxImagePullPolicy": {
+      "type": "string",
+      "description": "[DEPRECATED] This value is deprecated, use `auditLog.image.pullPolicy` instead.",
+      "deprecated": true
     }
   },
   "required": [],
-  "if": {
-    "properties": {
-      "service": {
-        "properties": {
-          "disableHTTP": { "const": true }
-        },
-        "required": ["disableHTTP"]
-      }
-    }
-  },
-  "then": {
-    "properties": {
-      "ingress": {
-        "properties": {
-          "servicePort": {
-            "enum": [443]
-          }
-        },
-        "required": ["servicePort"]
-      }
-    }
-  }
+  "title": "Rancher Chart Values",
+  "type": "object"
 }
