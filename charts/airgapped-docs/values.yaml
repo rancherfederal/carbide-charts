@@ -84,7 +84,7 @@ docs:
     image:
       name: "carbide/hauler-docs"
       # tag: "0.1.x"
-  neuvector-vdb-explorer:
+  neuvectorvdbexplorer:
     enabled: true
     image:
       name: "neuvector/vdb-explorer"

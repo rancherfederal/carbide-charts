@@ -310,7 +310,7 @@ spec:
     port: "8080"
     scheme: http
 {{- end }}
-{{- if .Values.docs.neuvector-vdb-explorer.enabled }}
+{{- if .Values.docs.neuvectorvdbexplorer.enabled }}
 ---
 # Neuvector VDB Explorer
 

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: airgapped-docs
-version: 0.1.55
+version: 0.1.56
 appVersion: 0.1.8
 
 type: application
