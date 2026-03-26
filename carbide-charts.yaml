@@ -6,13 +6,13 @@ spec:
   charts:
     - name: airgapped-docs
       repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 0.1.55
+      version: 0.1.56
     - name: heimdall2
       repoURL: https://rancherfederal.github.io/carbide-charts
       version: 0.1.45
     - name: rancher
       repoURL: https://rancherfederal.github.io/carbide-charts
-      version: 2.13.2
+      version: 2.13.4
     - name: stigatron
       repoURL: https://rancherfederal.github.io/carbide-charts
       version: 0.4.0
