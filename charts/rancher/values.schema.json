@@ -1,8 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:rancher:schema:rancher-chart:v1",
-  "title": "Rancher Chart Values",
-  "type": "object",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "properties": {
     "agentTLSMode": {
       "type": ["string", "null"],
@@ -21,12 +18,18 @@
           "type": "integer",
           "enum": [0, 1, 2, 3],
           "description": "auditLog.level must be a number 0-3; 0 to disable, 3 for most verbose"
-        },
-        "enabled": {
-          "type": "boolean",
-          "description": "auditLog.enabled must be a boolean"
         }
       }
+    },
+    "busyboxImage": {
+      "type": "string",
+      "description": "[DEPRECATED] This value is deprecated, use `auditLog.image.repository` & `auditLog.image.tag` instead.",
+      "deprecated": true
+    },
+    "busyboxImagePullPolicy": {
+      "type": "string",
+      "description": "[DEPRECATED] This value is deprecated, use `auditLog.image.pullPolicy` instead.",
+      "deprecated": true
     },
     "service": {
       "type": "object",
@@ -46,20 +49,23 @@
       "description": "The default rancher ingress configuration",
       "properties": {
         "servicePort": {
-          "type": "integer",
+          "type": "number",
           "enum": [443, 80]
         }
       }
     }
   },
   "required": [],
+  "title": "Rancher Chart Values",
+  "type": "object",
   "if": {
     "properties": {
       "service": {
         "properties": {
-          "disableHTTP": { "const": true }
-        },
-        "required": ["disableHTTP"]
+          "disableHTTP": {
+            "const": true
+          }
+        }
       }
     }
   },
@@ -68,10 +74,10 @@
       "ingress": {
         "properties": {
           "servicePort": {
-            "enum": [443]
+            "const": 443,
+            "errorMessage": "ingress.servicePort must be 443 when service.disableHTTP is true."
           }
-        },
-        "required": ["servicePort"]
+        }
       }
     }
   }
