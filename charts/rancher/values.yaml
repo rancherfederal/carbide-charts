@@ -69,15 +69,25 @@ agentTLSMode: ""
 imagePullSecrets: []
 # - name: secretName
 
-### ingress ###
+# Network exposure configuration
+# Choose between 'ingress' or 'gateway'
+networkExposure:
+  type: "ingress"  # Options: "ingress", "gateway", or "none"
+
+# Traditional Ingress configuration
 # Readme for details and instruction on adding tls secrets.
 ingress:
   # If set to false, ingress will not be created
-  # Defaults to true
-  # options: true, false
+  # Defaults to true; options: true, false
+  # Note: Ingress is only created when BOTH this is true AND networkExposure.type is 'ingress'
   enabled: true
-  includeDefaultExtraAnnotations: true
+  # The includeDefaultExtraAnnotations are deprecated due to ingress-nginx retiring in March 2026.
+  includeDefaultExtraAnnotations: false
   extraAnnotations: {}
+  # When left blank the ingress will use the cluster default ingress class.
+  # The ingress template only renders annotations for `ingress-nginx` by default.
+  # Use `ingress.extraAnnotations` to define annotations for other ingress classes.
+  # As of March 2026 `ingress-nginx` has been retired and should be migrated away from. 
   ingressClassName: ""
   # Certain ingress controllers will require the pathType or path to be set to a different value.
   pathType: ImplementationSpecific
@@ -94,6 +104,33 @@ ingress:
     # options: rancher, letsEncrypt, secret
     source: rancher
     secretName: tls-rancher-ingress
+
+# Gateway API configuration
+gateway:
+  gatewayClass:
+    name: "traefik" # Set to the Gateway class name (k3s/rke2: traefik)
+    ports: # Must match the GatewayClass's configured entrypoints
+      http: 8000  # k3s Traefik defaults to web entrypoint to 8000
+      https: 8443 # k3s Traefik defaults to websecure entrypoint to 8443
+    additionalListeners: [] # Additional listener configs
+    #  - name: http
+    #    protocol: HTTP
+    #    port: 80
+    #    hostname: "*.example.com"
+    #  - name: https
+    #    protocol: HTTPS
+    #    port: 443
+    #    hostname: "*.example.com"
+    #    tls:
+    #      mode: Terminate
+    #      certificateRefs:
+    #        - name: app-tls
+    #          kind: Secret
+
+    tls:
+      # options: rancher, letsEncrypt, secret
+      source: rancher
+      secretName: tls-rancher-ingress
 
 ### service ###
 # Override to use NodePort or LoadBalancer service type - default is ClusterIP
@@ -195,7 +232,7 @@ postDelete:
   enabled: true
   image:
     repository: rancher/shell
-    tag: v0.6.3
+    tag: v0.7.0
   namespaceList:
     - cattle-fleet-system
     - cattle-system
@@ -210,7 +247,7 @@ preUpgrade:
     # Optional: Image-specific registry override
     # registry: ""
     repository: rancher/shell
-    tag: v0.6.3
+    tag: v0.7.0
     # Optional: Image-specific pull policy override
     # pullPolicy: "Always"
 
@@ -286,3 +323,17 @@ extraObjects: []
 #         app: rancher
 #     policyTypes:
 #       - Ingress
+
+# Control additional labels and annotations on namespaces create by Rancher.
+rancherNamespaces:
+
+  # If enabled is true, the "cattle.io/managed-namespace" annotation will be applied to any new namespaces. 
+  enabled: false
+
+  # Additional labels to be added to new namespaces.
+  # labels:
+  #   foo: bar
+
+  # Additional annotaitons to be added to new namespaces. Will be appied along with the "cattle.io/managed-namespace" annotation.  
+  # annotations:
+  #   foo: bar
