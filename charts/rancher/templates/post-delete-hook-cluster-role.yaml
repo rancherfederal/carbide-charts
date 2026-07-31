@@ -13,7 +13,7 @@ rules:
     resources: [ "deployments" ]
     verbs: [ "get", "list", "delete" ]
   - apiGroups: [ "batch" ]
-    resources: [ "jobs", "cronjobs" ]
+    resources: [ "jobs" ]
     verbs: [ "get", "list", "watch", "delete", "create" ]
   - apiGroups: [ "rbac.authorization.k8s.io" ]
     resources: [ "clusterroles", "clusterrolebindings", "roles", "rolebindings" ]
@@ -35,8 +35,5 @@ rules:
     verbs: [ "delete" ]
   - apiGroups: [ "cert-manager.io" ]
     resources: [ "issuers" ]
-    verbs: [ "delete" ]
-  - apiGroups: [ "apiregistration.k8s.io" ]
-    resources: [ "apiservices" ]
     verbs: [ "delete" ]
 {{- end }}
