@@ -1,7 +1,7 @@
 apiVersion: v2
 name: stigatron
-version: 0.4.1
-appVersion: 0.4.0
+version: 0.4.2
+appVersion: 0.4.2
 
 type: application
 description: Rancher Government Stigatron Extension
