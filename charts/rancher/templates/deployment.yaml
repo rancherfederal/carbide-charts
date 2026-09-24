@@ -81,10 +81,12 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
-{{- if (and .Values.hostPort (gt (int .Values.hostPort) 0)) }}
-        - containerPort: 444
-          hostPort: {{ int .Values.hostPort }}
+        - containerPort: 443
           protocol: TCP
+        - containerPort: 444
+          protocol: TCP
+{{- if (and .Values.hostPort (gt (int .Values.hostPort) 0)) }}
+          hostPort: {{ int .Values.hostPort }}
 {{- end}}
         - containerPort: 6666
           protocol: TCP
@@ -94,7 +96,7 @@ spec:
 {{- end }}
 {{- if .Values.privateCA }}
         # Private CA - don't clear ca certs
-{{- else if and (eq .Values.tls "ingress") (eq .Values.ingress.tls.source "rancher") }}
+{{- else if and (eq (include "rancher.useExternalTls" .) "false") (eq .Values.ingress.tls.source "rancher") }}
         # Rancher self-signed - don't clear ca certs
 {{- else }}
         # Public trusted CA - clear ca certs
@@ -166,6 +168,10 @@ spec:
 {{- if .Values.cacheSyncTimeout }}
         - name: CACHE_SYNC_TIMEOUT
           value: {{ .Values.cacheSyncTimeout }}
+{{- end }}
+{{- if .Values.rancherNamespaces.enabled }}
+        - name: RANCHER_NAMESPACES_OPTIONS
+          value: {{ .Values.rancherNamespaces | mustToJson | quote }}
 {{- end }}
 {{- if .Values.extraEnv }}
 {{ toYaml .Values.extraEnv | indent 8}}
