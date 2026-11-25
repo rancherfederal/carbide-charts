@@ -38,7 +38,7 @@ echo "Uninstalling Rancher resources in the following namespaces: ${namespaces}"
 
 for namespace in ${namespaces}; do
   for app in $(helm list -n "${namespace}" -q); do
-    if [[ ${app} =~ .crd$ ]] || [[ ${app} == "rancher" ]]; then
+    if [[ ${app} =~ .crd$ ]]; then
       echo "--- Skip the app [${app}] in the namespace [${namespace}]"
       continue
     fi
@@ -78,12 +78,6 @@ done
 
 echo "Removing Rancher bootstrap secret in the following namespace: ${rancher_namespace}"
 kubectl --ignore-not-found=true delete secret bootstrap-secret -n "${rancher_namespace}"
-
-echo 'Removing Rancher v1.ext.cattle.io APIService'
-kubectl --ignore-not-found=true delete apiservice v1.ext.cattle.io
-
-echo "Removing Rancher imperative-api-extension Service in the following namespace: ${rancher_namespace}"
-kubectl --ignore-not-found=true delete service imperative-api-extension -n "${rancher_namespace}"
 
 echo "------ Summary ------"
 if [[ ${#succeeded[@]} -ne 0 ]]; then

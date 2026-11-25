@@ -81,12 +81,10 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
-        - containerPort: 443
-          protocol: TCP
-        - containerPort: 444
-          protocol: TCP
 {{- if (and .Values.hostPort (gt (int .Values.hostPort) 0)) }}
+        - containerPort: 444
           hostPort: {{ int .Values.hostPort }}
+          protocol: TCP
 {{- end}}
         - containerPort: 6666
           protocol: TCP
@@ -96,7 +94,7 @@ spec:
 {{- end }}
 {{- if .Values.privateCA }}
         # Private CA - don't clear ca certs
-{{- else if and (eq (include "rancher.useExternalTls" .) "false") (eq .Values.ingress.tls.source "rancher") }}
+{{- else if and (eq .Values.tls "ingress") (eq .Values.ingress.tls.source "rancher") }}
         # Rancher self-signed - don't clear ca certs
 {{- else }}
         # Public trusted CA - clear ca certs
@@ -169,14 +167,6 @@ spec:
         - name: CACHE_SYNC_TIMEOUT
           value: {{ .Values.cacheSyncTimeout }}
 {{- end }}
-{{- if .Values.rancherNamespaces.enabled }}
-        - name: RANCHER_NAMESPACES_OPTIONS
-          value: {{ .Values.rancherNamespaces | mustToJson | quote }}
-{{- end }}
-{{- if and .Values.systemRegistryInheritsPullSecrets .Values.imagePullSecrets }}
-        - name: CATTLE_BASE_REGISTRY_PULL_SECRETS
-          value: "{{ range $i, $v := .Values.imagePullSecrets }}{{- if $i }},{{ end }}{{ $v.name }}{{ end }}"
-{{- end }}
 {{- if .Values.extraEnv }}
 {{ toYaml .Values.extraEnv | indent 8}}
 {{- end }}
@@ -245,7 +235,7 @@ spec:
   {{- if .Values.auditLog.enabled }}
       # Make audit logs available for Rancher log collector tools.
       - image: "{{ printf "%s%s" (include "defaultOrOverrideRegistry" (list . (default "" .Values.auditLog.image.registry))) (include "auditLog.image" .) }}"
-        imagePullPolicy: {{ .Values.auditLog.image.pullPolicy }}
+        imagePullPolicy: {{ default .Values.auditLog.image.pullPolicy .Values.busyboxImagePullPolicy }}
         name: {{ template "rancher.name" . }}-audit-log
         command: ["tail"]
         args: ["-F", "/var/log/auditlog/rancher-api-audit.log"]

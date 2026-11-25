@@ -11,4 +11,6 @@ rules:
   - apiGroups: ["management.cattle.io"]
     resources:
       - "clusters"
+      - "nodetemplates"
+      - "clustertemplates"
     verbs: ["get", "list"]
