@@ -6,7 +6,6 @@ tests:
     set:
       systemDefaultRegistry: "registry.company.com"
       rancherImageTag: "v1.0.0-testing"
-      hostname: "rancher.example.com"
     asserts:
       - isKind:
           of: Deployment
@@ -18,7 +17,6 @@ tests:
       - pre-upgrade-hook-job.yaml
     set:
       systemDefaultRegistry: "registry.company.com"
-      hostname: "rancher.example.com"
       preUpgrade:
         image:
           tag: "v1.0.0-testing"
@@ -33,7 +31,6 @@ tests:
       - post-delete-hook-job.yaml
     set:
       systemDefaultRegistry: "registry.company.com"
-      hostname: "rancher.example.com"
       postDelete:
         image:
           tag: "v1.0.0-testing"
